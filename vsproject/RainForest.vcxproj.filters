@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{8768e08b-03fa-4b50-a182-c5ff8f6f8fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{3221fb51-9f06-4f7b-8489-ed5057f741bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer">
+      <UniqueIdentifier>{5d315698-4538-4d32-b222-8ce9acba3463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Platform">
+      <UniqueIdentifier>{d7547d39-9761-4c37-aa7a-53314ca49311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer">
+      <UniqueIdentifier>{adb9a0cb-4594-4d93-ab16-e5adf8d1ce09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Platform">
+      <UniqueIdentifier>{35981ea0-131e-47e9-b834-b965cb8e25e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{9f4ccd83-422b-403c-918e-07f6bd45ab3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{95389e28-3929-407d-8a54-8be43ef590de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{cc9d92b6-08c2-484c-a6e0-aed3520e4ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{a5c6c512-4528-4c40-8759-563fd1b3e3de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Elements">
+      <UniqueIdentifier>{eed1fbb9-a02d-4cc4-9918-d2692976a998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Elements">
+      <UniqueIdentifier>{015061c4-b112-4288-be4f-e0743d9a092d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System\Platform">
+      <UniqueIdentifier>{043b55a9-6c74-46f8-bb39-eecbdd9c1ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System\Platform">
+      <UniqueIdentifier>{e574a883-4de5-424d-bda1-21190b9cb5ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System\Platform\Windows">
+      <UniqueIdentifier>{dd7c8060-5ab9-44d9-a3f7-627091f91cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System\Platform\Windows">
+      <UniqueIdentifier>{16960e04-04f2-4ac6-a53b-79c7cff0215c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{a2aba22e-a2ec-494f-83f3-d86b05092d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources\Platform">
+      <UniqueIdentifier>{2aff2595-34ad-488e-b222-daca4301d3c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{31dd7048-f648-4c60-9cee-1fb5d632cdd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources\Platform">
+      <UniqueIdentifier>{1c937c8f-b5c4-496c-9cc7-02d3d861680c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
+      <Filter>Header Files\Renderer\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RainForest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RFGEAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rfActor.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="rfScene.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="rfPhysics.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="rfMath.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="rfVector.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="rfMatrix.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="rfPhysicsActor.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Renderer\rfRenderer.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Renderer\rfRenderCommand.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\Platform\rfWindow.h">
+      <Filter>Header Files\System\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\rfApplication.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\rfApplicationWindow.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\Platform\Windows\rfWindowWin32.h">
+      <Filter>Header Files\System\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\rfConfig.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="rfWindowSystem.h">
+      <Filter>Header Files\System\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\Platform\Windows\rfWindowSystemWin32.h">
+      <Filter>Header Files\System\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Game\Elements\rfVertex.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Resources\Platform\Directx9VertexBuffer.h">
+      <Filter>Header Files\Resources\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Resources\rfVertexBuffer.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Resources\rfIndexBuffer.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Resources\Platform\Directx9IndexBuffer.h">
+      <Filter>Header Files\Resources\Platform</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
+      <Filter>Source Files\Renderer\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Renderer\rfRenderCommand.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game\Elements\rfActor.cpp">
+      <Filter>Source Files\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\System\rfApplication.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\System\rfApplicationWindow.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\System\Platform\Windows\rfWindowWin32.cpp">
+      <Filter>Source Files\System\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\System\rfConfig.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\Renderer\rfRenderer.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\System\Platform\rfWindowSystem.cpp">
+      <Filter>Source Files\System\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\System\Platform\Windows\rfWindowSystemWin32.cpp">
+      <Filter>Source Files\System\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Resources\rfVertexBuffer.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Resources\Platform\Directx9VertexBuffer.cpp">
+      <Filter>Source Files\Resources\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Resources\rfIndexBuffer.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Resources\Platform\Directx9IndexBuffer.cpp">
+      <Filter>Source Files\Resources\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\System\Platform\rfWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

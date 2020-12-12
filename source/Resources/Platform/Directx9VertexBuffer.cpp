@@ -1,0 +1,48 @@
+#include "Resources/Platform/Directx9VertexBuffer.h"
+
+Directx9VertexBuffer::Directx9VertexBuffer()
+{
+}
+
+Directx9VertexBuffer::~Directx9VertexBuffer()
+{
+}
+
+bool Directx9VertexBuffer::Create()
+{
+    HRESULT hr;
+
+    bool ret;
+
+    // Get the dynamic part of the renderer
+    Directx9Renderer* renderer = dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance());
+    
+    // Create the vertex buffer passing the values 
+    hr = renderer->GetDevice()->CreateVertexBuffer(
+        24 * sizeof(rfVertex::VertexCoordinates),
+        D3DUSAGE_WRITEONLY,
+        rfVertex::VertexCoordinates::FVF,
+        D3DPOOL_MANAGED,
+        &vertexBuffer,
+        0);
+
+    // Get the answer from the operation and return the value
+    FAILED(hr) ? ret = false : ret = true;
+
+    return rfVertexBuffer::Create();
+}
+
+void Directx9VertexBuffer::AccessMemory()
+{
+
+}
+
+void Directx9VertexBuffer::Lock()
+{
+    
+}
+
+IDirect3DVertexBuffer9* Directx9VertexBuffer::GetBuffer()
+{
+    return vertexBuffer;
+}

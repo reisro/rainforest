@@ -1,0 +1,8 @@
+D:\DirectX\gameengine\Engine\games\Template\Debug\Template.exe
+D:\DirectX\gameengine\Engine\games\Template\Debug\Template.pdb
+D:\DirectX\rainforest\Engine\games\Template\Debug\Template.exe
+D:\DirectX\rainforest\Engine\games\Template\Debug\Template.pdb
+I:\Programming\Engine\games\Template\Debug\Template.exe
+I:\Programming\Engine\games\Template\Debug\Template.pdb
+D:\DirectX\Engine\games\Template\Debug\Template.exe
+D:\DirectX\Engine\games\Template\Debug\Template.pdb

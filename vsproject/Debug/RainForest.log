@@ -1,0 +1,27 @@
+﻿  rfRenderer.cpp
+  rfWindow.cpp
+  rfActor.cpp
+  Directx9Renderer.cpp
+C:\DirectX\Engine\source\Renderer\Platform\Directx9Renderer.cpp(339,49): error C2660: 'rfIndexBuffer::Lock': função não recebe 4 argumentos
+C:\DirectX\Engine\include\Resources\rfIndexBuffer.h(34,15): message : consulte a declaração de 'rfIndexBuffer::Lock'
+C:\DirectX\Engine\source\Renderer\Platform\Directx9Renderer.cpp(401,35): error C2664: 'HRESULT IDirect3DDevice9::SetIndices(IDirect3DIndexBuffer9 *)': não é possível converter um argumento 1 de 'Directx9IndexBuffer *' em 'IDirect3DIndexBuffer9 *'
+C:\DirectX\Engine\source\Renderer\Platform\Directx9Renderer.cpp(401,24): message : Tipos apontados não são relacionados; conversão requer reinterpret_cast, conversão C-style ou conversão function-style
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d9.h(535,5): message : consulte a declaração de 'IDirect3DDevice9::SetIndices'
+  rfRenderCommand.cpp
+  Directx9IndexBuffer.cpp
+C:\DirectX\Engine\include\Renderer\Platform\Directx9Renderer.h(216,22): error C2143: erro de sintaxe: ';' ausente antes de '*'
+C:\DirectX\Engine\include\Renderer\Platform\Directx9Renderer.h(216,22): error C4430: faltando especificador de tipo - int assumido. Observação: C++ não suporta default-int
+C:\DirectX\Engine\include\Renderer\Platform\Directx9Renderer.h(216,39): error C2238: token(s) inesperado(s) precedendo ';'
+  Directx9VertexBuffer.cpp
+C:\DirectX\Engine\include\Renderer\Platform\Directx9Renderer.h(215,23): error C2143: erro de sintaxe: ';' ausente antes de '*'
+C:\DirectX\Engine\include\Renderer\Platform\Directx9Renderer.h(215,23): error C4430: faltando especificador de tipo - int assumido. Observação: C++ não suporta default-int
+C:\DirectX\Engine\include\Renderer\Platform\Directx9Renderer.h(215,38): error C2238: token(s) inesperado(s) precedendo ';'
+  rfIndexBuffer.cpp
+  rfVertexBuffer.cpp
+  rfWindowSystem.cpp
+  rfWindowSystemWin32.cpp
+  rfWindowWin32.cpp
+  rfApplication.cpp
+  rfApplicationWindow.cpp
+  rfConfig.cpp
+  Gerando Código...

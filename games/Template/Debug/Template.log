@@ -1,0 +1,4 @@
+﻿  main.cpp
+main.obj : error LNK2019: símbolo externo não resolvido, "public: static void __cdecl rfApplication::Setup(class rfConfig const &)" (?Setup@rfApplication@@SAXABVrfConfig@@@Z), referenciado na função _WinMain@16
+main.obj : error LNK2019: símbolo externo não resolvido, "public: static bool __cdecl rfApplication::Init(void)" (?Init@rfApplication@@SA_NXZ), referenciado na função _WinMain@16
+C:\DirectX\Engine\games\Template\Debug\Template.exe : fatal error LNK1120: 2 externo não resolvidos
