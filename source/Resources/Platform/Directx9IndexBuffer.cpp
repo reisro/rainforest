@@ -34,3 +34,8 @@ bool Directx9IndexBuffer::Create()
 
     return rfIndexBuffer::Create();
 }
+
+IDirect3DIndexBuffer9* Directx9IndexBuffer::GetBuffer()
+{
+    return indexBuffer;
+}

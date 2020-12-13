@@ -23,6 +23,11 @@ public:
 	virtual ~Directx9IndexBuffer();
 
 	bool Create() override;
+
+	IDirect3DIndexBuffer9* GetBuffer();
+
+protected:
+	IDirect3DIndexBuffer9* indexBuffer;
 };
 
 #endif DIRECT9_VERTEX_BUFFER_SDK_H_

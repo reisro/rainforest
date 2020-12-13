@@ -208,9 +208,9 @@ bool Directx9Renderer::endFrame()
         primitiveTextureStack.pop();
 
     // Check engine rendering draw mode
-    dsrScene.isRenderingIndexedPrimitive ? 
+    dsrScene.isRenderingIndexedPrimitive ?
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
-        sizeof(rfVertex::VertexCoordinates), rfVertex::VertexCoordinates::FVF):
+            sizeof(rfVertex::VertexCoordinates), rfVertex::VertexCoordinates::FVF) :
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
     // End rendering scene
@@ -336,7 +336,7 @@ void Directx9Renderer::AccessVertexBufferMemory()
 void Directx9Renderer::AccessIndexBufferMemory()
 {
     WORD* _indices = 0;
-    indexBuffer->Lock(0, 0, (void**)&_indices, 0);
+    indexBuffer->GetBuffer()->Lock(0, 0, (void**)&_indices, 0);
 
     // front side
     _indices[0] = 0; _indices[1] = 1; _indices[2] = 2;
@@ -398,7 +398,7 @@ void Directx9Renderer::CreateTextureFromFile(LPCWSTR filename)
 void Directx9Renderer::drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF)
 {
     device->SetStreamSource(0, vertexBuffer->GetBuffer(), 0, _stride);
-    device->SetIndices(indexBuffer);
+    device->SetIndices(indexBuffer->GetBuffer());
     device->SetFVF(_FVF);
 
     // Draw primitive

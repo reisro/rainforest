@@ -9,8 +9,10 @@ c:\directx\engine\vsproject\debug\rfwindowsystem.obj
 c:\directx\engine\vsproject\debug\rfvertexbuffer.obj
 c:\directx\engine\vsproject\debug\rfindexbuffer.obj
 c:\directx\engine\vsproject\debug\rfrendercommand.obj
+c:\directx\engine\vsproject\debug\directx9renderer.obj
 c:\directx\engine\vsproject\debug\rfactor.obj
 c:\directx\engine\vsproject\debug\rfwindow.obj
+c:\directx\engine\vsproject\debug\rfrenderer.obj
 c:\directx\engine\vsproject\debug\rainforest.tlog\cl.command.1.tlog
 c:\directx\engine\vsproject\debug\rainforest.tlog\cl.read.1.tlog
 c:\directx\engine\vsproject\debug\rainforest.tlog\cl.write.1.tlog
