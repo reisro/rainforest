@@ -34,8 +34,9 @@ public:
 	virtual void Lock();
 	virtual void Unlock();
 
-private:
+protected:
 	UINT Length;
+	IDirect3DIndexBuffer9* buffer;
 };
 
 #endif _RFVERTEXBUFFER_H

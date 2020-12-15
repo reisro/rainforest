@@ -139,6 +139,8 @@ public:
 		bool			  Initialize() override;
 		bool			  PostInit() override;
 		void			  SendRenderCmdList(const std::vector<rfRenderCommand>& list) override;
+		bool			  CreateVertexBuffer() override;
+		bool			  CreateIndexBuffer() override;
 		bool			  beginFrame() override;
 		bool			  endFrame() override;
 		void			  Draw() override;
@@ -146,8 +148,6 @@ public:
 		void			  Cleanup() override;
 		
 		HRESULT           CreateDevice();
-		void			  CreateVertexBuffer();
-		void			  CreateIndexBuffer();
 		void			  AccessVertexBufferMemory();
 		void			  AccessIndexBufferMemory();
 		void			  SetRenderState(rfgeDX9RenderState _renderState);
@@ -213,7 +213,7 @@ private:
 		IDirect3D9*					d3d9;
 		IDirect3DDevice9*			device;
 		Directx9VertexBuffer*		vertexBuffer;
-		Directx9IndexBuffer*	    indexBuffer;
+		Directx9IndexBuffer*		indexBuffer;
 		HWND						renderWindow;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
 		D3DDEVTYPE					deviceType;

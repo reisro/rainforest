@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	rfApplication::Setup(engineConfig);
 
 	// Start rendering the application if engine initiated properly
-	if (rfApplication::Init()) rfApplication::RenderFrame();
+	if (rfApplication::Init()) rfApplication::Run();
 
 	// Engine cleanup resources
 	rfApplication::ShutDown();

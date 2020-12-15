@@ -24,6 +24,8 @@ public:
 	static void			CreateInstance();
 	virtual bool		Initialize();
 	virtual bool		PostInit();
+	virtual bool		CreateVertexBuffer();
+	virtual bool		CreateIndexBuffer();
 	virtual bool		beginFrame();
 	virtual bool		endFrame();
 	virtual void		Draw();

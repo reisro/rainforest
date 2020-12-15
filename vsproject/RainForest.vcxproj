@@ -179,6 +179,7 @@
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h" />
     <ClInclude Include="..\include\Renderer\rfRenderCommand.h" />
     <ClInclude Include="..\include\System\Platform\rfWindow.h" />
+    <ClInclude Include="..\include\System\Platform\rfWindowSystem.h" />
     <ClInclude Include="..\include\System\Platform\Windows\rfWindowSystemWin32.h" />
     <ClInclude Include="..\include\System\Platform\Windows\rfWindowWin32.h" />
     <ClInclude Include="..\include\System\rfApplication.h" />
@@ -191,7 +192,6 @@
     <ClInclude Include="rfPhysicsActor.h" />
     <ClInclude Include="rfScene.h" />
     <ClInclude Include="rfVector.h" />
-    <ClInclude Include="rfWindowSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Renderer\rfRenderer.cpp" />

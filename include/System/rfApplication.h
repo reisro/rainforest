@@ -38,7 +38,7 @@ public:
 	static bool					Init();
 	static bool					InitWindow();
 	static bool					InitRenderer();
-	static void					RenderFrame();
+	static void					Run();
 	static void					Stop();
 	static void					ShutDown();
 	static rfConfig&			GetEngineConfig();

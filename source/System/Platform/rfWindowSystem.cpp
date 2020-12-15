@@ -1,20 +1,20 @@
 #include "System/Platform/rfWindowSystem.h"
 #include "System/rfApplication.h"
 
+static rfWindowSystem* Singleton;
+static bool	windowInitialized = false;
+
+bool rfWindowSystem::Initialized()
+{
+    return true;
+}
+
 void rfWindowSystem::CreateInstance()
 {
     if (rfApplication::GetEngineConfig().platform == EngineConfig::Platform::Windows)
     {
         Singleton = new rfWindowSystemWin32();
-        CreateRFWindow();
     }
-        
-    initialized = true;
-}
-
-void rfWindowSystem::CreateRFWindow()
-{
-    rfWindow::CreateInstance();
 }
 
 rfWindowSystem* rfWindowSystem::GetInstance()

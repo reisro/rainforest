@@ -1,7 +1,10 @@
 #include "Resources/Platform/Directx9IndexBuffer.h"
+#include "Renderer/Platform/Directx9Renderer.h"
+
 
 Directx9IndexBuffer::Directx9IndexBuffer()
 {
+    Create();
 }
 
 Directx9IndexBuffer::~Directx9IndexBuffer()
@@ -37,5 +40,5 @@ bool Directx9IndexBuffer::Create()
 
 IDirect3DIndexBuffer9* Directx9IndexBuffer::GetBuffer()
 {
-    return indexBuffer;
+    return buffer;
 }

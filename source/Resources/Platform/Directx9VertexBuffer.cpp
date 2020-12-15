@@ -1,7 +1,9 @@
 #include "Resources/Platform/Directx9VertexBuffer.h"
+#include "Renderer/Platform/Directx9Renderer.h"
 
 Directx9VertexBuffer::Directx9VertexBuffer()
 {
+    Create();
 }
 
 Directx9VertexBuffer::~Directx9VertexBuffer()

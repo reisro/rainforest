@@ -26,10 +26,9 @@ public :
 	virtual void	Close()  = 0;
 	virtual HWND	GetWindow() = 0;
 
-	bool initialized;
+	rfWindow* GetInstance();
 
-protected:
-	static rfWindow* Singleton;
+	bool initialized;
 };
 
 #endif _RFWINDOW_H_

@@ -24,8 +24,7 @@ Directx9Renderer::Directx9Renderer():
     renderCmdStack = {};
     Singleton = this;
 
-    CreateVertexBuffer();
-    CreateIndexBuffer();
+    SetRenderWindow(rfWindowSystem::GetInstance());
 }
 
 //-----------------------------------------------------------------------------
@@ -106,6 +105,9 @@ bool Directx9Renderer::Initialize()
 //-----------------------------------------------------------------------------
 bool Directx9Renderer::PostInit()
 {
+    vertexBuffer = new Directx9VertexBuffer();
+    indexBuffer = new Directx9IndexBuffer();
+
     // Default device initialization render
     rfVertex::VertexColor vertexColor;
     D3DMATERIAL9* defaultMaterial;
@@ -141,14 +143,14 @@ void Directx9Renderer::SendRenderCmdList(const std::vector<rfRenderCommand>& lis
 {
 }
 
-void Directx9Renderer::CreateVertexBuffer()
+bool Directx9Renderer::CreateVertexBuffer()
 {
-    vertexBuffer = new Directx9VertexBuffer();
+    return vertexBuffer->Create();
 }
 
-void Directx9Renderer::CreateIndexBuffer()
+bool Directx9Renderer::CreateIndexBuffer()
 {
-    indexBuffer = new Directx9IndexBuffer();
+    return indexBuffer->Create();
 }
 
 //-----------------------------------------------------------------------------
@@ -208,9 +210,9 @@ bool Directx9Renderer::endFrame()
         primitiveTextureStack.pop();
 
     // Check engine rendering draw mode
-    dsrScene.isRenderingIndexedPrimitive ?
+    dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
-            sizeof(rfVertex::VertexCoordinates), rfVertex::VertexCoordinates::FVF) :
+        sizeof(rfVertex::VertexCoordinates), rfVertex::VertexCoordinates::FVF):
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
     // End rendering scene

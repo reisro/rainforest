@@ -50,7 +50,7 @@ bool rfApplication::InitWindow()
 
 	rfWindowSystem::CreateInstance();
 
-	return rfWindowSystem::initialized;
+	return rfWindowSystem::Initialized();
 }
 
 //-----------------------------------------------------------------------------
@@ -62,20 +62,18 @@ bool rfApplication::InitRenderer()
 
 	rfRenderer::CreateInstance();
 
-	return renderer->Initialize();
+	return rfRenderer::GetInstance()->Initialize();
 }
 
 //-----------------------------------------------------------------------------
 // Instructions to render the scene frame
 //-----------------------------------------------------------------------------
-void rfApplication::RenderFrame()
+void rfApplication::Run()
 {
 	RFGE_LOG("\n  Rendering frame...");
 
-	// Get the dynamic part of the renderer
-	//Directx9Renderer* dx9Renderer = dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance());
 	// Draw the scene
-	renderer->Draw();
+	rfRenderer::GetInstance()->Draw();
 
 	RFGE_LOG("\n  Finalized rendering frame...");
 }

@@ -13,10 +13,9 @@
 #ifndef DIRECT9_VERTEX_BUFFER_SDK_H_
 #define DIRECT9_VERTEX_BUFFER_SDK_H_
 
-#include "Renderer/Platform/Directx9Renderer.h"
 #include "Resources/rfVertexBuffer.h"
 
-class Directx9VertexBuffer: public rfVertexBuffer
+class RFGE_API Directx9VertexBuffer: public rfVertexBuffer
 {
 public:
 	Directx9VertexBuffer();
@@ -27,9 +26,6 @@ public:
 	void Lock() override;
 
 	IDirect3DVertexBuffer9* GetBuffer();
-
-protected:
-	IDirect3DVertexBuffer9* vertexBuffer;
 };
 
 #endif DIRECT9_VERTEX_BUFFER_SDK_H_

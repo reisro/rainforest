@@ -2,6 +2,9 @@
 
 rfWindowSystemWin32::rfWindowSystemWin32()
 {
+    hWnd = 0;
+
+    windowWin32 = new rfWindowWin32();
 }
 
 rfWindowSystemWin32::~rfWindowSystemWin32()
@@ -10,5 +13,5 @@ rfWindowSystemWin32::~rfWindowSystemWin32()
 
 HWND rfWindowSystemWin32::Window()
 {
-    return window->GetWindow();
+    return windowWin32->GetWindow();
 }

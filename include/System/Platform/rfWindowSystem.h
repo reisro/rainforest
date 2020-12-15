@@ -21,23 +21,16 @@
 class RFGE_API rfWindowSystem
 {
 public:
+
 	rfWindowSystem() {};
 	virtual ~rfWindowSystem() {};
 
 	virtual HWND			Window();
 
+	static bool				Initialized();
 	static void				CreateInstance();
-	static void				CreateRFWindow();
+	static void				CreateSpecificWindow();
 	static rfWindowSystem*	GetInstance();
-
-	static bool				initialized;
-
-protected:
-	rfWindow* window;
-	static rfWindowSystem* Singleton;
 };
 
 #endif _RFWINDOWSYSTEM_H_
-
-
-

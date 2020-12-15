@@ -14,10 +14,20 @@ void rfRenderer::CreateInstance()
 
 bool rfRenderer::Initialize()
 {
-    return false;
+    return true;
 }
 
 bool rfRenderer::PostInit()
+{
+    return false;
+}
+
+bool rfRenderer::CreateVertexBuffer()
+{
+    return false;
+}
+
+bool rfRenderer::CreateIndexBuffer()
 {
     return false;
 }

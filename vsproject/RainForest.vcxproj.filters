@@ -126,9 +126,6 @@
     <ClInclude Include="..\include\System\rfConfig.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="rfWindowSystem.h">
-      <Filter>Header Files\System\Platform</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\System\Platform\Windows\rfWindowSystemWin32.h">
       <Filter>Header Files\System\Platform\Windows</Filter>
     </ClInclude>
@@ -146,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Resources\Platform\Directx9IndexBuffer.h">
       <Filter>Header Files\Resources\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\Platform\rfWindowSystem.h">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
