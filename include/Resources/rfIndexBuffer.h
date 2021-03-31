@@ -36,7 +36,7 @@ public:
 
 protected:
 	UINT Length;
-	IDirect3DIndexBuffer9* buffer;
+	IDirect3DIndexBuffer9* indexBuffer;
 };
 
 #endif _RFVERTEXBUFFER_H

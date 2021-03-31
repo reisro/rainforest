@@ -45,6 +45,7 @@ bool Directx9Renderer::Initialize()
     // Create the d3d object
     d3d9 = Direct3DCreate9(D3D_SDK_VERSION);
 
+    // Check if the device creation fails
     if (!d3d9)
     {
         ::MessageBox(0, L"Direct3DCreate9()-FAILED", 0, 0);
@@ -108,6 +109,16 @@ bool Directx9Renderer::PostInit()
     vertexBuffer = new Directx9VertexBuffer();
     indexBuffer = new Directx9IndexBuffer();
 
+    LockVertexBufferMemory();
+    LockIndexBufferMemory();
+
+    // Create the default cube for the render scene
+    CreateDefaultPrimitive();
+
+    // Once Primitive has been setup unlock the buffers 
+    vertexBuffer->GetBuffer()->Unlock();
+    indexBuffer->GetBuffer()->Unlock();
+
     // Default device initialization render
     rfVertex::VertexColor vertexColor;
     D3DMATERIAL9* defaultMaterial;
@@ -117,6 +128,7 @@ bool Directx9Renderer::PostInit()
     // Create default texture
     D3DXCreateTextureFromFile(device, filename, &defaultTexture);
 
+    // Set the index primitive default values
     IndexedPrimitiveSize defaultIndexedPrimitive;
     defaultIndexedPrimitive.numberVertices = 24;
     defaultIndexedPrimitive.totalVertices = 12;
@@ -230,7 +242,7 @@ bool Directx9Renderer::endFrame()
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
-void Directx9Renderer::Draw()
+void Directx9Renderer::Render()
 {
     ::ZeroMemory(&msg, sizeof(MSG));
 
@@ -278,6 +290,11 @@ void Directx9Renderer::Cleanup()
     device->Release();
 }
 
+void Directx9Renderer::CameraSetup()
+{
+
+}
+
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
@@ -289,12 +306,8 @@ HRESULT Directx9Renderer::CreateDevice()
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
-void Directx9Renderer::AccessVertexBufferMemory()
+void Directx9Renderer::CreateDefaultPrimitive()
 {
-    rfVertex::VertexCoordinates* vertex;
-
-    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
-
     // fill in the front face vertex data
     vertex[0] = rfVertex::VertexCoordinates(-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
     vertex[1] = rfVertex::VertexCoordinates(-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f);
@@ -335,7 +348,15 @@ void Directx9Renderer::AccessVertexBufferMemory()
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
-void Directx9Renderer::AccessIndexBufferMemory()
+void Directx9Renderer::LockVertexBufferMemory()
+{
+    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
+}
+
+//-----------------------------------------------------------------------------
+// After initialization, fill out with default constants for rendering
+//-----------------------------------------------------------------------------
+void Directx9Renderer::LockIndexBufferMemory()
 {
     WORD* _indices = 0;
     indexBuffer->GetBuffer()->Lock(0, 0, (void**)&_indices, 0);

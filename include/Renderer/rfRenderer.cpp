@@ -42,7 +42,7 @@ bool rfRenderer::endFrame()
     return true;
 }
 
-void rfRenderer::Draw()
+void rfRenderer::Render()
 {
 }
 
@@ -55,6 +55,10 @@ void rfRenderer::SetRenderWindow(rfWindowSystem* windowSystem)
 }
 
 void rfRenderer::Cleanup()
+{
+}
+
+void rfRenderer::CameraSetup()
 {
 }
 

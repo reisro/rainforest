@@ -169,6 +169,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Game\Elements\rfVertex.h" />
+    <ClInclude Include="..\include\Math\rfMatrix.h" />
+    <ClInclude Include="..\include\Math\rfVector3.h" />
     <ClInclude Include="..\include\RainForest.h" />
     <ClInclude Include="..\include\Resources\Platform\Directx9IndexBuffer.h" />
     <ClInclude Include="..\include\Resources\Platform\Directx9VertexBuffer.h" />
@@ -187,16 +189,15 @@
     <ClInclude Include="..\include\System\rfConfig.h" />
     <ClInclude Include="rfActor.h" />
     <ClInclude Include="rfMath.h" />
-    <ClInclude Include="rfMatrix.h" />
     <ClInclude Include="rfPhysics.h" />
     <ClInclude Include="rfPhysicsActor.h" />
     <ClInclude Include="rfScene.h" />
-    <ClInclude Include="rfVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Renderer\rfRenderer.cpp" />
     <ClCompile Include="..\include\System\Platform\rfWindow.cpp" />
     <ClCompile Include="..\source\Game\Elements\rfActor.cpp" />
+    <ClCompile Include="..\source\Math\rfVector3.cpp" />
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp" />
     <ClCompile Include="..\source\Renderer\rfRenderCommand.cpp" />
     <ClCompile Include="..\source\Resources\Platform\Directx9IndexBuffer.cpp" />

@@ -28,11 +28,12 @@ public:
 	virtual bool		CreateIndexBuffer();
 	virtual bool		beginFrame();
 	virtual bool		endFrame();
-	virtual void		Draw();
+	virtual void		Render();
 	virtual void		SendRenderCmdList(const std::vector<rfRenderCommand>& list);
 	virtual void		SetRenderWindow(rfWindowSystem* windowSystem);
 	virtual void		Cleanup();
 
+	virtual void		CameraSetup();
 	static rfRenderer*	GetInstance();
 
 protected:

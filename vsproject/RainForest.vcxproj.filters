@@ -73,6 +73,9 @@
     <Filter Include="Header Files\Resources\Platform">
       <UniqueIdentifier>{1c937c8f-b5c4-496c-9cc7-02d3d861680c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{0ab9b692-9d6c-48b3-a98b-c5553416adc3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
@@ -95,12 +98,6 @@
     </ClInclude>
     <ClInclude Include="rfMath.h">
       <Filter>Header Files\Game\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="rfVector.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="rfMatrix.h">
-      <Filter>Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="rfPhysicsActor.h">
       <Filter>Header Files\Physics</Filter>
@@ -146,6 +143,12 @@
     </ClInclude>
     <ClInclude Include="..\include\System\Platform\rfWindowSystem.h">
       <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Math\rfVector3.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Math\rfMatrix.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="..\include\System\Platform\rfWindow.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Math\rfVector3.cpp">
+      <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

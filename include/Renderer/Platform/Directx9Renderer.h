@@ -18,11 +18,13 @@
 #include <d3dx9.h>
 #include <d3d9types.h>
 #include <stack>
-#include "System/rfApplication.h"
+#include "Math/rfVector3.h"
+#include "Math/rfMatrix.h"
 #include "Renderer/rfRenderer.h"
 #include "Game/Elements/rfVertex.h"
 #include "Resources/Platform/Directx9VertexBuffer.h"
 #include "Resources/Platform/Directx9IndexBuffer.h"
+#include "System/rfApplication.h"
 #include "System/rfConfig.h"
 
 //-----------------------------------------------------------------------------
@@ -143,13 +145,16 @@ public:
 		bool			  CreateIndexBuffer() override;
 		bool			  beginFrame() override;
 		bool			  endFrame() override;
-		void			  Draw() override;
+		void			  Render() override;
 		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
 		void			  Cleanup() override;
+
+		void			  CameraSetup() override;
 		
 		HRESULT           CreateDevice();
-		void			  AccessVertexBufferMemory();
-		void			  AccessIndexBufferMemory();
+		void			  CreateDefaultPrimitive();
+		void			  LockVertexBufferMemory();
+		void			  LockIndexBufferMemory();
 		void			  SetRenderState(rfgeDX9RenderState _renderState);
 		D3DLIGHT9		  CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color);
 		void			  EnableLight(D3DLIGHT9 _light, bool value);
@@ -202,6 +207,22 @@ protected:
 			bool isRenderingIndexedPrimitive;
 		};
 
+		struct rfCamera
+		{
+			rfVector3 _position;
+			rfVector3 _direction;
+			rfVector3 _target;
+			rfVector3 _up;
+			rfVector3 _right;
+			rfVector3 _forward;
+			D3DXMATRIX _View;
+			D3DXMATRIX _Proj;
+			int _ratioWidth;
+			int _ratioHeight;
+			float _nearPlane;
+			float _farPlane;
+		};
+
 private:
 
 		int							width;
@@ -221,6 +242,8 @@ private:
 		dsRenderScene				dsrScene;
 
 		std::stack<rfRenderCommand> renderCmdStack;
+
+		rfVertex::VertexCoordinates* vertex;
 };
 
 #endif RFGE_DIRECT3D9_SDK_H_
