@@ -113,8 +113,3 @@ inline rfVector3* rfVector3::Cross(const rfVector3& vec, const rfVector3& vec2, 
 {
     return (rfVector3 *) D3DXVec3Cross((D3DXVECTOR3*)&vec, (D3DXVECTOR3*)&vec2, (D3DXVECTOR3*)&vec3);
 }
-
-rfMatrix& rfVector3::ToMatrix(const rfVector3& _vector) const
-{
-    return new rfMatrix();
-}

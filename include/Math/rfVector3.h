@@ -59,7 +59,7 @@ public:
 	static inline rfVector3* Cross(const rfVector3& vec, const rfVector3& vec2, const rfVector3& vec3);
 
 	// converts to a Matrix
-	rfMatrix& ToMatrix(const rfVector3& _vector) const;
+	//rfMatrix& ToMatrix(const rfVector3& _vector) const;
 
 private:
 	double _x, _y, _z;
