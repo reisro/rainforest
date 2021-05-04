@@ -176,6 +176,7 @@
     <ClInclude Include="..\include\Resources\Platform\Directx9VertexBuffer.h" />
     <ClInclude Include="..\include\Resources\rfIndexBuffer.h" />
     <ClInclude Include="..\include\Resources\rfVertexBuffer.h" />
+    <ClInclude Include="..\include\rfBaseTypes.h" />
     <ClInclude Include="..\include\RFGEAPI.h" />
     <ClInclude Include="..\include\Renderer\rfRenderer.h" />
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="..\source\System\rfApplication.cpp" />
     <ClCompile Include="..\source\System\rfApplicationWindow.cpp" />
     <ClCompile Include="..\source\System\rfConfig.cpp" />
+    <ClCompile Include="rfMatrix.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

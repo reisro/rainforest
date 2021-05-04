@@ -16,6 +16,7 @@
 
 // Rain Forest Header includes
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <vector>
 #include <list>
