@@ -43,9 +43,49 @@ public:
 	//-------------------------------------------------------------------------
 	// Public Static Methods
 	//-------------------------------------------------------------------------
-	inline static rfMatrix* multiply(rfMatrix& out, const rfMatrix& m1, const rfMatrix& m2)
+	inline static rfMatrix* Translation(rfMatrix& out, rfFloat x, rfFloat y, rfFloat z)
 	{
-		return (rfMatrix*)D3DXMatrixMultiply((D3DXMATRIX*)&out, (D3DXMATRIX*)&m1, (D3DXMATRIX*)&m2);
+		return (rfMatrix*)D3DXMatrixTranslation((D3DXMATRIX*)&out, x, y, z);
+	}
+
+	inline static rfMatrix* Multiply(rfMatrix& out, const rfMatrix& m1, const rfMatrix& m2)
+	{
+		return (rfMatrix*) D3DXMatrixMultiply((D3DXMATRIX*) &out, (D3DXMATRIX*) &m1, (D3DXMATRIX*) &m2);
+	}
+
+	inline static rfMatrix* Scale(rfMatrix& out, rfFloat x, rfFloat y, rfFloat z)
+	{
+		return (rfMatrix*)D3DXMatrixScaling((D3DXMATRIX*)&out, x, y, z);
+	}
+
+	inline static bool IsIdentity(rfMatrix& mat)
+	{
+		return ( D3DXMatrixIsIdentity( (D3DXMATRIX*) &mat) == TRUE);
+	}
+
+	inline static rfMatrix* Identity(rfMatrix& out)
+	{
+		return (rfMatrix*) D3DXMatrixIdentity((D3DXMATRIX*) &out);
+	}
+
+	inline static rfMatrix* Tranpose(rfMatrix& out, rfMatrix& mat)
+	{
+		return (rfMatrix*) D3DXMatrixTranspose((D3DXMATRIX*) &out, (D3DXMATRIX*) &mat);
+	}
+
+	inline static rfFloat Determinant(rfMatrix& mat)
+	{
+		return D3DXMatrixDeterminant((D3DXMATRIX*) &mat);
+	}
+
+	inline static rfMatrix* Inverse(rfMatrix& out, const rfMatrix& mat)
+	{
+		return (rfMatrix*) D3DXMatrixInverse((D3DXMATRIX*)&out, NULL, (D3DXMATRIX*)&mat);
+	}
+
+	inline static rfMatrix* Inverse(rfMatrix& out, rfFloat& determinant, const rfMatrix& mat)
+	{
+		return (rfMatrix*) D3DXMatrixInverse((D3DXMATRIX*)&out, &determinant, (D3DXMATRIX*)&mat);
 	}
 
     //-------------------------------------------------------------------------
