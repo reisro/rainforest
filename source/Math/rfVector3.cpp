@@ -7,7 +7,7 @@ rfVector3::rfVector3()
     this->_z = 0.0f;
 }
 
-rfVector3::rfVector3(double x, double y, double z)
+rfVector3::rfVector3(rfFloat x, rfFloat y, rfFloat z)
 {
     this->_x = x;
     this->_y = y;
@@ -24,17 +24,17 @@ rfVector3::~rfVector3()
     delete this;
 }
 
-double rfVector3::xValue() const
+rfFloat rfVector3::xValue() const
 {
     return this->_x;
 }
 
-double rfVector3::yValue() const
+rfFloat rfVector3::yValue() const
 {
     return this->_y;
 }
 
-double rfVector3::zValue() const
+rfFloat rfVector3::zValue() const
 {
     return this->_z;
 }
@@ -44,17 +44,17 @@ rfVector3& rfVector3::Value()
     return *this;
 }
 
-void rfVector3::SetXValue(double _x)
+void rfVector3::SetXValue(rfFloat _x)
 {
     this->_x = _x;
 }
 
-void rfVector3::SetYValue(double _x)
+void rfVector3::SetYValue(rfFloat _x)
 {
     this->_x = _y;
 }
 
-void rfVector3::SetZValue(double _x)
+void rfVector3::SetZValue(rfFloat _x)
 {
     this->_x = _z;
 }
@@ -79,7 +79,7 @@ rfVector3& rfVector3::operator=(const rfVector3& vector) const
     return *newVector;
 }
 
-inline float rfVector3::Magnitude(const rfVector3& vec)
+inline rfFloat rfVector3::Magnitude(const rfVector3& vec)
 {
     return D3DXVec3LengthSq((D3DXVECTOR3*)& vec);
 }

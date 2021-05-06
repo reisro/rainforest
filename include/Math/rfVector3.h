@@ -12,6 +12,7 @@
 #ifndef _RFVECTOR3H_
 #define _RFVECTOR3H_
 
+#include <rfBaseTypes.h>
 #include <iostream>
 #include <math.h>
 #include <d3d9.h>
@@ -25,20 +26,20 @@ public:
 
 	// constructors
 	rfVector3();
-	rfVector3(double x, double y, double z);
+	rfVector3(rfFloat x, rfFloat y, rfFloat z);
 	rfVector3(const rfVector3& _vector);
 	~rfVector3();
 
 	// Getters
-	double xValue() const;
-	double yValue() const;
-	double zValue() const;
+	rfFloat xValue() const;
+	rfFloat yValue() const;
+	rfFloat zValue() const;
 	rfVector3& Value();
 
 	// Setters
-	void SetXValue(double _x);
-	void SetYValue(double _x);
-	void SetZValue(double _x);
+	void SetXValue(rfFloat _x);
+	void SetYValue(rfFloat _x);
+	void SetZValue(rfFloat _x);
 	void SetValue(rfVector3* _vector);
 
 	// Operator overloading
@@ -54,7 +55,7 @@ public:
 	// returns the normalized vector
 	static inline rfVector3* Normalize(rfVector3& out, rfVector3& vec);
 
-	static inline float Dot(const rfVector3& vec, const rfVector3& vec2);
+	static inline rfFloat Dot(const rfVector3& vec, const rfVector3& vec2);
 
 	static inline rfVector3* Cross(const rfVector3& vec, const rfVector3& vec2, const rfVector3& vec3);
 
@@ -62,7 +63,7 @@ public:
 	//rfMatrix& ToMatrix(const rfVector3& _vector) const;
 
 private:
-	double _x, _y, _z;
+	rfFloat _x, _y, _z;
 };
 
 #endif _RFVECTOR3H_

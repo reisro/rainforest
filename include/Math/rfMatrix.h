@@ -53,6 +53,31 @@ public:
 		return (rfMatrix*) D3DXMatrixMultiply((D3DXMATRIX*) &out, (D3DXMATRIX*) &m1, (D3DXMATRIX*) &m2);
 	}
 
+	inline static rfMatrix* RotationInAxis(rfMatrix& out, const rfVector3& axis, rfFloat radians)
+	{
+		return (rfMatrix*)D3DXMatrixRotationAxis((D3DXMATRIX*) &out, (D3DXVECTOR3*) &axis, radians);
+	}
+
+	inline static rfMatrix* RotationYawPitchRoll(rfMatrix& out, rfFloat yaw, rfFloat pitch, rfFloat roll)
+	{
+		return (rfMatrix*)D3DXMatrixRotationYawPitchRoll((D3DXMATRIX*)&out, yaw, pitch, roll);
+	}
+
+	inline static rfMatrix* RotationX(rfMatrix& out, rfFloat radians)
+	{
+		return (rfMatrix*)D3DXMatrixRotationX((D3DXMATRIX*)&out, radians);
+	}
+
+	inline static rfMatrix* RotationY(rfMatrix& out, rfFloat radians)
+	{
+		return (rfMatrix*)D3DXMatrixRotationY((D3DXMATRIX*)&out, radians);
+	}
+
+	inline static rfMatrix* RotationZ(rfMatrix& out, rfFloat radians)
+	{
+		return (rfMatrix*)D3DXMatrixRotationZ((D3DXMATRIX*)&out, radians);
+	}
+
 	inline static rfMatrix* Scale(rfMatrix& out, rfFloat x, rfFloat y, rfFloat z)
 	{
 		return (rfMatrix*)D3DXMatrixScaling((D3DXMATRIX*)&out, x, y, z);
