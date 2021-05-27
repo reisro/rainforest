@@ -22,6 +22,7 @@ public:
 	virtual				~rfRenderer() {};
 
 	static void			CreateInstance();
+	static void			GetDevice();
 	virtual bool		Initialize();
 	virtual bool		PostInit();
 	virtual bool		CreateVertexBuffer();
@@ -31,6 +32,7 @@ public:
 	virtual void		Render();
 	virtual void		SendRenderCmdList(const std::vector<rfRenderCommand>& list);
 	virtual void		SetRenderWindow(rfWindowSystem* windowSystem);
+	virtual void		SetRenderState();
 	virtual void		Cleanup();
 
 	virtual void		CameraSetup();

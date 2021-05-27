@@ -153,6 +153,10 @@ bool Directx9Renderer::PostInit()
     dsrCamera._Position = new rfVector3(0.0f, 0.0f, -5.0f);
     dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
+    dsrCamera._ratioWidth = 640;
+    dsrCamera._ratioHeight = 480;
+    dsrCamera._nearPlane = 1.0f;
+    dsrCamera._farPlane = 1000.0f;
 
     // Set configuration camera to render scene
     CameraSetup();
@@ -293,6 +297,11 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
     renderWindow = windowSystem->Window();
 }
 
+void Directx9Renderer::SetRenderState()
+{
+    device->SetRenderState(SOLID.RenderStateType, SOLID.Value);
+}
+
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
@@ -312,12 +321,14 @@ void Directx9Renderer::CameraSetup()
 
     D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
 
-    // Set the projection matrix
-    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, (float)640 / (float)480, 1.0f, 1000.0f);
+    // Set the perspective projection matrix
+    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, // 90 degrees
+        (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
+
     device->SetTransform(D3DTS_PROJECTION, &Projection);
 
     // Set the render state of the world
-    device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+    device->SetRenderState(SOLID);
 }
 
 //-----------------------------------------------------------------------------
@@ -451,11 +462,6 @@ void Directx9Renderer::drawIndexedPrimitive(UINT _numberVertices, UINT _totalVer
 
     // Draw primitive
     device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _numberVertices, 0, _totalVertices);
-}
-
-IDirect3DDevice9* Directx9Renderer::GetDevice() const
-{
-    return device;
 }
 
 IDirect3DVertexBuffer9* Directx9Renderer::GetVertexBuffer() const

@@ -86,6 +86,7 @@ typedef struct rfgeDX9Light
 //-----------------------------------------------------------------------------
 
 const rfgeDX9RenderState WIREFRAME(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+const rfgeDX9RenderState SOLID(D3DRS_FILLMODE, D3DFILL_SOLID);
 const rfgeDX9RenderState NORMALIZENORMALS(D3DRS_NORMALIZENORMALS, true);
 const rfgeDX9RenderState LIGHTINGON(D3DRS_LIGHTING, true);
 const rfgeDX9RenderState LIGHTINGOFF(D3DRS_LIGHTING, false);
@@ -148,6 +149,7 @@ public:
 		bool			  endFrame() override;
 		void			  Render() override;
 		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
+		void			  SetRenderState() override;
 		void			  Cleanup() override;
 
 		void			  CameraSetup() override;
@@ -165,9 +167,8 @@ public:
 
 		void			  drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF);
 
-		IDirect3DDevice9*		GetDevice() const;
-		IDirect3DVertexBuffer9* GetVertexBuffer() const;
-		IDirect3DIndexBuffer9*	GetIndexBuffer() const;
+		IDirect3DVertexBuffer9*			GetVertexBuffer() const;
+		IDirect3DIndexBuffer9*			GetIndexBuffer() const;
 
 protected:
 		
@@ -211,13 +212,13 @@ protected:
 		struct dsRenderCamera
 		{
 			rfVector3*    _Position;
-			rfVector3*   _Direction;
+			rfVector3*    _Direction;
 			rfVector3*    _Target;
 			rfVector3*    _Up;
 			rfVector3*    _Right;
 			rfVector3*    _Forward;
-			D3DXMATRIX   _View;
-			D3DXMATRIX   _Proj;
+			D3DXMATRIX    _View;
+			D3DXMATRIX    _Proj;
 			rfInt        _ratioWidth;
 			rfInt        _ratioHeight;
 			rfFloat      _nearPlane;
@@ -238,7 +239,7 @@ private:
 		Directx9IndexBuffer*		indexBuffer;
 		HWND						renderWindow;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
-		Camera*                   renderCamera;
+		Camera*                     renderCamera;
 		D3DDEVTYPE					deviceType;
 		MSG							msg;
 		dsRenderScene				dsrScene;

@@ -4,6 +4,7 @@
 #define _RENDERCOMMANDS_H
 
 #include "RFGEAPI.h"
+#include "Renderer/Platform/Directx9Renderer.h"
 
 class RFGE_API rfRenderCommand
 {
@@ -23,7 +24,7 @@ class RFGE_API rfRenderCommand
 		CreateTexture,
 		CreateTextureFromFile,
 		Wireframe,
-		Lit,
+		DefaultLit,
 		Unlit,
 		EnableLight
 	};
@@ -40,10 +41,12 @@ public:
 	rfRenderCommand();
 	rfRenderCommand(CommandType type);
 
+	static void SetRenderState(rfgeDX9RenderState state);
 	static void Execute();
 
 private:
 	CommandType renderCmdType;
+	IDirect3DDevice9* device;
 };
 
 #endif _RENDERCOMMANDS_H

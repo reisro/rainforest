@@ -12,6 +12,11 @@ void rfRenderer::CreateInstance()
         Singleton = new Directx9Renderer();
 }
 
+void rfRenderer::GetDevice()
+{
+    return Singleton->GetDevice();
+}
+
 bool rfRenderer::Initialize()
 {
     return true;
@@ -52,6 +57,11 @@ void rfRenderer::SendRenderCmdList(const std::vector<rfRenderCommand>& list)
 
 void rfRenderer::SetRenderWindow(rfWindowSystem* windowSystem)
 {
+}
+
+void rfRenderer::SetRenderState()
+{
+    RFGE_LOG("Setting render state...");
 }
 
 void rfRenderer::Cleanup()
