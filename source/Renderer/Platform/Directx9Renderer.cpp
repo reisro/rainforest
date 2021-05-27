@@ -23,6 +23,7 @@ Directx9Renderer::Directx9Renderer():
     msg = {};
     renderCmdStack = {};
     Singleton = this;
+    renderCamera = new Camera();
 
     SetRenderWindow(rfWindowSystem::GetInstance());
 }
@@ -141,10 +142,21 @@ bool Directx9Renderer::PostInit()
     sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
 
     // Buffer data structure that holds the default rendering scene types
+    dsrScene.numberVertices = defaultIndexedPrimitive.numberVertices;
+    dsrScene.totalVertices = defaultIndexedPrimitive.totalVertices;
     dsrScene.clearColor = clearColorStack.top().second;
     dsrScene.material = primitiveMaterialStack.top().second;
     dsrScene.texture = primitiveTextureStack.top().second;
-    
+    dsrScene.isRenderingIndexedPrimitive = true;
+
+    // Data structure that holds camera configuration
+    dsrCamera._Position = new rfVector3(0.0f, 0.0f, -5.0f);
+    dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
+    dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
+
+    // Set configuration camera to render scene
+    CameraSetup();
+
     return true;
 }
 
@@ -233,7 +245,7 @@ bool Directx9Renderer::endFrame()
     readyToPresent = true;
 
     // Present render frame
-    if (readyToPresent == true)
+    if (readyToPresent)
         device->Present(0, 0, 0, 0);
 
     return rfRenderer::endFrame();
@@ -292,7 +304,20 @@ void Directx9Renderer::Cleanup()
 
 void Directx9Renderer::CameraSetup()
 {
+    D3DXMATRIX CameraView;
 
+    // Position and aim the camera
+    D3DXMatrixLookAtLH(&CameraView, (D3DXVECTOR3*) &dsrCamera._Position, (D3DXVECTOR3*) &dsrCamera._Target, (D3DXVECTOR3*) &dsrCamera._Up);
+    device->SetTransform(D3DTS_VIEW, &CameraView);
+
+    D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
+
+    // Set the projection matrix
+    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, (float)640 / (float)480, 1.0f, 1000.0f);
+    device->SetTransform(D3DTS_PROJECTION, &Projection);
+
+    // Set the render state of the world
+    device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
 
 //-----------------------------------------------------------------------------

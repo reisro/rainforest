@@ -40,6 +40,8 @@ public:
 	rfRenderCommand();
 	rfRenderCommand(CommandType type);
 
+	static void Execute();
+
 private:
 	CommandType renderCmdType;
 };

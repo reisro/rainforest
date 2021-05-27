@@ -18,6 +18,7 @@
 #include <d3dx9.h>
 #include <d3d9types.h>
 #include <stack>
+#include "Game/Elements/Camera.h"
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"
 #include "Renderer/rfRenderer.h"
@@ -207,20 +208,20 @@ protected:
 			bool isRenderingIndexedPrimitive;
 		};
 
-		struct rfCamera
+		struct dsRenderCamera
 		{
-			rfVector3 _position;
-			rfVector3 _direction;
-			rfVector3 _target;
-			rfVector3 _up;
-			rfVector3 _right;
-			rfVector3 _forward;
-			D3DXMATRIX _View;
-			D3DXMATRIX _Proj;
-			int _ratioWidth;
-			int _ratioHeight;
-			float _nearPlane;
-			float _farPlane;
+			rfVector3*    _Position;
+			rfVector3*   _Direction;
+			rfVector3*    _Target;
+			rfVector3*    _Up;
+			rfVector3*    _Right;
+			rfVector3*    _Forward;
+			D3DXMATRIX   _View;
+			D3DXMATRIX   _Proj;
+			rfInt        _ratioWidth;
+			rfInt        _ratioHeight;
+			rfFloat      _nearPlane;
+			rfFloat      _farPlane;
 		};
 
 private:
@@ -237,9 +238,11 @@ private:
 		Directx9IndexBuffer*		indexBuffer;
 		HWND						renderWindow;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
+		Camera*                   renderCamera;
 		D3DDEVTYPE					deviceType;
 		MSG							msg;
 		dsRenderScene				dsrScene;
+		dsRenderCamera				dsrCamera;
 
 		std::stack<rfRenderCommand> renderCmdStack;
 

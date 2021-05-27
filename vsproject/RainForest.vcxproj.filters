@@ -153,6 +153,9 @@
     <ClInclude Include="..\include\rfBaseTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Game\Elements\Camera.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -203,8 +206,11 @@
     <ClCompile Include="..\source\Math\rfVector3.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
-    <ClCompile Include="rfMatrix.cpp">
+    <ClCompile Include="..\source\Math\rfMatrix.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game\Elements\Camera.cpp">
+      <Filter>Source Files\Game\Elements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

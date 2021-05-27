@@ -168,6 +168,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Game\Elements\Camera.h" />
     <ClInclude Include="..\include\Game\Elements\rfVertex.h" />
     <ClInclude Include="..\include\Math\rfMatrix.h" />
     <ClInclude Include="..\include\Math\rfVector3.h" />
@@ -197,7 +198,9 @@
   <ItemGroup>
     <ClCompile Include="..\include\Renderer\rfRenderer.cpp" />
     <ClCompile Include="..\include\System\Platform\rfWindow.cpp" />
+    <ClCompile Include="..\source\Game\Elements\Camera.cpp" />
     <ClCompile Include="..\source\Game\Elements\rfActor.cpp" />
+    <ClCompile Include="..\source\Math\rfMatrix.cpp" />
     <ClCompile Include="..\source\Math\rfVector3.cpp" />
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp" />
     <ClCompile Include="..\source\Renderer\rfRenderCommand.cpp" />
@@ -211,7 +214,6 @@
     <ClCompile Include="..\source\System\rfApplication.cpp" />
     <ClCompile Include="..\source\System\rfApplicationWindow.cpp" />
     <ClCompile Include="..\source\System\rfConfig.cpp" />
-    <ClCompile Include="rfMatrix.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

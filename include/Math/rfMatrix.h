@@ -17,6 +17,7 @@
 #include <RFGEAPI.h>
 #include <rfBaseTypes.h>
 #include <math.h>
+#include "Math/rfVector3.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <d3d9.h>	
