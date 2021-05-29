@@ -22,6 +22,7 @@
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"
 #include "Renderer/rfRenderer.h"
+#include "Renderer/rfRenderCommand.h"
 #include "Game/Elements/rfVertex.h"
 #include "Resources/Platform/Directx9VertexBuffer.h"
 #include "Resources/Platform/Directx9IndexBuffer.h"
@@ -57,28 +58,34 @@ typedef struct rfgeDX9RenderState
 
 typedef struct rfgeDX9Color
 {
-	rfgeDX9Color(int r, int g, int b)
+	rfgeDX9Color(rfFloat r, rfFloat g, rfFloat b, rfFloat a)
 	{	
-		Red = r; Green = g; Blue = b; 
-		D3DCOLOR_XRGB(Red, Green, Blue); 
+		Red = r; Green = g; Blue = b; Alpha = a;
+		D3DXCOLOR(Red,Green,Blue,Alpha);
 	}
 
-	int Red;
-	int Green;
-	int Blue;
+	rfFloat Red;
+	rfFloat Green;
+	rfFloat Blue;
+	rfFloat Alpha;
+
+	D3DXCOLOR* ToD3DXCOLOR() { return (D3DXCOLOR*) &Red; }
+
 } rfgeDX9Color;
 
 typedef struct rfgeDX9Light
 {
-	rfgeDX9Light(int r, int g, int b)
+	rfgeDX9Light(rfFloat r, rfFloat g, rfFloat b, rfFloat a)
 	{
-		Red = r; Green = g; Blue = b;
-		D3DCOLOR_XRGB(Red, Green, Blue);
+		Red = r; Green = g; Blue = b; Alpha = a;
+		D3DCOLOR_COLORVALUE(Red, Green, Blue, Alpha);
 	}
 
-	int Red;
-	int Green;
-	int Blue;
+	rfFloat Red;
+	rfFloat Green;
+	rfFloat Blue;
+	rfFloat Alpha;
+
 } rfgeDX9Light;
 
 //-----------------------------------------------------------------------------
@@ -105,23 +112,24 @@ const rfgeDX9RenderState PHONGSHADING(D3DRS_SHADEMODE, D3DSHADE_PHONG);
 // Constant Colors
 //-----------------------------------------------------------------------------
 
-const rfgeDX9Color WHITE(255, 255, 255);
-const rfgeDX9Color BLACK(0, 0, 0);
-const rfgeDX9Color RED(255, 0, 0);
-const rfgeDX9Color GREEN(0, 255, 0);
-const rfgeDX9Color BLUE(0, 0, 255);
-const rfgeDX9Color OCEANBLUE(51, 153, 102);
-const rfgeDX9Color YELLOW(255, 255, 0);
-const rfgeDX9Color CYAN(0, 255, 255);
-const rfgeDX9Color MAGENTA(255, 0, 255);
+const rfgeDX9Color WHITE(1.0f, 1.0f, 1.0f, 1.0f); 
+const rfgeDX9Color BLACK(.0f, .0f, .0f, 1.0f);
+const rfgeDX9Color RED(1.0f, .0f, .0f, 1.0f);
+const rfgeDX9Color GREEN(.0f, 1.0f, .0f, 1.0f);
+const rfgeDX9Color BLUE(.0f, .0f, 1.0f,1.0f);
+const rfgeDX9Color OCEANBLUE(51.0f/255.0f, 153.0f/255.0f, 102/255.0f, 1.0f);
+const rfgeDX9Color YELLOW(1.0f, 1.0f, .0f, 1.0f);
+const rfgeDX9Color CYAN(.0f, 1.0f, 1.0f,1.0f);
+const rfgeDX9Color MAGENTA(1.0f, .0f, 1.0f, 1.0f);
 
 //-----------------------------------------------------------------------------
 // Constant Light Colors
 //-----------------------------------------------------------------------------
 
-const rfgeDX9Light REDAMBIENT(255, 0, 0);
-const rfgeDX9Light GREENAMBIENT(0, 255, 0);
-const rfgeDX9Light BLUEAMBIENT(0, 0, 255);
+const rfgeDX9Light REDAMBIENT(1.0f, 0.0f, 0.0f, 1.0f);
+const rfgeDX9Light GREENAMBIENT(.0f, 1.0f, .0f, 1.0f);
+const rfgeDX9Light BLUEAMBIENT(.0f, .0f, 1.0f, 1.0f);
+const rfgeDX9Light NOEMISSIVE(.0f, .0f, .0f, 1.0f);
 
 //-----------------------------------------------------------------------------
 // Class (mgeDeviceCaps)
@@ -153,20 +161,23 @@ public:
 		void			  Cleanup() override;
 
 		void			  CameraSetup() override;
+		void			  SetDefaultMaterial();
 		
 		HRESULT           CreateDevice();
 		void			  CreateDefaultPrimitive();
 		void			  LockVertexBufferMemory();
 		void			  LockIndexBufferMemory();
 		void			  SetRenderState(rfgeDX9RenderState _renderState);
+		void			  SetSamplerState();
 		D3DLIGHT9		  CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color);
 		void			  EnableLight(D3DLIGHT9 _light, bool value);
-		void              CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power);
+		D3DMATERIAL9      CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power);
 		void              SetMaterial(D3DMATERIAL9* _mat);
 		void			  CreateTextureFromFile(LPCWSTR filename);
 
 		void			  drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF);
 
+		IDirect3DDevice9*               GetDevice()	const;
 		IDirect3DVertexBuffer9*			GetVertexBuffer() const;
 		IDirect3DIndexBuffer9*			GetIndexBuffer() const;
 
@@ -182,7 +193,7 @@ protected:
 		// Define declaration types
 		RFGE_STACK_DECLARE(rfRenderCommand, int, ClearColorStack)
 		RFGE_STACK_DECLARE(rfRenderCommand::PrimitiveType, rfVertex::VertexColor, rfIndexedPrimitive)
-		RFGE_STACK_DECLARE(rfRenderCommand, D3DMATERIAL9*, rfSceneMaterial)
+		RFGE_STACK_DECLARE(rfRenderCommand, D3DMATERIAL9, rfSceneMaterial)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DTexture9*, rfSceneTexture)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DVertexBuffer9*, rfVertexBuffer)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DIndexBuffer9*, rfIndexBuffer)
@@ -201,7 +212,7 @@ protected:
 		struct dsRenderScene
 		{
 			int clearColor;
-			D3DMATERIAL9* material;
+			D3DMATERIAL9 material;
 			IDirect3DTexture9* texture;
 			D3DLIGHT9 light;
 			UINT numberVertices;

@@ -111,23 +111,23 @@ bool Directx9Renderer::PostInit()
     indexBuffer = new Directx9IndexBuffer();
 
     LockVertexBufferMemory();
-    LockIndexBufferMemory();
 
     // Create the default cube for the render scene
     CreateDefaultPrimitive();
 
-    // Once Primitive has been setup unlock the buffers 
+    // Once Primitive has been setup unlock the buffer
     vertexBuffer->GetBuffer()->Unlock();
+
+    // Assign the indices for the default cube
+    LockIndexBufferMemory();
+   
+    // Once Primitive has been setup unlock the buffer
     indexBuffer->GetBuffer()->Unlock();
 
     // Default device initialization render
     rfVertex::VertexColor vertexColor;
-    D3DMATERIAL9* defaultMaterial;
-    IDirect3DTexture9* defaultTexture;
-    LPCWSTR filename = L"defaultTexture.jpg";
-
-    // Create default texture
-    D3DXCreateTextureFromFile(device, filename, &defaultTexture);
+    D3DMATERIAL9 defaultMaterial;
+    LPCWSTR filename = L"crate.jpg";
 
     // Set the index primitive default values
     IndexedPrimitiveSize defaultIndexedPrimitive;
@@ -138,7 +138,7 @@ bool Directx9Renderer::PostInit()
     clearColorStack.push({ rfRenderCommand::CommandType::ClearColor, 0x333333 });
     defaultPrimitiveStack.push({ rfRenderCommand::PrimitiveType::Cube, vertexColor });
     primitiveMaterialStack.push({ rfRenderCommand::CommandType::CreateMaterial, defaultMaterial });
-    primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, defaultTexture });
+    primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene.texture});
     sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
 
     // Buffer data structure that holds the default rendering scene types
@@ -148,6 +148,7 @@ bool Directx9Renderer::PostInit()
     dsrScene.material = primitiveMaterialStack.top().second;
     dsrScene.texture = primitiveTextureStack.top().second;
     dsrScene.isRenderingIndexedPrimitive = true;
+    dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), WHITE.Red);
 
     // Data structure that holds camera configuration
     dsrCamera._Position = new rfVector3(0.0f, 0.0f, -5.0f);
@@ -160,6 +161,21 @@ bool Directx9Renderer::PostInit()
 
     // Set configuration camera to render scene
     CameraSetup();
+
+    // Set the material for the default primitive that is going to be rendered
+    SetDefaultMaterial();
+
+    // Generate the texture for the default primitive
+    CreateTextureFromFile(filename);
+    
+    // Turn on the light in the render scene
+    EnableLight(dsrScene.light, true);
+
+    // Set the render state of the world
+    SetRenderState();
+
+    // Set texture filter states
+    SetSamplerState();
 
     return true;
 }
@@ -237,6 +253,13 @@ bool Directx9Renderer::endFrame()
     while (primitiveTextureStack.size() > 0)
         primitiveTextureStack.pop();
 
+    device->SetMaterial(&dsrScene.material);
+    device->SetTexture(0, dsrScene.texture);
+
+    D3DXMATRIX Ry;
+
+    device->SetTransform(D3DTS_WORLD, &Ry);
+
     // Check engine rendering draw mode
     dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
@@ -299,7 +322,9 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 
 void Directx9Renderer::SetRenderState()
 {
-    device->SetRenderState(SOLID.RenderStateType, SOLID.Value);
+    device->SetRenderState(WIREFRAME.RenderStateType, WIREFRAME.Value);
+    device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
+    device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
 }
 
 //-----------------------------------------------------------------------------
@@ -326,9 +351,11 @@ void Directx9Renderer::CameraSetup()
         (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
 
     device->SetTransform(D3DTS_PROJECTION, &Projection);
+}
 
-    // Set the render state of the world
-    device->SetRenderState(SOLID);
+void Directx9Renderer::SetDefaultMaterial()
+{
+    dsrScene.material = CreateD3DMaterial((D3DXCOLOR) WHITE.Red, (D3DXCOLOR)WHITE.Red, (D3DXCOLOR)WHITE.Red, (D3DXCOLOR)NOEMISSIVE.Red, 5.0f);
 }
 
 //-----------------------------------------------------------------------------
@@ -430,17 +457,45 @@ void Directx9Renderer::SetRenderState(rfgeDX9RenderState _renderState)
     device->SetRenderState(_renderState.RenderStateType, _renderState.Value);
 }
 
+void Directx9Renderer::SetSamplerState()
+{
+    device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+    device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+    device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+}
+
 D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color)
 {
-    return D3DLIGHT9();
+    D3DLIGHT9 light;
+    ::ZeroMemory(&light, sizeof(light));
+
+    light.Type = _type;
+    light.Direction = _direction;
+    light.Ambient = _color * 0.5f;
+    light.Diffuse = _color;
+    light.Specular = _color * 0.2f;
+
+    return light;
 }
 
 void Directx9Renderer::EnableLight(D3DLIGHT9 _light, bool value)
 {
+    device->SetLight(0, &_light);
+    device->LightEnable(0, value);
 }
 
-void Directx9Renderer::CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power)
+D3DMATERIAL9 Directx9Renderer::CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power)
 {
+    D3DMATERIAL9 mat;
+    ::ZeroMemory(&mat, sizeof(mat));
+
+    mat.Ambient = _ambient;
+    mat.Diffuse = _diffuse;
+    mat.Specular = _specular;
+    mat.Emissive = _emissive;
+    mat.Power = _power;
+
+    return mat;
 }
 
 void Directx9Renderer::SetMaterial(D3DMATERIAL9* _mat)
@@ -449,6 +504,7 @@ void Directx9Renderer::SetMaterial(D3DMATERIAL9* _mat)
 
 void Directx9Renderer::CreateTextureFromFile(LPCWSTR filename)
 {
+    D3DXCreateTextureFromFile(device, filename, &dsrScene.texture);
 }
 
 //-----------------------------------------------------------------------------
@@ -462,6 +518,11 @@ void Directx9Renderer::drawIndexedPrimitive(UINT _numberVertices, UINT _totalVer
 
     // Draw primitive
     device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _numberVertices, 0, _totalVertices);
+}
+
+IDirect3DDevice9* Directx9Renderer::GetDevice() const
+{
+    return device;
 }
 
 IDirect3DVertexBuffer9* Directx9Renderer::GetVertexBuffer() const

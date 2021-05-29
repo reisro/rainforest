@@ -12,11 +12,6 @@ void rfRenderer::CreateInstance()
         Singleton = new Directx9Renderer();
 }
 
-void rfRenderer::GetDevice()
-{
-    return Singleton->GetDevice();
-}
-
 bool rfRenderer::Initialize()
 {
     return true;

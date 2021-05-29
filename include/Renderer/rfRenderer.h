@@ -22,7 +22,7 @@ public:
 	virtual				~rfRenderer() {};
 
 	static void			CreateInstance();
-	static void			GetDevice();
+
 	virtual bool		Initialize();
 	virtual bool		PostInit();
 	virtual bool		CreateVertexBuffer();

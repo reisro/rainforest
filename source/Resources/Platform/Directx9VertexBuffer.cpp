@@ -3,6 +3,8 @@
 
 Directx9VertexBuffer::Directx9VertexBuffer()
 {
+    vertexBuffer = 0;
+
     Create();
 }
 
@@ -21,9 +23,9 @@ bool Directx9VertexBuffer::Create()
     
     // Create the vertex buffer passing the values 
     hr = renderer->GetDevice()->CreateVertexBuffer(
-        24 * sizeof(rfVertex::VertexCoordinates),
+        8 * sizeof(rfVertex::Vertex),
         D3DUSAGE_WRITEONLY,
-        rfVertex::VertexCoordinates::FVF,
+        rfVertex::Vertex::FVF,
         D3DPOOL_MANAGED,
         &vertexBuffer,
         0);

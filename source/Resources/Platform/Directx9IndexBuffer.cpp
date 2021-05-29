@@ -4,6 +4,8 @@
 
 Directx9IndexBuffer::Directx9IndexBuffer()
 {
+    indexBuffer = 0;
+
     Create();
 }
 

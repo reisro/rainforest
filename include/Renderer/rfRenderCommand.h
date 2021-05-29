@@ -4,11 +4,13 @@
 #define _RENDERCOMMANDS_H
 
 #include "RFGEAPI.h"
-#include "Renderer/Platform/Directx9Renderer.h"
+#include <d3d9.h>
 
 class RFGE_API rfRenderCommand
 {
-	friend class Directx9Renderer;
+	friend class rfRenderer;
+
+public:
 
 	enum class CommandType
 	{
@@ -37,11 +39,11 @@ class RFGE_API rfRenderCommand
 		Teapot
 	};
 
-public:
+
 	rfRenderCommand();
 	rfRenderCommand(CommandType type);
 
-	static void SetRenderState(rfgeDX9RenderState state);
+	static void SetRenderState();
 	static void Execute();
 
 private:

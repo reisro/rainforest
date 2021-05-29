@@ -8,9 +8,9 @@ rfRenderCommand::rfRenderCommand(CommandType type)
 {
 }
 
-void rfRenderCommand::SetRenderState(rfgeDX9RenderState state)
+void rfRenderCommand::SetRenderState()
 {
-	rfRenderer::GetInstance()->SetRenderState();
+	
 }
 
 void rfRenderCommand::Execute()
