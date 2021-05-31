@@ -72,7 +72,7 @@ void rfApplication::Run()
 {
 	RFGE_LOG("\n  Rendering frame...");
 
-	// Draw the scene
+	// Render the scene
 	rfRenderer::GetInstance()->Render();
 
 	RFGE_LOG("\n  Finalized rendering frame...");

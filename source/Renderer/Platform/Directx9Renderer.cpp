@@ -25,6 +25,9 @@ Directx9Renderer::Directx9Renderer():
     Singleton = this;
     renderCamera = new Camera();
 
+    vertexBuffer = 0;
+    indexBuffer = 0;
+
     SetRenderWindow(rfWindowSystem::GetInstance());
 }
 
@@ -108,8 +111,7 @@ bool Directx9Renderer::Initialize()
 bool Directx9Renderer::PostInit()
 {
     vertexBuffer = new Directx9VertexBuffer();
-    indexBuffer = new Directx9IndexBuffer();
-
+    
     LockVertexBufferMemory();
 
     // Create the default cube for the render scene
@@ -118,6 +120,8 @@ bool Directx9Renderer::PostInit()
     // Once Primitive has been setup unlock the buffer
     vertexBuffer->GetBuffer()->Unlock();
 
+    indexBuffer = new Directx9IndexBuffer();
+
     // Assign the indices for the default cube
     LockIndexBufferMemory();
    
@@ -125,9 +129,9 @@ bool Directx9Renderer::PostInit()
     indexBuffer->GetBuffer()->Unlock();
 
     // Default device initialization render
-    rfVertex::VertexColor vertexColor;
-    D3DMATERIAL9 defaultMaterial;
-    LPCWSTR filename = L"crate.jpg";
+    //rfVertex::VertexColor vertexColor;
+    //D3DMATERIAL9 defaultMaterial;
+    //LPCWSTR filename = L"crate.jpg";
 
     // Set the index primitive default values
     IndexedPrimitiveSize defaultIndexedPrimitive;
@@ -135,23 +139,23 @@ bool Directx9Renderer::PostInit()
     defaultIndexedPrimitive.totalVertices = 12;
 
     // Stack Default Values initialization
-    clearColorStack.push({ rfRenderCommand::CommandType::ClearColor, 0x333333 });
-    defaultPrimitiveStack.push({ rfRenderCommand::PrimitiveType::Cube, vertexColor });
-    primitiveMaterialStack.push({ rfRenderCommand::CommandType::CreateMaterial, defaultMaterial });
-    primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene.texture});
-    sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
+    //clearColorStack.push({ rfRenderCommand::CommandType::ClearColor, 0x333333 });
+    //defaultPrimitiveStack.push({ rfRenderCommand::PrimitiveType::Cube, vertexColor });
+    //primitiveMaterialStack.push({ rfRenderCommand::CommandType::CreateMaterial, defaultMaterial });
+    //primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene.texture});
+    //sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
 
     // Buffer data structure that holds the default rendering scene types
-    dsrScene.numberVertices = defaultIndexedPrimitive.numberVertices;
-    dsrScene.totalVertices = defaultIndexedPrimitive.totalVertices;
-    dsrScene.clearColor = clearColorStack.top().second;
-    dsrScene.material = primitiveMaterialStack.top().second;
-    dsrScene.texture = primitiveTextureStack.top().second;
-    dsrScene.isRenderingIndexedPrimitive = true;
-    dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), WHITE.Red);
+    //dsrScene.numberVertices = defaultIndexedPrimitive.numberVertices;
+    //dsrScene.totalVertices = defaultIndexedPrimitive.totalVertices;
+    //dsrScene.clearColor = clearColorStack.top().second;
+    //dsrScene.material = primitiveMaterialStack.top().second;
+    //dsrScene.texture = primitiveTextureStack.top().second;
+    //dsrScene.isRenderingIndexedPrimitive = true;
+    //dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), D3DXCOLOR(1.0f,1.0f,1.0f,1.0f));
 
     // Data structure that holds camera configuration
-    dsrCamera._Position = new rfVector3(0.0f, 0.0f, -5.0f);
+    dsrCamera._Position = new rfVector3(0.0f, 2.0f, 1.0f);
     dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
     dsrCamera._ratioWidth = 640;
@@ -163,19 +167,19 @@ bool Directx9Renderer::PostInit()
     CameraSetup();
 
     // Set the material for the default primitive that is going to be rendered
-    SetDefaultMaterial();
+    //SetDefaultMaterial();
 
     // Generate the texture for the default primitive
-    CreateTextureFromFile(filename);
+    //CreateTextureFromFile(filename);
     
     // Turn on the light in the render scene
-    EnableLight(dsrScene.light, true);
+    //EnableLight(dsrScene.light, true);
 
     // Set the render state of the world
     SetRenderState();
 
     // Set texture filter states
-    SetSamplerState();
+    //SetSamplerState();
 
     return true;
 }
@@ -215,11 +219,31 @@ bool Directx9Renderer::beginFrame()
     if (device == NULL)
         return false;
 
-    // call base class implementation
-    rfRenderer::beginFrame();
+    static float angle = (3.0f * D3DX_PI) / 2.0f;
+    static float height = 2.0f;
+
+    if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
+        angle -= 0.5f * timeDelta;
+
+    if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
+        angle += 0.5f * timeDelta;
+
+    if (::GetAsyncKeyState(VK_UP) & 0x8000f)
+        height += 5.0f * timeDelta;
+
+    if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
+        height -= 5.0f * timeDelta;
+
+    D3DXVECTOR3 position(cosf(angle) * 3.0f, height, sinf(angle) * 3.0f);
+    D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
+    D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
+    D3DXMATRIX V;
+    D3DXMatrixLookAtLH(&V, &position, &target, &up);
+
+    device->SetTransform(D3DTS_VIEW, &V);
 
     // Instruct the device to set each pixel on the back buffer with default clear color
-    device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, dsrScene.clearColor, 1.0f, 0);
+    device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
 
     // Begin scene rendering
     device->BeginScene();
@@ -238,30 +262,30 @@ bool Directx9Renderer::endFrame()
     rfRenderer::endFrame();
 
     // Removing data from all stacks
-    while (clearColorStack.size() > 1)
-        clearColorStack.pop();
+    //while (clearColorStack.size() > 1)
+        //clearColorStack.pop();
 
     // Removing data from all stacks
-    while (defaultPrimitiveStack.size() > 0)
-        defaultPrimitiveStack.pop();
+    //while (defaultPrimitiveStack.size() > 0)
+        //defaultPrimitiveStack.pop();
 
     // Removing data from all stacks
-    while (primitiveMaterialStack.size() > 0)
-        primitiveMaterialStack.pop();
+    //while (primitiveMaterialStack.size() > 0)
+        //primitiveMaterialStack.pop();
 
     // Removing data from all stacks
-    while (primitiveTextureStack.size() > 0)
-        primitiveTextureStack.pop();
+    //while (primitiveTextureStack.size() > 0)
+        //primitiveTextureStack.pop();
 
-    device->SetMaterial(&dsrScene.material);
-    device->SetTexture(0, dsrScene.texture);
+    //device->SetMaterial(&dsrScene.material);
+    //device->SetTexture(0, dsrScene.texture);
 
     D3DXMATRIX Ry;
 
     device->SetTransform(D3DTS_WORLD, &Ry);
 
     // Check engine rendering draw mode
-    dsrScene.isRenderingIndexedPrimitive ? 
+    !dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
         sizeof(rfVertex::VertexCoordinates), rfVertex::VertexCoordinates::FVF):
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
@@ -338,13 +362,13 @@ void Directx9Renderer::Cleanup()
 
 void Directx9Renderer::CameraSetup()
 {
-    D3DXMATRIX CameraView;
+    //D3DXMATRIX CameraView;
 
     // Position and aim the camera
-    D3DXMatrixLookAtLH(&CameraView, (D3DXVECTOR3*) &dsrCamera._Position, (D3DXVECTOR3*) &dsrCamera._Target, (D3DXVECTOR3*) &dsrCamera._Up);
-    device->SetTransform(D3DTS_VIEW, &CameraView);
+    //D3DXMatrixLookAtLH(&CameraView, (D3DXVECTOR3*) &dsrCamera._Position, (D3DXVECTOR3*) &dsrCamera._Target, (D3DXVECTOR3*) &dsrCamera._Up);
+    //device->SetTransform(D3DTS_VIEW, &CameraView);
 
-    D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
+    D3DXMATRIX Projection;
 
     // Set the perspective projection matrix
     D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, // 90 degrees
