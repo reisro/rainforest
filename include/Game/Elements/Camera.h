@@ -34,6 +34,7 @@ public:
 	D3DXVECTOR3* GetTarget() const { return Target; }
 	D3DXVECTOR3* GetUp() const { return Up; }
 	D3DXVECTOR3* GetLookAt() const { return LookAt; }
+	D3DXMATRIX GetView() const { return View; }
 	D3DXMATRIX GetProjectionMatrix() const { return Projection; }
 
 private:
@@ -42,7 +43,8 @@ private:
 	D3DXVECTOR3* Target;
 	D3DXVECTOR3* Up;
 	D3DXVECTOR3* LookAt;
-	D3DXMATRIX Projection;
+	D3DXMATRIX   View;
+	D3DXMATRIX   Projection;
 
 };
 

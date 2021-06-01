@@ -112,7 +112,7 @@ bool Directx9Renderer::PostInit()
 {
     vertexBuffer = new Directx9VertexBuffer();
     
-    LockVertexBufferMemory();
+    //LockVertexBufferMemory();
 
     // Create the default cube for the render scene
     CreateDefaultPrimitive();
@@ -218,29 +218,6 @@ bool Directx9Renderer::beginFrame()
     // Renderer device check
     if (device == NULL)
         return false;
-
-    static float angle = (3.0f * D3DX_PI) / 2.0f;
-    static float height = 2.0f;
-
-    if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
-        angle -= 0.5f * timeDelta;
-
-    if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
-        angle += 0.5f * timeDelta;
-
-    if (::GetAsyncKeyState(VK_UP) & 0x8000f)
-        height += 5.0f * timeDelta;
-
-    if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
-        height -= 5.0f * timeDelta;
-
-    D3DXVECTOR3 position(cosf(angle) * 3.0f, height, sinf(angle) * 3.0f);
-    D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
-    D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
-    D3DXMATRIX V;
-    D3DXMatrixLookAtLH(&V, &position, &target, &up);
-
-    device->SetTransform(D3DTS_VIEW, &V);
 
     // Instruct the device to set each pixel on the back buffer with default clear color
     device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
@@ -362,11 +339,11 @@ void Directx9Renderer::Cleanup()
 
 void Directx9Renderer::CameraSetup()
 {
-    //D3DXMATRIX CameraView;
+    D3DXMATRIX CameraView;
 
     // Position and aim the camera
-    //D3DXMatrixLookAtLH(&CameraView, (D3DXVECTOR3*) &dsrCamera._Position, (D3DXVECTOR3*) &dsrCamera._Target, (D3DXVECTOR3*) &dsrCamera._Up);
-    //device->SetTransform(D3DTS_VIEW, &CameraView);
+    D3DXMatrixLookAtLH(&CameraView, (D3DXVECTOR3*) &dsrCamera._Position, (D3DXVECTOR3*) &dsrCamera._Target, (D3DXVECTOR3*) &dsrCamera._Up);
+    device->SetTransform(D3DTS_VIEW, &CameraView);
 
     D3DXMATRIX Projection;
 
@@ -395,6 +372,8 @@ HRESULT Directx9Renderer::CreateDevice()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::CreateDefaultPrimitive()
 {
+    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
+
     // fill in the front face vertex data
     vertex[0] = rfVertex::VertexCoordinates(-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
     vertex[1] = rfVertex::VertexCoordinates(-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f);
@@ -437,7 +416,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::LockVertexBufferMemory()
 {
-    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
+   
 }
 
 //-----------------------------------------------------------------------------
