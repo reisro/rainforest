@@ -246,6 +246,8 @@ private:
 		bool						readyToPresent;
 		IDirect3D9*					d3d9;
 		IDirect3DDevice9*			device;
+		ID3DXMesh*                  defaultMesh;
+		D3DXMATRIX					defaultMeshWorldMat;
 		Directx9VertexBuffer*		vertexBuffer;
 		Directx9IndexBuffer*		indexBuffer;
 		HWND						renderWindow;
@@ -258,7 +260,7 @@ private:
 
 		std::stack<rfRenderCommand> renderCmdStack;
 
-		rfVertex::VertexCoordinates* vertex;
+		rfVertex::Vertex* vertex;
 };
 
 #endif RFGE_DIRECT3D9_SDK_H_

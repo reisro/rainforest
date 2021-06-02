@@ -19,10 +19,10 @@ namespace rfVertex
 {
 	struct Vertex
 	{
-        Vertex() { _x = 0.0f; _y = 0.0f; _z = 0.0f; color = D3DCOLOR_XRGB(0, 0, 0); }
-        Vertex(float x, float y, float z, D3DCOLOR _color)
+        Vertex() { _x = 0.0f; _y = 0.0f; _z = 0.0f; }
+        Vertex(float x, float y, float z)
         {
-            _x = x; _y = y; _z = z; color = _color;
+            _x = x; _y = y; _z = z;
         }
         float _x, _y, _z;
         D3DCOLOR color;

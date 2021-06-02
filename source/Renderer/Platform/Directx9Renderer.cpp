@@ -111,22 +111,15 @@ bool Directx9Renderer::Initialize()
 bool Directx9Renderer::PostInit()
 {
     vertexBuffer = new Directx9VertexBuffer();
+    indexBuffer = new Directx9IndexBuffer();
     
     //LockVertexBufferMemory();
 
     // Create the default cube for the render scene
     CreateDefaultPrimitive();
 
-    // Once Primitive has been setup unlock the buffer
-    vertexBuffer->GetBuffer()->Unlock();
-
-    indexBuffer = new Directx9IndexBuffer();
-
     // Assign the indices for the default cube
     LockIndexBufferMemory();
-   
-    // Once Primitive has been setup unlock the buffer
-    indexBuffer->GetBuffer()->Unlock();
 
     // Default device initialization render
     //rfVertex::VertexColor vertexColor;
@@ -135,7 +128,7 @@ bool Directx9Renderer::PostInit()
 
     // Set the index primitive default values
     IndexedPrimitiveSize defaultIndexedPrimitive;
-    defaultIndexedPrimitive.numberVertices = 24;
+    defaultIndexedPrimitive.numberVertices = 8;
     defaultIndexedPrimitive.totalVertices = 12;
 
     // Stack Default Values initialization
@@ -155,11 +148,11 @@ bool Directx9Renderer::PostInit()
     //dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), D3DXCOLOR(1.0f,1.0f,1.0f,1.0f));
 
     // Data structure that holds camera configuration
-    dsrCamera._Position = new rfVector3(0.0f, 2.0f, 1.0f);
+    dsrCamera._Position = new rfVector3(0.0f, 3.0f, -5.0f);
     dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
-    dsrCamera._ratioWidth = 640;
-    dsrCamera._ratioHeight = 480;
+    dsrCamera._ratioWidth = 1280;
+    dsrCamera._ratioHeight = 720;
     dsrCamera._nearPlane = 1.0f;
     dsrCamera._farPlane = 1000.0f;
 
@@ -219,6 +212,10 @@ bool Directx9Renderer::beginFrame()
     if (device == NULL)
         return false;
 
+    D3DXMATRIX Ry;
+
+    device->SetTransform(D3DTS_WORLD, &Ry);
+
     // Instruct the device to set each pixel on the back buffer with default clear color
     device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
 
@@ -257,15 +254,13 @@ bool Directx9Renderer::endFrame()
     //device->SetMaterial(&dsrScene.material);
     //device->SetTexture(0, dsrScene.texture);
 
-    D3DXMATRIX Ry;
-
-    device->SetTransform(D3DTS_WORLD, &Ry);
-
     // Check engine rendering draw mode
-    !dsrScene.isRenderingIndexedPrimitive ? 
+    dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
-        sizeof(rfVertex::VertexCoordinates), rfVertex::VertexCoordinates::FVF):
+        sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
+
+    //defaultMesh->DrawSubset(0);
 
     // End rendering scene
     device->EndScene();
@@ -324,8 +319,8 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 void Directx9Renderer::SetRenderState()
 {
     device->SetRenderState(WIREFRAME.RenderStateType, WIREFRAME.Value);
-    device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
-    device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
+    //device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
+    //device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
 }
 
 //-----------------------------------------------------------------------------
@@ -341,8 +336,12 @@ void Directx9Renderer::CameraSetup()
 {
     D3DXMATRIX CameraView;
 
+    D3DXVECTOR3 position(0.0f, 2.0f, -4.0f);
+    D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
+    D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
+
     // Position and aim the camera
-    D3DXMatrixLookAtLH(&CameraView, (D3DXVECTOR3*) &dsrCamera._Position, (D3DXVECTOR3*) &dsrCamera._Target, (D3DXVECTOR3*) &dsrCamera._Up);
+    D3DXMatrixLookAtLH(&CameraView, &position, &target, &up);
     device->SetTransform(D3DTS_VIEW, &CameraView);
 
     D3DXMATRIX Projection;
@@ -375,40 +374,27 @@ void Directx9Renderer::CreateDefaultPrimitive()
     vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
 
     // fill in the front face vertex data
-    vertex[0] = rfVertex::VertexCoordinates(-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
-    vertex[1] = rfVertex::VertexCoordinates(-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f);
-    vertex[2] = rfVertex::VertexCoordinates(1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f);
-    vertex[3] = rfVertex::VertexCoordinates(1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f);
+    vertex[0] = rfVertex::Vertex(-1.0f, -1.0f, -1.0f);
+    vertex[1] = rfVertex::Vertex(-1.0f, 1.0f, -1.0f);
+    vertex[2] = rfVertex::Vertex(1.0f, 1.0f, -1.0f);
+    vertex[3] = rfVertex::Vertex(1.0f, -1.0f, -1.0f);
+    vertex[4] = rfVertex::Vertex(-1.0f, -1.0f, 1.0f);
+    vertex[5] = rfVertex::Vertex(-1.0f, 1.0f, 1.0f);
+    vertex[6] = rfVertex::Vertex(1.0f, 1.0f, 1.0f);
+    vertex[7] = rfVertex::Vertex(1.0f, -1.0f, 1.0f);
 
-    // fill in the back face vertex data
-    vertex[4] = rfVertex::VertexCoordinates(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
-    vertex[5] = rfVertex::VertexCoordinates(1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-    vertex[6] = rfVertex::VertexCoordinates(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-    vertex[7] = rfVertex::VertexCoordinates(-1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+    // Once Primitive has been setup unlock the buffer
+    vertexBuffer->GetBuffer()->Unlock();
 
-    // fill in the top face vertex data
-    vertex[8] = rfVertex::VertexCoordinates(-1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
-    vertex[9] = rfVertex::VertexCoordinates(-1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
-    vertex[10] = rfVertex::VertexCoordinates(1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f);
-    vertex[11] = rfVertex::VertexCoordinates(1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f);
+    /*D3DXCreateBox(
+        device,
+        2.0f, // width
+        2.0f, // height
+        2.0f, // depth
+        &defaultMesh,
+        0);
 
-    // fill in the bottom face vertex data
-    vertex[12] = rfVertex::VertexCoordinates(-1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f);
-    vertex[13] = rfVertex::VertexCoordinates(1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f);
-    vertex[14] = rfVertex::VertexCoordinates(1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f);
-    vertex[15] = rfVertex::VertexCoordinates(-1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f);
-
-    // fill in the left face vertex data
-    vertex[16] = rfVertex::VertexCoordinates(-1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-    vertex[17] = rfVertex::VertexCoordinates(-1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-    vertex[18] = rfVertex::VertexCoordinates(-1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f);
-    vertex[19] = rfVertex::VertexCoordinates(-1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-
-    // fill in the right face vertex data
-    vertex[20] = rfVertex::VertexCoordinates(1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-    vertex[21] = rfVertex::VertexCoordinates(1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-    vertex[22] = rfVertex::VertexCoordinates(1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f);
-    vertex[23] = rfVertex::VertexCoordinates(1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+    D3DXMatrixTranslation(&defaultMeshWorldMat, .0f, .0f, .0f);*/
 }
 
 //-----------------------------------------------------------------------------
@@ -432,24 +418,27 @@ void Directx9Renderer::LockIndexBufferMemory()
     _indices[3] = 0; _indices[4] = 2; _indices[5] = 3;
 
     // back side
-    _indices[6] = 4; _indices[7] = 5; _indices[8] = 6;
-    _indices[9] = 4; _indices[10] = 6; _indices[11] = 7;
+    _indices[6] = 4; _indices[7] = 6; _indices[8] = 5;
+    _indices[9] = 4; _indices[10] = 7; _indices[11] = 6;
 
     // left side
-    _indices[12] = 8; _indices[13] = 9; _indices[14] = 10;
-    _indices[15] = 8; _indices[16] = 10; _indices[17] = 11;
+    _indices[12] = 4; _indices[13] = 5; _indices[14] = 1;
+    _indices[15] = 4; _indices[16] = 1; _indices[17] = 0;
 
     // right side
-    _indices[18] = 12; _indices[19] = 13; _indices[20] = 14;
-    _indices[21] = 12; _indices[22] = 14; _indices[23] = 15;
+    _indices[18] = 3; _indices[19] = 2; _indices[20] = 6;
+    _indices[21] = 3; _indices[22] = 6; _indices[23] = 7;
 
     // top
-    _indices[24] = 16; _indices[25] = 17; _indices[26] = 18;
-    _indices[27] = 16; _indices[28] = 18; _indices[29] = 19;
+    _indices[24] = 1; _indices[25] = 5; _indices[26] = 6;
+    _indices[27] = 1; _indices[28] = 6; _indices[29] = 2;
 
     // bottom
-    _indices[30] = 20; _indices[31] = 21; _indices[32] = 22;
-    _indices[33] = 20; _indices[34] = 22; _indices[35] = 23;
+    _indices[30] = 4; _indices[31] = 0; _indices[32] = 3;
+    _indices[33] = 4; _indices[34] = 3; _indices[35] = 7;
+
+    // Once Primitive has been setup unlock the buffer
+    indexBuffer->GetBuffer()->Unlock();
 }
 
 //-----------------------------------------------------------------------------
