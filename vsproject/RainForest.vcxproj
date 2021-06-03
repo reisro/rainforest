@@ -176,6 +176,7 @@
     <ClInclude Include="..\include\Resources\Platform\Directx9IndexBuffer.h" />
     <ClInclude Include="..\include\Resources\Platform\Directx9VertexBuffer.h" />
     <ClInclude Include="..\include\Resources\rfIndexBuffer.h" />
+    <ClInclude Include="..\include\Resources\rfMesh.h" />
     <ClInclude Include="..\include\Resources\rfVertexBuffer.h" />
     <ClInclude Include="..\include\rfBaseTypes.h" />
     <ClInclude Include="..\include\RFGEAPI.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="..\source\Resources\Platform\Directx9IndexBuffer.cpp" />
     <ClCompile Include="..\source\Resources\Platform\Directx9VertexBuffer.cpp" />
     <ClCompile Include="..\source\Resources\rfIndexBuffer.cpp" />
+    <ClCompile Include="..\source\Resources\rfMesh.cpp" />
     <ClCompile Include="..\source\Resources\rfVertexBuffer.cpp" />
     <ClCompile Include="..\source\System\Platform\rfWindowSystem.cpp" />
     <ClCompile Include="..\source\System\Platform\Windows\rfWindowSystemWin32.cpp" />

@@ -26,6 +26,7 @@
 #include "Game/Elements/rfVertex.h"
 #include "Resources/Platform/Directx9VertexBuffer.h"
 #include "Resources/Platform/Directx9IndexBuffer.h"
+#include "Resources/rfMesh.h"
 #include "System/rfApplication.h"
 #include "System/rfConfig.h"
 
@@ -261,6 +262,7 @@ private:
 		std::stack<rfRenderCommand> renderCmdStack;
 
 		rfVertex::Vertex* vertex;
+		rfMesh* mesh;
 };
 
 #endif RFGE_DIRECT3D9_SDK_H_

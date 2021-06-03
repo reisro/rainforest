@@ -156,6 +156,9 @@
     <ClInclude Include="..\include\Game\Elements\Camera.h">
       <Filter>Header Files\Game\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Resources\rfMesh.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="..\source\Game\Elements\Camera.cpp">
       <Filter>Source Files\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Resources\rfMesh.cpp">
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

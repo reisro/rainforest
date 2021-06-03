@@ -110,8 +110,8 @@ bool Directx9Renderer::Initialize()
 //-----------------------------------------------------------------------------
 bool Directx9Renderer::PostInit()
 {
-    vertexBuffer = new Directx9VertexBuffer();
-    indexBuffer = new Directx9IndexBuffer();
+    //vertexBuffer = new Directx9VertexBuffer();
+    //indexBuffer = new Directx9IndexBuffer();
     
     //LockVertexBufferMemory();
 
@@ -119,7 +119,7 @@ bool Directx9Renderer::PostInit()
     CreateDefaultPrimitive();
 
     // Assign the indices for the default cube
-    LockIndexBufferMemory();
+    //LockIndexBufferMemory();
 
     // Default device initialization render
     //rfVertex::VertexColor vertexColor;
@@ -145,10 +145,10 @@ bool Directx9Renderer::PostInit()
     //dsrScene.material = primitiveMaterialStack.top().second;
     //dsrScene.texture = primitiveTextureStack.top().second;
     //dsrScene.isRenderingIndexedPrimitive = true;
-    //dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), D3DXCOLOR(1.0f,1.0f,1.0f,1.0f));
+    dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), D3DXCOLOR(1.0f,1.0f,1.0f,1.0f));
 
     // Data structure that holds camera configuration
-    dsrCamera._Position = new rfVector3(0.0f, 3.0f, -5.0f);
+    dsrCamera._Position = new rfVector3(0.0f, 3.0f, -4.0f);
     dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
     dsrCamera._ratioWidth = 1280;
@@ -166,13 +166,13 @@ bool Directx9Renderer::PostInit()
     //CreateTextureFromFile(filename);
     
     // Turn on the light in the render scene
-    //EnableLight(dsrScene.light, true);
+    EnableLight(dsrScene.light, true);
 
     // Set the render state of the world
     SetRenderState();
 
     // Set texture filter states
-    //SetSamplerState();
+    SetSamplerState();
 
     return true;
 }
@@ -255,11 +255,16 @@ bool Directx9Renderer::endFrame()
     //device->SetTexture(0, dsrScene.texture);
 
     // Check engine rendering draw mode
-    dsrScene.isRenderingIndexedPrimitive ? 
+    /*dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
         sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
-        RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
+        RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");*/
 
+    for (int i = 0; i < Mtrls.size(); i++)
+    {
+        mesh->GetGeometry()->DrawSubset(i);
+    }
+    
     //defaultMesh->DrawSubset(0);
 
     // End rendering scene
@@ -371,7 +376,7 @@ HRESULT Directx9Renderer::CreateDevice()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::CreateDefaultPrimitive()
 {
-    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
+    /*vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
 
     // fill in the front face vertex data
     vertex[0] = rfVertex::Vertex(-1.0f, -1.0f, -1.0f);
@@ -384,7 +389,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     vertex[7] = rfVertex::Vertex(1.0f, -1.0f, 1.0f);
 
     // Once Primitive has been setup unlock the buffer
-    vertexBuffer->GetBuffer()->Unlock();
+    vertexBuffer->GetBuffer()->Unlock();*/
 
     /*D3DXCreateBox(
         device,
@@ -395,6 +400,9 @@ void Directx9Renderer::CreateDefaultPrimitive()
         0);
 
     D3DXMatrixTranslation(&defaultMeshWorldMat, .0f, .0f, .0f);*/
+
+    mesh = new rfMesh(device);
+    mesh->LoadMeshGeometry(L"bench_table.X");
 }
 
 //-----------------------------------------------------------------------------
