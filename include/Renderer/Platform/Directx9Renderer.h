@@ -171,6 +171,7 @@ public:
 		void			  SetRenderState(rfgeDX9RenderState _renderState);
 		void			  SetSamplerState();
 		D3DLIGHT9		  CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color);
+		void			  AdjustLight();
 		void			  EnableLight(D3DLIGHT9 _light, bool value);
 		D3DMATERIAL9      CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power);
 		void              SetMaterial(D3DMATERIAL9* _mat);
@@ -212,13 +213,14 @@ protected:
 		// Data structure that holds rendering scene buffer constants
 		struct dsRenderScene
 		{
-			int clearColor;
-			D3DMATERIAL9 material;
-			IDirect3DTexture9* texture;
-			D3DLIGHT9 light;
-			UINT numberVertices;
-			UINT totalVertices;
-			bool isRenderingIndexedPrimitive;
+			int					clearColor;
+			D3DMATERIAL9		material;
+			IDirect3DTexture9*	texture;
+			D3DLIGHT9			light;
+			UINT				numberVertices;
+			UINT				totalVertices;
+			int					numberMeshes;
+			bool				isRenderingIndexedPrimitive;
 		};
 
 		struct dsRenderCamera
@@ -235,6 +237,15 @@ protected:
 			rfInt        _ratioHeight;
 			rfFloat      _nearPlane;
 			rfFloat      _farPlane;
+		};
+
+		struct dsRenderLight
+		{
+			rfFloat		angleX;
+			rfFloat		angleY;
+			rfFloat		angleZ;
+			D3DXVECTOR3 _Direction;
+			D3DCOLOR	_Color;
 		};
 
 private:
@@ -258,11 +269,13 @@ private:
 		MSG							msg;
 		dsRenderScene				dsrScene;
 		dsRenderCamera				dsrCamera;
+		dsRenderLight				dsrLight;
 
 		std::stack<rfRenderCommand> renderCmdStack;
+		std::vector<rfMesh*>        meshes;
+		std::vector<LPCWSTR>        meshNames;
 
 		rfVertex::Vertex* vertex;
-		rfMesh* mesh;
 };
 
 #endif RFGE_DIRECT3D9_SDK_H_

@@ -115,9 +115,6 @@ bool Directx9Renderer::PostInit()
     
     //LockVertexBufferMemory();
 
-    // Create the default cube for the render scene
-    CreateDefaultPrimitive();
-
     // Assign the indices for the default cube
     //LockIndexBufferMemory();
 
@@ -145,28 +142,36 @@ bool Directx9Renderer::PostInit()
     //dsrScene.material = primitiveMaterialStack.top().second;
     //dsrScene.texture = primitiveTextureStack.top().second;
     //dsrScene.isRenderingIndexedPrimitive = true;
-    dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, D3DXVECTOR3(.0f,.0f,1.0f), D3DXCOLOR(1.0f,1.0f,1.0f,1.0f));
+    dsrScene.numberMeshes = 5;
+
+    dsrLight.angleX = .15f;
+    dsrLight.angleY = 1.0f;
+    dsrLight.angleZ = 0.27f;
+    dsrLight._Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
+    dsrLight._Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+    dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
 
     // Data structure that holds camera configuration
-    dsrCamera._Position = new rfVector3(0.0f, 3.0f, -4.0f);
-    dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
-    dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
+    //dsrCamera._Position = new rfVector3(0.0f, 0.0f, -2.0f);
+   // dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
+   // dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
     dsrCamera._ratioWidth = 1280;
     dsrCamera._ratioHeight = 720;
     dsrCamera._nearPlane = 1.0f;
-    dsrCamera._farPlane = 1000.0f;
+    dsrCamera._farPlane = 10000.0f;
+
+    // Create the default cube for the render scene
+    CreateDefaultPrimitive();
 
     // Set configuration camera to render scene
     CameraSetup();
 
     // Set the material for the default primitive that is going to be rendered
-    //SetDefaultMaterial();
+    SetDefaultMaterial();
 
     // Generate the texture for the default primitive
     //CreateTextureFromFile(filename);
-    
-    // Turn on the light in the render scene
-    EnableLight(dsrScene.light, true);
 
     // Set the render state of the world
     SetRenderState();
@@ -212,9 +217,11 @@ bool Directx9Renderer::beginFrame()
     if (device == NULL)
         return false;
 
-    D3DXMATRIX Ry;
+    // Adjust the light rotation using wasd keyboard keys
+    AdjustLight();
 
-    device->SetTransform(D3DTS_WORLD, &Ry);
+    // Turn on the light in the render scene
+    EnableLight(dsrScene.light, true);
 
     // Instruct the device to set each pixel on the back buffer with default clear color
     device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
@@ -260,12 +267,16 @@ bool Directx9Renderer::endFrame()
         sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");*/
 
-    for (int i = 0; i < Mtrls.size(); i++)
+    for (int i = 0; i < meshes.size(); i++)
     {
-        mesh->GetGeometry()->DrawSubset(i);
+        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
+
+        for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
+        {
+            meshes[i]->GetGeometry()->DrawSubset(j);
+            meshes[i]->SetMaterial(&dsrScene.material);
+        }
     }
-    
-    //defaultMesh->DrawSubset(0);
 
     // End rendering scene
     device->EndScene();
@@ -323,9 +334,9 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 
 void Directx9Renderer::SetRenderState()
 {
-    device->SetRenderState(WIREFRAME.RenderStateType, WIREFRAME.Value);
-    //device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
-    //device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
+    device->SetRenderState(SOLID.RenderStateType, SOLID.Value);
+    device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
+    device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
 }
 
 //-----------------------------------------------------------------------------
@@ -341,8 +352,8 @@ void Directx9Renderer::CameraSetup()
 {
     D3DXMATRIX CameraView;
 
-    D3DXVECTOR3 position(0.0f, 2.0f, -4.0f);
-    D3DXVECTOR3 target(0.0f, 0.0f, 0.0f);
+    D3DXVECTOR3 position(-20.0f, 5.0f, 12.5f);
+    D3DXVECTOR3 target(0.0f, 10.0f, 0.0f);
     D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
 
     // Position and aim the camera
@@ -352,7 +363,7 @@ void Directx9Renderer::CameraSetup()
     D3DXMATRIX Projection;
 
     // Set the perspective projection matrix
-    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, // 90 degrees
+    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.25f, // 90 degrees
         (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
 
     device->SetTransform(D3DTS_PROJECTION, &Projection);
@@ -360,7 +371,7 @@ void Directx9Renderer::CameraSetup()
 
 void Directx9Renderer::SetDefaultMaterial()
 {
-    dsrScene.material = CreateD3DMaterial((D3DXCOLOR) WHITE.Red, (D3DXCOLOR)WHITE.Red, (D3DXCOLOR)WHITE.Red, (D3DXCOLOR)NOEMISSIVE.Red, 5.0f);
+   dsrScene.material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(255.0f/255.0f, 140.0f/250.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
 }
 
 //-----------------------------------------------------------------------------
@@ -397,12 +408,31 @@ void Directx9Renderer::CreateDefaultPrimitive()
         2.0f, // height
         2.0f, // depth
         &defaultMesh,
-        0);
+        0);*/
 
-    D3DXMatrixTranslation(&defaultMeshWorldMat, .0f, .0f, .0f);*/
+    // Loading  Resources
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
+    //meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Outter.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Bench.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
 
-    mesh = new rfMesh(device);
-    mesh->LoadMeshGeometry(L"bench_table.X");
+    for (int i = 0; i < meshNames.size(); i++)
+    {
+        meshes.push_back(new rfMesh(device));
+        meshes[i]->LoadMeshGeometry(meshNames[i]);
+        D3DXMatrixTranslation(&meshes[i]->worldPosition, .0f, .0f, .0f);
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -476,6 +506,29 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
     light.Specular = _color * 0.2f;
 
     return light;
+}
+
+void Directx9Renderer::AdjustLight()
+{
+    if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
+        dsrLight.angleX += 0.5f * 2.0f;
+
+    if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
+        dsrLight.angleX -= 0.5f * 2.0f;
+
+    if (::GetAsyncKeyState(VK_UP) & 0x8000f)
+        dsrLight.angleZ -= 0.5f * 2.0f;
+
+    if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
+        dsrLight.angleZ += 0.5f * 2.0f;
+
+    if (::GetAsyncKeyState(VK_DOWN) & 0x57f)
+        dsrLight.angleY -= 0.5f * 2.0f;
+
+    if (::GetAsyncKeyState(VK_DOWN) & 0x53f)
+        dsrLight.angleY += 0.5f * 2.0f;
+
+    dsrScene.light.Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
 }
 
 void Directx9Renderer::EnableLight(D3DLIGHT9 _light, bool value)

@@ -4,6 +4,7 @@
 rfMesh::rfMesh(IDirect3DDevice9* device)
 {
 	renderDevice = device;
+	materialBuffer = 0;
 }
 
 rfMesh::~rfMesh()
@@ -67,7 +68,12 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 	return true;
 }
 
+void rfMesh::SetMaterial(D3DMATERIAL9* _mat)
+{
+	renderDevice->SetMaterial(_mat);
+}
+
 int rfMesh::GetNumberMaterials() const
 {
-	return 0;
+	return materials.size();
 }

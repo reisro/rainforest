@@ -20,11 +20,14 @@ class rfMesh
 {
 public:
 
+	D3DXMATRIX  worldPosition;
+
 	rfMesh(IDirect3DDevice9* device);
 	~rfMesh();
 
 	ID3DXMesh* GetGeometry() const;
 	bool LoadMeshGeometry(LPCWSTR filename);
+	void SetMaterial(D3DMATERIAL9* _mat);
 	int GetNumberMaterials() const;
 
 private:
