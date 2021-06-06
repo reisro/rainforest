@@ -24,6 +24,7 @@ Directx9Renderer::Directx9Renderer():
     renderCmdStack = {};
     Singleton = this;
     renderCamera = new Camera();
+    renderCamera->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 2.0f));
 
     vertexBuffer = 0;
     indexBuffer = 0;
@@ -71,7 +72,7 @@ bool Directx9Renderer::Initialize()
     dx9deviceCaps.presentParameters.BackBufferHeight = height;
     dx9deviceCaps.presentParameters.BackBufferFormat = D3DFMT_A8R8G8B8;
     dx9deviceCaps.presentParameters.BackBufferCount = 1;
-    dx9deviceCaps.presentParameters.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+    dx9deviceCaps.presentParameters.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
     dx9deviceCaps.presentParameters.MultiSampleQuality = 0;
     dx9deviceCaps.presentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
     dx9deviceCaps.presentParameters.hDeviceWindow = renderWindow;
@@ -144,9 +145,9 @@ bool Directx9Renderer::PostInit()
     //dsrScene.isRenderingIndexedPrimitive = true;
     dsrScene.numberMeshes = 5;
 
-    dsrLight.angleX = .15f;
-    dsrLight.angleY = 1.0f;
-    dsrLight.angleZ = 0.27f;
+    dsrLight.angleX = 0.707f;
+    dsrLight.angleY = -0.707f;
+    dsrLight.angleZ = 0.707f;
     dsrLight._Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
     dsrLight._Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -156,8 +157,8 @@ bool Directx9Renderer::PostInit()
     //dsrCamera._Position = new rfVector3(0.0f, 0.0f, -2.0f);
    // dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
    // dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
-    dsrCamera._ratioWidth = 1280;
-    dsrCamera._ratioHeight = 720;
+    dsrCamera._ratioWidth = 1920;
+    dsrCamera._ratioHeight = 1080;
     dsrCamera._nearPlane = 1.0f;
     dsrCamera._farPlane = 10000.0f;
 
@@ -216,6 +217,30 @@ bool Directx9Renderer::beginFrame()
     // Renderer device check
     if (device == NULL)
         return false;
+
+    D3DXMATRIX CameraView;
+
+    if (::GetAsyncKeyState('W') & 0x8000f)
+        renderCamera->Move(100.0f * timeDelta);
+
+    if (::GetAsyncKeyState('S') & 0x8000f)
+        renderCamera->Move(-100.0f * timeDelta);
+
+    if (::GetAsyncKeyState('A') & 0x8000f)
+        renderCamera->Yaw(-2.5f * timeDelta);
+
+    if (::GetAsyncKeyState('D') & 0x8000f)
+        renderCamera->Yaw(2.5f * timeDelta);
+
+    if (::GetAsyncKeyState('Q') & 0x8000f)
+        renderCamera->MoveUp(100.0f * timeDelta);
+
+    if (::GetAsyncKeyState('Z') & 0x8000f)
+        renderCamera->MoveUp(-100.0f * timeDelta);
+
+    // Build camera view matrix according to keyboard input
+    CameraView = renderCamera->BuildViewMatrix();
+    device->SetTransform(D3DTS_VIEW, &CameraView);
 
     // Adjust the light rotation using wasd keyboard keys
     AdjustLight();
@@ -336,7 +361,7 @@ void Directx9Renderer::SetRenderState()
 {
     device->SetRenderState(SOLID.RenderStateType, SOLID.Value);
     device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
-    device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
+    device->SetRenderState(SPECULARENABLEON.RenderStateType, SPECULARENABLEON.Value);
 }
 
 //-----------------------------------------------------------------------------
@@ -350,20 +375,10 @@ void Directx9Renderer::Cleanup()
 
 void Directx9Renderer::CameraSetup()
 {
-    D3DXMATRIX CameraView;
-
-    D3DXVECTOR3 position(-20.0f, 5.0f, 12.5f);
-    D3DXVECTOR3 target(0.0f, 10.0f, 0.0f);
-    D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
-
-    // Position and aim the camera
-    D3DXMatrixLookAtLH(&CameraView, &position, &target, &up);
-    device->SetTransform(D3DTS_VIEW, &CameraView);
-
-    D3DXMATRIX Projection;
+    D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
 
     // Set the perspective projection matrix
-    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.25f, // 90 degrees
+    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.333333f, // 45 degrees
         (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
 
     device->SetTransform(D3DTS_PROJECTION, &Projection);
@@ -371,7 +386,7 @@ void Directx9Renderer::CameraSetup()
 
 void Directx9Renderer::SetDefaultMaterial()
 {
-   dsrScene.material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(255.0f/255.0f, 140.0f/250.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
+   dsrScene.material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
 }
 
 //-----------------------------------------------------------------------------
@@ -415,7 +430,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    //meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Outter.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
@@ -501,9 +516,10 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
 
     light.Type = _type;
     light.Direction = _direction;
-    light.Ambient = _color * 0.5f;
+    light.Ambient = _color * 0.4f;
     light.Diffuse = _color;
-    light.Specular = _color * 0.2f;
+    light.Specular = _color * 0.6f;
+    light.Falloff = 0.5f;
 
     return light;
 }
@@ -511,22 +527,22 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
 void Directx9Renderer::AdjustLight()
 {
     if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
-        dsrLight.angleX += 0.5f * 2.0f;
+        dsrLight.angleX += 2.0f;
 
     if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
-        dsrLight.angleX -= 0.5f * 2.0f;
+        dsrLight.angleX -= 2.0f;
 
     if (::GetAsyncKeyState(VK_UP) & 0x8000f)
-        dsrLight.angleZ -= 0.5f * 2.0f;
+        dsrLight.angleZ -= 2.0f;
 
     if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
-        dsrLight.angleZ += 0.5f * 2.0f;
+        dsrLight.angleZ += 2.0f;
 
-    if (::GetAsyncKeyState(VK_DOWN) & 0x57f)
-        dsrLight.angleY -= 0.5f * 2.0f;
+    if (::GetAsyncKeyState('E') & 0x8000f)
+        dsrLight.angleY -= 2.0f;
 
-    if (::GetAsyncKeyState(VK_DOWN) & 0x53f)
-        dsrLight.angleY += 0.5f * 2.0f;
+    if (::GetAsyncKeyState('R') & 0x8000f)
+        dsrLight.angleY += 2.0f;
 
     dsrScene.light.Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
 }

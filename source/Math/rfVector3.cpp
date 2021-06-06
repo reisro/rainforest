@@ -21,7 +21,7 @@ rfVector3::rfVector3(const rfVector3& _vector)
 
 rfVector3::~rfVector3()
 {
-    delete this;
+    
 }
 
 rfFloat rfVector3::xValue() const
