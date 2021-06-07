@@ -44,6 +44,8 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 		for (int i = 0; i < numberMaterials; i++)
 		{
 			mtrls[i].MatD3D.Ambient = mtrls[i].MatD3D.Diffuse;
+			
+			SetMaterial(&mtrls[i].MatD3D);
 
 			materials.push_back(mtrls[i].MatD3D);
 

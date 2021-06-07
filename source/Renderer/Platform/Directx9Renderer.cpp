@@ -299,7 +299,7 @@ bool Directx9Renderer::endFrame()
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
             meshes[i]->GetGeometry()->DrawSubset(j);
-            meshes[i]->SetMaterial(&dsrScene.material);
+            //meshes[i]->SetMaterial(&dsrScene.material);
         }
     }
 
@@ -359,9 +359,9 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 
 void Directx9Renderer::SetRenderState()
 {
-    device->SetRenderState(SOLID.RenderStateType, SOLID.Value);
+    device->SetRenderState(GOURAUDSHADING.RenderStateType, GOURAUDSHADING.Value);
     device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
-    device->SetRenderState(SPECULARENABLEON.RenderStateType, SPECULARENABLEON.Value);
+    device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
 }
 
 //-----------------------------------------------------------------------------
