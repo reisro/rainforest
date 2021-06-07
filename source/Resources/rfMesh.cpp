@@ -17,6 +17,11 @@ ID3DXMesh* rfMesh::GetGeometry() const
 	return geometry;
 }
 
+std::vector<D3DMATERIAL9> rfMesh::GetMaterial() const
+{
+	return materials;
+}
+
 bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 {
 	HRESULT hr;
@@ -30,6 +35,8 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 		0,
 		&numberMaterials,
 		&geometry);
+
+		D3DXMatrixTranslation(&this->worldPosition, .0f, .0f, .0f);
 
 	if (FAILED(hr))
 	{
@@ -45,7 +52,7 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 		{
 			mtrls[i].MatD3D.Ambient = mtrls[i].MatD3D.Diffuse;
 			
-			SetMaterial(&mtrls[i].MatD3D);
+			//SetMaterial(&mtrls[i].MatD3D);
 
 			materials.push_back(mtrls[i].MatD3D);
 
@@ -66,6 +73,7 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 			}
 		}
 	}
+	
 
 	return true;
 }

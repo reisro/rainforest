@@ -299,7 +299,7 @@ bool Directx9Renderer::endFrame()
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
             meshes[i]->GetGeometry()->DrawSubset(j);
-            //meshes[i]->SetMaterial(&dsrScene.material);
+            meshes[i]->SetMaterial(&meshes[i]->GetMaterial()[0]);
         }
     }
 
@@ -432,8 +432,8 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Outter.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
     meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
@@ -446,7 +446,6 @@ void Directx9Renderer::CreateDefaultPrimitive()
     {
         meshes.push_back(new rfMesh(device));
         meshes[i]->LoadMeshGeometry(meshNames[i]);
-        D3DXMatrixTranslation(&meshes[i]->worldPosition, .0f, .0f, .0f);
     }
 }
 

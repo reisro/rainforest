@@ -26,6 +26,7 @@ public:
 	~rfMesh();
 
 	ID3DXMesh* GetGeometry() const;
+	std::vector<D3DMATERIAL9> GetMaterial() const;
 	bool LoadMeshGeometry(LPCWSTR filename);
 	void SetMaterial(D3DMATERIAL9* _mat);
 	int GetNumberMaterials() const;
