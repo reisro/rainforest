@@ -18,6 +18,8 @@
 #include <d3dx9.h>
 #include <d3d9types.h>
 #include <stack>
+#include <string>
+#include <stdio.h>
 #include "Game/Elements/Camera.h"
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"
@@ -178,6 +180,7 @@ public:
 		void			  CreateTextureFromFile(LPCWSTR filename);
 
 		void			  drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF);
+		void			  ShowFPS();
 
 		IDirect3DDevice9*               GetDevice()	const;
 		IDirect3DVertexBuffer9*			GetVertexBuffer() const;
@@ -225,18 +228,19 @@ protected:
 
 		struct dsRenderCamera
 		{
-			rfVector3*    _Position;
-			rfVector3*    _Direction;
-			rfVector3*    _Target;
-			rfVector3*    _Up;
-			rfVector3*    _Right;
-			rfVector3*    _Forward;
-			D3DXMATRIX    _View;
-			D3DXMATRIX    _Proj;
-			rfInt        _ratioWidth;
-			rfInt        _ratioHeight;
-			rfFloat      _nearPlane;
-			rfFloat      _farPlane;
+			rfVector3*      _Position;
+			rfVector3*      _Direction;
+			rfVector3*      _Target;
+			rfVector3*      _Up;
+			rfVector3*      _Right;
+			rfVector3*      _Forward;
+			D3DXMATRIX      _View;
+			D3DXMATRIX      _Proj;
+			rfInt          _ratioWidth;
+			rfInt          _ratioHeight;
+			rfFloat        _nearPlane;
+			rfFloat        _farPlane;
+			D3DXFONT_DESCA  _debugFPS;
 		};
 
 		struct dsRenderLight
@@ -263,6 +267,7 @@ private:
 		Directx9VertexBuffer*		vertexBuffer;
 		Directx9IndexBuffer*		indexBuffer;
 		HWND						renderWindow;
+		ID3DXFont*                  Font;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
 		Camera*                     renderCamera;
 		D3DDEVTYPE					deviceType;

@@ -28,6 +28,7 @@ Directx9Renderer::Directx9Renderer():
 
     vertexBuffer = 0;
     indexBuffer = 0;
+    Font = 0;
 
     SetRenderWindow(rfWindowSystem::GetInstance());
 }
@@ -154,13 +155,29 @@ bool Directx9Renderer::PostInit()
     dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
    
     // Data structure that holds camera configuration
-    //dsrCamera._Position = new rfVector3(0.0f, 0.0f, -2.0f);
-   // dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
-   // dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
+    dsrCamera._Position = new rfVector3(0.0f, 0.0f, -2.0f);
+    dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
+    dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
     dsrCamera._ratioWidth = 1920;
     dsrCamera._ratioHeight = 1080;
     dsrCamera._nearPlane = 1.0f;
     dsrCamera._farPlane = 10000.0f;
+
+    // Initialize the font
+    ZeroMemory(&dsrCamera._debugFPS, sizeof(D3DXFONT_DESC));
+
+    dsrCamera._debugFPS.Height = 25;    // in logical units
+    dsrCamera._debugFPS.Width = 12;    // in logical units
+    dsrCamera._debugFPS.Weight = 500;   // boldness, range 0(light) - 1000(bold)
+    dsrCamera._debugFPS.MipLevels = D3DX_DEFAULT;
+    dsrCamera._debugFPS.Italic = false;
+    dsrCamera._debugFPS.CharSet = DEFAULT_CHARSET;
+    dsrCamera._debugFPS.OutputPrecision = 0;
+    dsrCamera._debugFPS.Quality = 0;
+    dsrCamera._debugFPS.PitchAndFamily = 0;
+    strcpy_s(dsrCamera._debugFPS.FaceName, "Arial"); // font style
+
+    ShowFPS();
 
     // Create the default cube for the render scene
     CreateDefaultPrimitive();
@@ -262,7 +279,7 @@ bool Directx9Renderer::endFrame()
     RFGE_LOG("End Frame Render.");
 
     // call base class implementation
-    rfRenderer::endFrame();
+    //rfRenderer::endFrame();
 
     // Removing data from all stacks
     //while (clearColorStack.size() > 1)
@@ -288,6 +305,19 @@ bool Directx9Renderer::endFrame()
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
         sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");*/
+
+    static char FPSString[32];
+    RECT rect = { 10, 10, 1440, 900 };
+
+    sprintf_s(FPSString, "FPS = %.1f", 1.0f/timeDelta);
+
+    Font->DrawText(
+        NULL,
+        (LPCWSTR) FPSString,
+        -1, // size of string or -1 indicates null terminating string
+        &rect,            // rectangle text is to be formatted to in windows coords
+        DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+        0xffffffff);      // black text
 
     device->SetTransform(D3DTS_WORLD, &defaultMeshWorldMat);
 
@@ -427,21 +457,22 @@ void Directx9Renderer::CreateDefaultPrimitive()
         0);
 
     // Loading  Resources
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\bench_table.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\long_bench.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\stands.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\standsBase_plates.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\arena_Walls.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\base_Ground.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\court_Inner.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\court_GameOutter.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\Net.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Frame.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Antenna.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Bench.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Pillars.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_SafetyPillars.x");
-    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\hook_Bindings.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Bench.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
+    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\seat_yellow.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {
@@ -497,10 +528,15 @@ void Directx9Renderer::LockIndexBufferMemory()
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
+
 void Directx9Renderer::SetRenderState(rfgeDX9RenderState _renderState)
 {
     device->SetRenderState(_renderState.RenderStateType, _renderState.Value);
 }
+
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 
 void Directx9Renderer::SetSamplerState()
 {
@@ -508,6 +544,10 @@ void Directx9Renderer::SetSamplerState()
     device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
     device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 }
+
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 
 D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color)
 {
@@ -523,6 +563,10 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
 
     return light;
 }
+
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 
 void Directx9Renderer::AdjustLight()
 {
@@ -550,12 +594,18 @@ void Directx9Renderer::AdjustLight()
     EnableLight(dsrScene.light, true);
 }
 
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 void Directx9Renderer::EnableLight(D3DLIGHT9 _light, bool value)
 {
     device->SetLight(0, &_light);
     device->LightEnable(0, value);
 }
 
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 D3DMATERIAL9 Directx9Renderer::CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power)
 {
     D3DMATERIAL9 mat;
@@ -570,10 +620,16 @@ D3DMATERIAL9 Directx9Renderer::CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _
     return mat;
 }
 
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 void Directx9Renderer::SetMaterial(D3DMATERIAL9* _mat)
 {
 }
 
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 void Directx9Renderer::CreateTextureFromFile(LPCWSTR filename)
 {
     D3DXCreateTextureFromFile(device, filename, &dsrScene.texture);
@@ -592,6 +648,25 @@ void Directx9Renderer::drawIndexedPrimitive(UINT _numberVertices, UINT _totalVer
     device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, _numberVertices, 0, _totalVertices);
 }
 
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
+void Directx9Renderer::ShowFPS()
+{
+    HRESULT hr;
+
+    hr = (D3DXCreateFontIndirectA(device, &dsrCamera._debugFPS, &Font));
+    
+    if (FAILED(hr))
+    {
+        ::MessageBox(0, L"D3DXCreateFontIndirect() - FAILED", 0, 0);
+        ::PostQuitMessage(0);
+    }
+}
+
+//--------------------------------------------------------------------------------------
+// Updates the frames/sec stat once per second
+//--------------------------------------------------------------------------------------
 IDirect3DDevice9* Directx9Renderer::GetDevice() const
 {
     return device;
