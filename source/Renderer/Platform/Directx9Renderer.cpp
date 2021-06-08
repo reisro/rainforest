@@ -152,7 +152,7 @@ bool Directx9Renderer::PostInit()
     dsrLight._Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
     dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
-
+   
     // Data structure that holds camera configuration
     //dsrCamera._Position = new rfVector3(0.0f, 0.0f, -2.0f);
    // dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
@@ -245,9 +245,6 @@ bool Directx9Renderer::beginFrame()
     // Adjust the light rotation using wasd keyboard keys
     AdjustLight();
 
-    // Turn on the light in the render scene
-    EnableLight(dsrScene.light, true);
-
     // Instruct the device to set each pixel on the back buffer with default clear color
     device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
 
@@ -287,10 +284,14 @@ bool Directx9Renderer::endFrame()
     //device->SetTexture(0, dsrScene.texture);
 
     // Check engine rendering draw mode
-    /*dsrScene.isRenderingIndexedPrimitive ? 
+    /*!dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
         sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");*/
+
+    device->SetTransform(D3DTS_WORLD, &defaultMeshWorldMat);
+
+    defaultMesh->DrawSubset(0);
 
     for (int i = 0; i < meshes.size(); i++)
     {
@@ -299,7 +300,7 @@ bool Directx9Renderer::endFrame()
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
             meshes[i]->GetGeometry()->DrawSubset(j);
-            meshes[i]->SetMaterial(&meshes[i]->GetMaterial()[0]);
+            device->SetMaterial(&meshes[i]->GetMaterial()[0]);
         }
     }
 
@@ -359,7 +360,7 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 
 void Directx9Renderer::SetRenderState()
 {
-    device->SetRenderState(GOURAUDSHADING.RenderStateType, GOURAUDSHADING.Value);
+    device->SetRenderState(FLATSHADING.RenderStateType, FLATSHADING.Value);
     device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
     device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
 }
@@ -378,7 +379,7 @@ void Directx9Renderer::CameraSetup()
     D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
 
     // Set the perspective projection matrix
-    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.333333f, // 45 degrees
+    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, // 45 degrees
         (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
 
     device->SetTransform(D3DTS_PROJECTION, &Projection);
@@ -417,30 +418,30 @@ void Directx9Renderer::CreateDefaultPrimitive()
     // Once Primitive has been setup unlock the buffer
     vertexBuffer->GetBuffer()->Unlock();*/
 
-    /*D3DXCreateBox(
+    D3DXCreateBox(
         device,
         2.0f, // width
         2.0f, // height
         2.0f, // depth
         &defaultMesh,
-        0);*/
+        0);
 
     // Loading  Resources
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Bench.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\bench_table.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\long_bench.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\standsBase_plates.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\base_Ground.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\court_Inner.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\court_GameOutter.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\Net.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Frame.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Antenna.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Bench.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_Pillars.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\net_SafetyPillars.x");
+    meshNames.push_back(L"E:\\Cpp\\rainforest\\games\\Assets\\hook_Bindings.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {
@@ -544,6 +545,9 @@ void Directx9Renderer::AdjustLight()
         dsrLight.angleY += 2.0f;
 
     dsrScene.light.Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
+
+    // Turn on the light in the render scene
+    EnableLight(dsrScene.light, true);
 }
 
 void Directx9Renderer::EnableLight(D3DLIGHT9 _light, bool value)
