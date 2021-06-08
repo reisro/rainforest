@@ -54,7 +54,7 @@ bool Directx9Renderer::Initialize()
     // Check if the device creation fails
     if (!d3d9)
     {
-        ::MessageBox(0, L"Direct3DCreate9()-FAILED", 0, 0);
+        ::MessageBox(0, "Direct3DCreate9()-FAILED", 0, 0);
         return false;
     }
 
@@ -97,7 +97,7 @@ bool Directx9Renderer::Initialize()
     if (FAILED(hr))
     {
         d3d9->Release();
-        ::MessageBox(0, L"CreateDevice() - FAILED", 0, 0);
+        ::MessageBox(0, "CreateDevice() - FAILED", 0, 0);
         return false;
     }
 
@@ -171,7 +171,7 @@ bool Directx9Renderer::PostInit()
     dsrCamera._debugFPS.Weight = 500;   // boldness, range 0(light) - 1000(bold)
     dsrCamera._debugFPS.MipLevels = D3DX_DEFAULT;
     dsrCamera._debugFPS.Italic = false;
-    dsrCamera._debugFPS.CharSet = DEFAULT_CHARSET;
+    dsrCamera._debugFPS.CharSet = ANSI_CHARSET;
     dsrCamera._debugFPS.OutputPrecision = 0;
     dsrCamera._debugFPS.Quality = 0;
     dsrCamera._debugFPS.PitchAndFamily = 0;
@@ -307,13 +307,13 @@ bool Directx9Renderer::endFrame()
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");*/
 
     static char FPSString[32];
-    RECT rect = { 10, 10, 1440, 900 };
-
+    RECT rect = { 5, 5, 1280, 720 };
+    SetRect(&rect, 0, 0,500,30);
     sprintf_s(FPSString, "FPS = %.1f", 1.0f/timeDelta);
 
     Font->DrawText(
         NULL,
-        (LPCWSTR) FPSString,
+        FPSString,
         -1, // size of string or -1 indicates null terminating string
         &rect,            // rectangle text is to be formatted to in windows coords
         DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
@@ -457,22 +457,22 @@ void Directx9Renderer::CreateDefaultPrimitive()
         0);
 
     // Loading  Resources
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Bench.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
-    meshNames.push_back(L"D:\\DirectX\\rainforest\\games\\Assets\\seat_yellow.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Bench.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seat_yellow.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {
@@ -630,7 +630,7 @@ void Directx9Renderer::SetMaterial(D3DMATERIAL9* _mat)
 //--------------------------------------------------------------------------------------
 // Updates the frames/sec stat once per second
 //--------------------------------------------------------------------------------------
-void Directx9Renderer::CreateTextureFromFile(LPCWSTR filename)
+void Directx9Renderer::CreateTextureFromFile(LPCSTR filename)
 {
     D3DXCreateTextureFromFile(device, filename, &dsrScene.texture);
 }
@@ -655,11 +655,14 @@ void Directx9Renderer::ShowFPS()
 {
     HRESULT hr;
 
-    hr = (D3DXCreateFontIndirectA(device, &dsrCamera._debugFPS, &Font));
+    hr = (D3DXCreateFont(device, 20, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET,
+        OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &Font));
+
+    //hr = (D3DXCreateFontIndirectA(device, &dsrCamera._debugFPS, &Font));
     
     if (FAILED(hr))
     {
-        ::MessageBox(0, L"D3DXCreateFontIndirect() - FAILED", 0, 0);
+        ::MessageBox(0, "D3DXCreateFontIndirect() - FAILED", 0, 0);
         ::PostQuitMessage(0);
     }
 }

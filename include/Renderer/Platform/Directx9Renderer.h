@@ -177,7 +177,7 @@ public:
 		void			  EnableLight(D3DLIGHT9 _light, bool value);
 		D3DMATERIAL9      CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power);
 		void              SetMaterial(D3DMATERIAL9* _mat);
-		void			  CreateTextureFromFile(LPCWSTR filename);
+		void			  CreateTextureFromFile(LPCSTR filename);
 
 		void			  drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF);
 		void			  ShowFPS();
@@ -278,7 +278,7 @@ private:
 
 		std::stack<rfRenderCommand> renderCmdStack;
 		std::vector<rfMesh*>        meshes;
-		std::vector<LPCWSTR>        meshNames;
+		std::vector<LPCSTR>        meshNames;
 
 		rfVertex::Vertex* vertex;
 };

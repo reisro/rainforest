@@ -22,7 +22,7 @@ std::vector<D3DMATERIAL9> rfMesh::GetMaterial() const
 	return materials;
 }
 
-bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
+bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 {
 	HRESULT hr;
 
@@ -40,7 +40,7 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 
 	if (FAILED(hr))
 	{
-		::MessageBox(0, L"D3DXLoadMeshFromX() - FAILED", 0, 0);
+		::MessageBox(0, "D3DXLoadMeshFromX() - FAILED", 0, 0);
 		return false;
 	}
 
@@ -62,7 +62,7 @@ bool rfMesh::LoadMeshGeometry(LPCWSTR filename)
 
 				D3DXCreateTextureFromFile(
 					renderDevice,
-					(LPCWSTR) mtrls[i].pTextureFilename,
+					mtrls[i].pTextureFilename,
 					&texture);
 
 				textures.push_back(texture);
