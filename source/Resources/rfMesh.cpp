@@ -26,7 +26,7 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 {
 	HRESULT hr;
 
-	hr = D3DXLoadMeshFromX(
+	hr = D3DXLoadMeshFromXA(
 		filename,
 		D3DXMESH_MANAGED,
 		renderDevice,
@@ -40,7 +40,7 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 
 	if (FAILED(hr))
 	{
-		::MessageBox(0, "D3DXLoadMeshFromX() - FAILED", 0, 0);
+		::MessageBox(0, L"D3DXLoadMeshFromX() - FAILED", 0, 0);
 		return false;
 	}
 
@@ -60,7 +60,7 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 			{
 				IDirect3DTexture9* texture = 0;
 
-				D3DXCreateTextureFromFile(
+				D3DXCreateTextureFromFileA(
 					renderDevice,
 					mtrls[i].pTextureFilename,
 					&texture);

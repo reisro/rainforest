@@ -24,7 +24,7 @@ Directx9Renderer::Directx9Renderer():
     renderCmdStack = {};
     Singleton = this;
     renderCamera = new Camera();
-    renderCamera->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 2.0f));
+    renderCamera->SetPosition(rfVector3::Zero()->toD3DVECTOR3());
 
     vertexBuffer = 0;
     indexBuffer = 0;
@@ -54,7 +54,7 @@ bool Directx9Renderer::Initialize()
     // Check if the device creation fails
     if (!d3d9)
     {
-        ::MessageBox(0, "Direct3DCreate9()-FAILED", 0, 0);
+        ::MessageBoxA(0, "Direct3DCreate9()-FAILED", 0, 0);
         return false;
     }
 
@@ -97,7 +97,7 @@ bool Directx9Renderer::Initialize()
     if (FAILED(hr))
     {
         d3d9->Release();
-        ::MessageBox(0, "CreateDevice() - FAILED", 0, 0);
+        ::MessageBoxA(0, "CreateDevice() - FAILED", 0, 0);
         return false;
     }
 
@@ -112,18 +112,18 @@ bool Directx9Renderer::Initialize()
 //-----------------------------------------------------------------------------
 bool Directx9Renderer::PostInit()
 {
-    //vertexBuffer = new Directx9VertexBuffer();
-    //indexBuffer = new Directx9IndexBuffer();
+    vertexBuffer = new Directx9VertexBuffer();
+    indexBuffer = new Directx9IndexBuffer();
     
-    //LockVertexBufferMemory();
+    LockVertexBufferMemory();
 
     // Assign the indices for the default cube
-    //LockIndexBufferMemory();
+    LockIndexBufferMemory();
 
     // Default device initialization render
-    //rfVertex::VertexColor vertexColor;
-    //D3DMATERIAL9 defaultMaterial;
-    //LPCWSTR filename = L"crate.jpg";
+    rfVertex::VertexColor vertexColor;
+    D3DMATERIAL9 defaultMaterial;
+    LPCWSTR filename = L"crate.jpg";
 
     // Set the index primitive default values
     IndexedPrimitiveSize defaultIndexedPrimitive;
@@ -131,19 +131,19 @@ bool Directx9Renderer::PostInit()
     defaultIndexedPrimitive.totalVertices = 12;
 
     // Stack Default Values initialization
-    //clearColorStack.push({ rfRenderCommand::CommandType::ClearColor, 0x333333 });
-    //defaultPrimitiveStack.push({ rfRenderCommand::PrimitiveType::Cube, vertexColor });
-    //primitiveMaterialStack.push({ rfRenderCommand::CommandType::CreateMaterial, defaultMaterial });
-    //primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene.texture});
-    //sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
+    clearColorStack.push({ rfRenderCommand::CommandType::ClearColor, 0x333333 });
+    defaultPrimitiveStack.push({ rfRenderCommand::PrimitiveType::Cube, vertexColor });
+    primitiveMaterialStack.push({ rfRenderCommand::CommandType::CreateMaterial, defaultMaterial });
+    primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene.texture});
+    sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
 
     // Buffer data structure that holds the default rendering scene types
-    //dsrScene.numberVertices = defaultIndexedPrimitive.numberVertices;
-    //dsrScene.totalVertices = defaultIndexedPrimitive.totalVertices;
-    //dsrScene.clearColor = clearColorStack.top().second;
-    //dsrScene.material = primitiveMaterialStack.top().second;
-    //dsrScene.texture = primitiveTextureStack.top().second;
-    //dsrScene.isRenderingIndexedPrimitive = true;
+    dsrScene.numberVertices = defaultIndexedPrimitive.numberVertices;
+    dsrScene.totalVertices = defaultIndexedPrimitive.totalVertices;
+    dsrScene.clearColor = clearColorStack.top().second;
+    dsrScene.material = primitiveMaterialStack.top().second;
+    dsrScene.texture = primitiveTextureStack.top().second;
+    dsrScene.isRenderingIndexedPrimitive = true;
     dsrScene.numberMeshes = 5;
 
     dsrLight.angleX = 0.707f;
@@ -278,40 +278,34 @@ bool Directx9Renderer::endFrame()
 {
     RFGE_LOG("End Frame Render.");
 
-    // call base class implementation
-    //rfRenderer::endFrame();
+    // Removing data from all stacks
+    while (clearColorStack.size() > 1)
+        clearColorStack.pop();
 
     // Removing data from all stacks
-    //while (clearColorStack.size() > 1)
-        //clearColorStack.pop();
+    while (defaultPrimitiveStack.size() > 0)
+        defaultPrimitiveStack.pop();
 
     // Removing data from all stacks
-    //while (defaultPrimitiveStack.size() > 0)
-        //defaultPrimitiveStack.pop();
+    while (primitiveMaterialStack.size() > 0)
+        primitiveMaterialStack.pop();
 
     // Removing data from all stacks
-    //while (primitiveMaterialStack.size() > 0)
-        //primitiveMaterialStack.pop();
-
-    // Removing data from all stacks
-    //while (primitiveTextureStack.size() > 0)
-        //primitiveTextureStack.pop();
-
-    //device->SetMaterial(&dsrScene.material);
-    //device->SetTexture(0, dsrScene.texture);
+    while (primitiveTextureStack.size() > 0)
+        primitiveTextureStack.pop();
 
     // Check engine rendering draw mode
-    /*!dsrScene.isRenderingIndexedPrimitive ? 
+    !dsrScene.isRenderingIndexedPrimitive ? 
         drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
         sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
-        RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");*/
+        RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
     SetRect(&rect, 0, 0,500,30);
     sprintf_s(FPSString, "FPS = %.1f", 1.0f/timeDelta);
 
-    Font->DrawText(
+    Font->DrawTextA(
         NULL,
         FPSString,
         -1, // size of string or -1 indicates null terminating string
@@ -433,7 +427,7 @@ HRESULT Directx9Renderer::CreateDevice()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::CreateDefaultPrimitive()
 {
-    /*vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
+    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
 
     // fill in the front face vertex data
     vertex[0] = rfVertex::Vertex(-1.0f, -1.0f, -1.0f);
@@ -446,7 +440,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     vertex[7] = rfVertex::Vertex(1.0f, -1.0f, 1.0f);
 
     // Once Primitive has been setup unlock the buffer
-    vertexBuffer->GetBuffer()->Unlock();*/
+    vertexBuffer->GetBuffer()->Unlock();
 
     D3DXCreateBox(
         device,
@@ -632,7 +626,7 @@ void Directx9Renderer::SetMaterial(D3DMATERIAL9* _mat)
 //--------------------------------------------------------------------------------------
 void Directx9Renderer::CreateTextureFromFile(LPCSTR filename)
 {
-    D3DXCreateTextureFromFile(device, filename, &dsrScene.texture);
+    D3DXCreateTextureFromFileA(device, filename, &dsrScene.texture);
 }
 
 //-----------------------------------------------------------------------------
@@ -655,14 +649,14 @@ void Directx9Renderer::ShowFPS()
 {
     HRESULT hr;
 
-    hr = (D3DXCreateFont(device, 20, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET,
+    hr = (D3DXCreateFontA(device, 20, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET,
         OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &Font));
 
     //hr = (D3DXCreateFontIndirectA(device, &dsrCamera._debugFPS, &Font));
     
     if (FAILED(hr))
     {
-        ::MessageBox(0, "D3DXCreateFontIndirect() - FAILED", 0, 0);
+        ::MessageBoxA(0, "D3DXCreateFontIndirect() - FAILED", 0, 0);
         ::PostQuitMessage(0);
     }
 }

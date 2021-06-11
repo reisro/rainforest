@@ -26,17 +26,17 @@ void rfWindowWin32::CreateWin32Window()
     // Registering the window class
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = "WindowTitle";
+    wc.lpszClassName = L"WindowTitle";
 
     RegisterClass(&wc);
 
     // Creating the window
-    hWnd = CreateWindowEx(0, "WindowTitle", (LPCSTR) titleName, WS_OVERLAPPEDWINDOW,
+    hWnd = CreateWindowExA(0, "WindowTitle", (LPCSTR) titleName, WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
 
     if (hWnd == NULL)
     {
-        MessageBox(0, "Failed to create window.", "Fatal Error", MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
+        MessageBox(0, L"Failed to create window.", L"Fatal Error", MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
 
         initialized = false;
     }
