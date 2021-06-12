@@ -26,7 +26,7 @@ void rfWindowWin32::CreateWin32Window()
     // Registering the window class
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = L"WindowTitle";
+    wc.lpszClassName = "WindowTitle";
 
     RegisterClass(&wc);
 
@@ -36,7 +36,7 @@ void rfWindowWin32::CreateWin32Window()
 
     if (hWnd == NULL)
     {
-        MessageBox(0, L"Failed to create window.", L"Fatal Error", MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
+        MessageBoxA(0, "Failed to create window.", "Fatal Error", MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
 
         initialized = false;
     }

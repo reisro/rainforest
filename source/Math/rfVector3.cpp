@@ -89,11 +89,6 @@ inline rfFloat rfVector3::Magnitude(const rfVector3& vec)
     return D3DXVec3LengthSq((D3DXVECTOR3*)& vec);
 }
 
-inline rfVector3* rfVector3::Zero()
-{
-    return new rfVector3(.0f,.0f,.0f);
-}
-
 inline rfVector3* rfVector3::Up(const rfVector3& vec)
 {
     return new rfVector3(.0f, 1.0f, .0f);

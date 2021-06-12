@@ -40,7 +40,7 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 
 	if (FAILED(hr))
 	{
-		::MessageBox(0, L"D3DXLoadMeshFromX() - FAILED", 0, 0);
+		::MessageBoxA(0, "D3DXLoadMeshFromX() - FAILED", 0, 0);
 		return false;
 	}
 

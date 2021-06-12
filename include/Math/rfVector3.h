@@ -45,13 +45,14 @@ public:
 	// Operator overloading
 	rfVector3& operator=(const rfVector3& vector) const;
 
+	// Conversion to D3DVECTOR3
 	D3DXVECTOR3 toD3DVECTOR3();
 
 	// returns the length of the vector
 	static inline float Magnitude(const rfVector3& vec);
 
 	// zero vector and basis vector values
-	static inline rfVector3* Zero();
+	static inline rfVector3* Zero() { return new rfVector3(.0f, .0f, .0f); }
 	static inline rfVector3* Up(const rfVector3& vec);
 	static inline rfVector3* Right(const rfVector3& vec);
 	static inline rfVector3* Forward(const rfVector3& vec);

@@ -47,7 +47,7 @@ Directx9Renderer::~Directx9Renderer()
 bool Directx9Renderer::Initialize()
 {
     HRESULT hr = 0;
-
+   
     // Create the d3d object
     d3d9 = Direct3DCreate9(D3D_SDK_VERSION);
 
@@ -63,6 +63,7 @@ bool Directx9Renderer::Initialize()
     int vp = 0;
 
     // Check if hardware is capable
+    // Using Hardware Vertex Processing for faster performance
     if (dx9deviceCaps.caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
         vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;
     else
@@ -146,6 +147,7 @@ bool Directx9Renderer::PostInit()
     dsrScene.isRenderingIndexedPrimitive = true;
     dsrScene.numberMeshes = 5;
 
+    // Data structure that holds light information data
     dsrLight.angleX = 0.707f;
     dsrLight.angleY = -0.707f;
     dsrLight.angleZ = 0.707f;
@@ -166,6 +168,9 @@ bool Directx9Renderer::PostInit()
     // Initialize the font
     ZeroMemory(&dsrCamera._debugFPS, sizeof(D3DXFONT_DESC));
 
+    // Data structure that holds font configuration
+    // All values can be modified and set by a setter function
+    // to be written later
     dsrCamera._debugFPS.Height = 25;    // in logical units
     dsrCamera._debugFPS.Width = 12;    // in logical units
     dsrCamera._debugFPS.Weight = 500;   // boldness, range 0(light) - 1000(bold)
