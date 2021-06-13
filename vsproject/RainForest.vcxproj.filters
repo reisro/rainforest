@@ -76,6 +76,9 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{0ab9b692-9d6c-48b3-a98b-c5553416adc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{0abbe05f-192a-4d28-b6d2-96341a30bbb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
@@ -159,6 +162,9 @@
     <ClInclude Include="..\include\Resources\rfMesh.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Physics\rfPhysics.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -217,6 +223,12 @@
     </ClCompile>
     <ClCompile Include="..\source\Resources\rfMesh.cpp">
       <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\Physics\rfPhysics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Physics\rfPhysics.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

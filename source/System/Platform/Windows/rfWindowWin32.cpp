@@ -26,7 +26,7 @@ void rfWindowWin32::CreateWin32Window()
     // Registering the window class
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = "WindowTitle";
+    wc.lpszClassName = L"WindowTitle";
 
     RegisterClass(&wc);
 
