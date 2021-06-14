@@ -34,6 +34,12 @@ namespace EngineConfig
 		OpenGL,
 		Vulkan
 	};
+
+	enum class PhysicsAPI
+	{
+		PhysX_ver2_81,
+		PhysX_ver3_34
+	};
 }
 
 class RFGE_API rfConfig
@@ -44,6 +50,7 @@ public:
 
 	EngineConfig::Platform	  platform;
 	EngineConfig::GraphicsAPI graphicsAPI;
+	EngineConfig::PhysicsAPI  physicsAPI;
 };
 
 #endif _RFCONFIG_H_

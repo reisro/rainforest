@@ -16,7 +16,6 @@
 
 #include "System/Platform/rfWindowSystem.h"
 #include "System/Platform/Windows/rfWindowWin32.h"
-#include <Windows.h>
 
 class RFGE_API rfWindowSystemWin32 : public rfWindowSystem
 {

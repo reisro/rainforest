@@ -4,6 +4,7 @@
 #include "Renderer/rfRenderer.h"
 #include "Renderer/rfRenderCommand.h"
 #include "Renderer/Platform/Directx9Renderer.h"
+#include "Physics/rfPhysics.h"
 #include "System/Platform/rfWindow.h"
 #include "System/Platform/rfWindowSystem.h"
 #include "System/Platform/Windows/rfWindowWin32.h"

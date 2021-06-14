@@ -13,7 +13,6 @@
 #ifndef RFGE_DIRECT3D9_SDK_H_
 #define RFGE_DIRECT3D9_SDK_H_
 
-#include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <d3d9types.h>

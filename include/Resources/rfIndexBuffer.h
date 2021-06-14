@@ -17,7 +17,6 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "RFGEAPI.h"
-#include "Renderer/rfRenderer.h"
 
 class RFGE_API rfIndexBuffer
 {

@@ -20,6 +20,7 @@
 #include "System/Platform/Windows/rfWindowSystemWin32.h"
 #include "Renderer/rfRenderer.h"
 #include "Renderer/Platform/Directx9Renderer.h"
+#include "Physics/rfPhysics.h"
 #include "Resources/rfVertexBuffer.h"
 #include "Resources/rfIndexBuffer.h"
 #include "Resources/Platform/Directx9VertexBuffer.h"
@@ -38,6 +39,7 @@ public:
 	static bool					Init();
 	static bool					InitWindow();
 	static bool					InitRenderer();
+	static bool					InitPhysics();
 	static void					Run();
 	static void					Stop();
 	static void					ShutDown();

@@ -35,8 +35,9 @@ bool rfApplication::Init()
 	RFGE_LOG("\n  Initiating sub systems");
 	RFGE_LOG("------------------------------\n");
 
-	InitWindow()? RFGE_LOG("\n  Initiated window system..."): Stop();
-	InitRenderer()? RFGE_LOG("\n  Initiated render system...") : Stop();
+	InitWindow()  ? RFGE_LOG("\n  Initiated window system..."):   Stop();
+	InitRenderer()? RFGE_LOG("\n  Initiated render system..."):   Stop();
+	InitPhysics() ? RFGE_LOG("\n  Initiated physics system..."):  Stop();
 
 	return !subSystemsInitiated;
 }
@@ -68,6 +69,18 @@ bool rfApplication::InitRenderer()
 //-----------------------------------------------------------------------------
 // Instructions to render the scene frame
 //-----------------------------------------------------------------------------
+bool rfApplication::InitPhysics()
+{
+	RFGE_LOG("\n  Initing physics...");
+
+	rfPhysics::CreateInstance();
+
+	return rfPhysics::Initialized();
+}
+
+//-----------------------------------------------------------------------------
+// Instructions to render the scene frame
+//-----------------------------------------------------------------------------
 void rfApplication::Run()
 {
 	RFGE_LOG("\n  Rendering frame...");
@@ -93,6 +106,9 @@ void rfApplication::ShutDown()
 {
 }
 
+//-----------------------------------------------------------------------------
+// Constructor
+//-----------------------------------------------------------------------------
 rfConfig& rfApplication::GetEngineConfig()
 {
 	return engineConfig;

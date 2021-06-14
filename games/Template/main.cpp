@@ -30,6 +30,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Only Graphics API is DirectX 9
 	engineConfig.graphicsAPI = EngineConfig::GraphicsAPI::DirectX9;
 
+	// Set which physics version to use
+	engineConfig.physicsAPI = EngineConfig::PhysicsAPI::PhysX_ver2_81;
+
 	// Setup engine configuration  
 	rfApplication::Setup(engineConfig);
 

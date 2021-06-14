@@ -14,6 +14,7 @@
 #ifndef _RFWINDOW_H_
 #define _RFWINDOW_H_
 
+#define NOMINMAX
 #include "RFGEAPI.h"
 #include <Windows.h>
 

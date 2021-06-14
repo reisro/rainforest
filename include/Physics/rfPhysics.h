@@ -1,4 +1,3 @@
-
 //---------------------------------------------------------------------------//
 //                                                                           //
 // File : rfPhysics.h														 //
@@ -22,11 +21,18 @@ public:
 
 	rfPhysics();
 	~rfPhysics();
+	
+	static void	CreateInstance();
+	static bool	Initialized();
 
-	void CreateSDK();
+	bool CreateSDK();
+	bool Init();
 
 private:
-
+	NxPhysicsSDK* _PhysicsSDK;
+	NxVec3		  _DefaultGravity;
+	NxScene*      _Scene;
+	NxSceneDesc   _SceneDesc;
 };
 
 #endif _RFPHYSICS_

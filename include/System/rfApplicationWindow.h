@@ -15,7 +15,6 @@
 #define _RFAPPLICATION_WINDOW_H_
 
 #include "RFGEAPI.h"
-#include "System/Platform/rfWindow.h"
 #include "System/Platform/Windows/rfWindowWin32.h"
 
 class RFGE_API rfApplicationWindow
