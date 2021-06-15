@@ -24,6 +24,11 @@
 #include <map>
 #include <set>
 
+// PhysicX define to suppress windows global min.max macros
+
+#define NOMINMAX
+#include <Windows.h>
+
 //-----------------------------------------------------------------------------
 // Utilities Macros
 //-----------------------------------------------------------------------------
