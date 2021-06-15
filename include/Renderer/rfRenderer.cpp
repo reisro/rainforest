@@ -1,5 +1,6 @@
 #include "rfRenderer.h"
-#include "System/rfApplication.h"
+#include "Renderer/Platform/Directx9Renderer.h"
+#include "System/rfConfig.h"
 
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
@@ -8,7 +9,7 @@ rfRenderer* rfRenderer::Singleton = 0;
 
 void rfRenderer::CreateInstance()
 {
-    if (rfApplication::GetEngineConfig().graphicsAPI == EngineConfig::GraphicsAPI::DirectX9)
+    if (rfConfig::Instance.graphicsAPI == EngineConfig::GraphicsAPI::DirectX9)
         Singleton = new Directx9Renderer();
 }
 

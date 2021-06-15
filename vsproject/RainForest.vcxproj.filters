@@ -185,9 +185,6 @@
     <ClCompile Include="..\source\System\Platform\Windows\rfWindowWin32.cpp">
       <Filter>Source Files\System\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\System\rfConfig.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
     <ClCompile Include="..\include\Renderer\rfRenderer.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>

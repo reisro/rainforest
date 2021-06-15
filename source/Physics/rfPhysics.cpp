@@ -1,4 +1,7 @@
 #include "Physics/rfPhysics.h"
+#include "System/rfConfig.h"
+
+rfPhysics* rfPhysics::Singleton=0;
 
 rfPhysics::rfPhysics() :
 	_PhysicsSDK(NULL), _DefaultGravity(0, -9.8, 0), _Scene(NULL)
@@ -12,6 +15,8 @@ rfPhysics::~rfPhysics()
 
 void rfPhysics::CreateInstance()
 {
+	//if (rfConfig::Instance.physicsAPI==EngineConfig::PhysicsAPI::PhysX_ver2_81)
+		
 }
 
 bool rfPhysics::Initialized()

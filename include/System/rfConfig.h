@@ -45,12 +45,14 @@ namespace EngineConfig
 class RFGE_API rfConfig
 {
 public:
-	rfConfig();
-	virtual ~rfConfig();
+	rfConfig() {};
+	virtual ~rfConfig() {};
 
+	static rfConfig Instance;
+	
 	EngineConfig::Platform	  platform;
 	EngineConfig::GraphicsAPI graphicsAPI;
 	EngineConfig::PhysicsAPI  physicsAPI;
-};
+}; 
 
 #endif _RFCONFIG_H_

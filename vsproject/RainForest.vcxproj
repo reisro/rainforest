@@ -218,7 +218,6 @@
     <ClCompile Include="..\source\System\Platform\Windows\rfWindowWin32.cpp" />
     <ClCompile Include="..\source\System\rfApplication.cpp" />
     <ClCompile Include="..\source\System\rfApplicationWindow.cpp" />
-    <ClCompile Include="..\source\System\rfConfig.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

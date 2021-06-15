@@ -1,6 +1,6 @@
 #include "System/rfApplication.h"
 
-static rfConfig engineConfig;
+rfConfig rfConfig::Instance;
 static rfWindowSystem* windowSystem;
 static rfRenderer* renderer = NULL;
 static bool	subSystemsInitiated;
@@ -22,7 +22,7 @@ void rfApplication::Setup(const rfConfig& config)
 	RFGE_LOG("\n  Rain Forest Game Engine");
 	RFGE_LOG("------------------------------\n");
 
-	engineConfig = config;
+	rfConfig::Instance = config;
 
 	RFGE_LOG("Setup Configuration.\n");
 }
@@ -104,12 +104,4 @@ void rfApplication::Stop()
 //-----------------------------------------------------------------------------
 void rfApplication::ShutDown()
 {
-}
-
-//-----------------------------------------------------------------------------
-// Constructor
-//-----------------------------------------------------------------------------
-rfConfig& rfApplication::GetEngineConfig()
-{
-	return engineConfig;
 }

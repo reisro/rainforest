@@ -28,8 +28,7 @@
 #include "Resources/Platform/Directx9VertexBuffer.h"
 #include "Resources/Platform/Directx9IndexBuffer.h"
 #include "Resources/rfMesh.h"
-#include "System/rfApplication.h"
-#include "System/rfConfig.h"
+
 
 //-----------------------------------------------------------------------------
 // Enum (Vertex Processing)

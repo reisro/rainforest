@@ -1,4 +1,5 @@
 #include "System/Platform/rfWindowSystem.h"
+#include "System/rfConfig.h"
 #include "System/rfApplication.h"
 
 static rfWindowSystem* Singleton;
@@ -11,7 +12,7 @@ bool rfWindowSystem::Initialized()
 
 void rfWindowSystem::CreateInstance()
 {
-    if (rfApplication::GetEngineConfig().platform == EngineConfig::Platform::Windows)
+    if (rfConfig::Instance.platform == EngineConfig::Platform::Windows)
     {
         Singleton = new rfWindowSystemWin32();
     }

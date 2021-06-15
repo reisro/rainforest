@@ -33,6 +33,8 @@ private:
 	NxVec3		  _DefaultGravity;
 	NxScene*      _Scene;
 	NxSceneDesc   _SceneDesc;
+
+	static rfPhysics* Singleton;
 };
 
 #endif _RFPHYSICS_

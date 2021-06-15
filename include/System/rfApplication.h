@@ -19,7 +19,6 @@
 #include "System/Platform/rfWindowSystem.h"
 #include "System/Platform/Windows/rfWindowSystemWin32.h"
 #include "Renderer/rfRenderer.h"
-#include "Renderer/Platform/Directx9Renderer.h"
 #include "Physics/rfPhysics.h"
 #include "Resources/rfVertexBuffer.h"
 #include "Resources/rfIndexBuffer.h"
@@ -43,7 +42,6 @@ public:
 	static void					Run();
 	static void					Stop();
 	static void					ShutDown();
-	static rfConfig&			GetEngineConfig();
 };
 
 #endif _RF_APPLICATION_H_
