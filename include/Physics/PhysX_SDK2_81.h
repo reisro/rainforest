@@ -10,25 +10,32 @@
 
 #pragma once
 
-#ifndef _RFPHYSICS_
-#define _RFPHYSICS_
+#ifndef _RFPHYSICX_2_81_H
+#define _RFPHYSICX_2_81_H
 
+#include "Physics/rfPhysics.h"
+#include "NxPhysics.h"
 
-
-class rfPhysics
+class PhysX_2_81_: public rfPhysics
 {
 public:
+	PhysX_2_81_();
+	~PhysX_2_81_();
 
-	rfPhysics();
-	~rfPhysics();
-	
-	static void	CreateInstance();
-	static bool	Initialized();
+	bool CreateSDK();
+	bool Init();
+	void SetSDKParameters();
+	void SetDebugParameters();
+	void CreateDefaultMaterial();
+	void CreateDefaultActor();
+	void Simulate(float DeltaTime);
 
 private:
-	
 
-	static rfPhysics* Singleton;
+	NxPhysicsSDK* _PhysicsSDK;
+	NxVec3		  _DefaultGravity;
+	NxScene*      _Scene;
+	NxSceneDesc   _SceneDesc;
 };
 
-#endif _RFPHYSICS_
+#endif _RFPHYSICX_2_81_H
