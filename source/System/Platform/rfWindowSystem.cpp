@@ -10,7 +10,7 @@ bool rfWindowSystem::Initialized()
     return true;
 }
 
-void rfWindowSystem::CreateInstance()
+void rfSubsystem::CreateInstance()
 {
     if (rfConfig::Instance.platform == EngineConfig::Platform::Windows)
     {
@@ -20,7 +20,7 @@ void rfWindowSystem::CreateInstance()
 
 rfWindowSystem* rfWindowSystem::GetInstance()
 {
-    return Singleton;
+    return static_cast<rfWindowSystem*> (Singleton);
 }
 
 HWND rfWindowSystem::Window()

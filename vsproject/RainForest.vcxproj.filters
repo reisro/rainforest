@@ -79,6 +79,9 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{0abbe05f-192a-4d28-b6d2-96341a30bbb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\System\Interfaces">
+      <UniqueIdentifier>{9577391d-1689-4faf-9390-32f51aabe0ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
@@ -165,6 +168,12 @@
     <ClInclude Include="..\include\RainForest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\System\Subsystem.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System\Interfaces\IStartup.h">
+      <Filter>Header Files\System\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -223,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="..\source\Physics\rfPhysics.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\System\Subsystem.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

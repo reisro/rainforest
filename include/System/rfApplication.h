@@ -40,7 +40,7 @@ public:
 	static bool					InitRenderer();
 	static bool					InitPhysics();
 	static void					Run();
-	static void					Stop();
+	static void					Abort();
 	static void					ShutDown();
 };
 

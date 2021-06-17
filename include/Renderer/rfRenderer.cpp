@@ -7,10 +7,22 @@
 //-----------------------------------------------------------------------------
 rfRenderer* rfRenderer::Singleton = 0;
 
-void rfRenderer::CreateInstance()
+bool rfRenderer::Init()
+{
+    CreateInstance();
+
+    return Singleton?Singleton->Initialized():0;
+}
+
+void rfSubsystem::CreateInstance()
 {
     if (rfConfig::Instance.graphicsAPI == EngineConfig::GraphicsAPI::DirectX9)
         Singleton = new Directx9Renderer();
+}
+
+bool rfRenderer::Initialized()
+{
+    return Singleton->Initialize();
 }
 
 bool rfRenderer::Initialize()

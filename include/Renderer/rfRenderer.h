@@ -14,14 +14,19 @@
 #include "RFGEAPI.h"
 #include "Renderer/rfRenderCommand.h"
 #include "System/Platform/rfWindowSystem.h"
+#include "System/Subsystem.h"
+#include "System/Interfaces/IStartup.h"
 
-class RFGE_API rfRenderer
+class RFGE_API rfRenderer: public rfSubsystem, public IStartup
 {
 public:
-						rfRenderer() {};
+						rfRenderer()  {};
 	virtual				~rfRenderer() {};
 
-	static void			CreateInstance();
+	static bool			Init();
+
+	// interface
+	bool 				Initialized() override;
 
 	virtual bool		Initialize();
 	virtual bool		PostInit();

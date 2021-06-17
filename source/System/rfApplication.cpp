@@ -35,9 +35,9 @@ bool rfApplication::Init()
 	RFGE_LOG("\n  Initiating sub systems");
 	RFGE_LOG("------------------------------\n");
 
-	InitWindow()  ? RFGE_LOG("\n  Initiated window system..."):   Stop();
-	InitRenderer()? RFGE_LOG("\n  Initiated render system..."):   Stop();
-	InitPhysics() ? RFGE_LOG("\n  Initiated physics system..."):  Stop();
+	InitWindow()   ? RFGE_LOG("\n  Success initiating window system..."):   Abort();
+	InitRenderer() ? RFGE_LOG("\n  Success initiating render system..."):   Abort();
+	InitPhysics()  ? RFGE_LOG("\n  Success initiating physics system..."):  Abort();
 
 	return !subSystemsInitiated;
 }
@@ -60,10 +60,8 @@ bool rfApplication::InitWindow()
 bool rfApplication::InitRenderer()
 {
 	RFGE_LOG("\n  Initiating renderer...");
-
-	rfRenderer::CreateInstance();
-
-	return rfRenderer::GetInstance()->Initialize();
+	
+	return rfRenderer::Init();
 }
 
 //-----------------------------------------------------------------------------
@@ -71,7 +69,7 @@ bool rfApplication::InitRenderer()
 //-----------------------------------------------------------------------------
 bool rfApplication::InitPhysics()
 {
-	RFGE_LOG("\n  Initing physics...");
+	RFGE_LOG("\n  Initiating physics...");
 
 	rfPhysics::CreateInstance();
 
@@ -94,7 +92,7 @@ void rfApplication::Run()
 //-----------------------------------------------------------------------------
 // Constructor
 //-----------------------------------------------------------------------------
-void rfApplication::Stop()
+void rfApplication::Abort()
 {
 	subSystemsInitiated = false;
 }
