@@ -17,15 +17,11 @@
 
 #include "RainForest.h"
 
-class rfSubsystem
+class RFGE_API rfSubsystem
 {
 public:
 
 	static void CreateInstance();
-
-protected:
-
-	static rfSubsystem* Singleton;
 };
 
 #endif _RF_SUBSYSTEM_H_

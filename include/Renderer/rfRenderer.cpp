@@ -5,19 +5,27 @@
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
 //-----------------------------------------------------------------------------
-rfRenderer* rfRenderer::Singleton = 0;
+static rfRenderer* Singleton = 0;
+
+void rfRenderer::CreateInstance()
+{
+    if (rfConfig::Instance.graphicsAPI == EngineConfig::GraphicsAPI::DirectX9)
+        Singleton = new Directx9Renderer();
+}
 
 bool rfRenderer::Init()
 {
-    CreateInstance();
+    Singleton->CreateInstance();
 
     return Singleton?Singleton->Initialized():0;
 }
 
-void rfSubsystem::CreateInstance()
+rfRenderer::rfRenderer()
 {
-    if (rfConfig::Instance.graphicsAPI == EngineConfig::GraphicsAPI::DirectX9)
-        Singleton = new Directx9Renderer();
+}
+
+rfRenderer::~rfRenderer()
+{
 }
 
 bool rfRenderer::Initialized()

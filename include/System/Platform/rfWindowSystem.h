@@ -19,20 +19,21 @@
 #include "System/Subsystem.h"
 #include "System/Interfaces/IStartup.h"
 
-class RFGE_API rfWindowSystem: public rfSubsystem, public IStartup
+class RFGE_API rfWindowSystem: public IStartup
 {
 public:
 
 	rfWindowSystem() {};
 	virtual ~rfWindowSystem() {};
 
+	static void				CreateInstance();
+	static bool			    Init();
+
 	// interface
 	bool 				    Initialized() override;
 
 	virtual HWND			Window();
 
-	static bool				Initialized();
-	static void				CreateSpecificWindow();
 	static rfWindowSystem*	GetInstance();
 };
 

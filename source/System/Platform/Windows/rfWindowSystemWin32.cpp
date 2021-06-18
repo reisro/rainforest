@@ -15,3 +15,8 @@ HWND rfWindowSystemWin32::Window()
 {
     return windowWin32->GetWindow();
 }
+
+bool rfWindowSystemWin32::Initialized()
+{
+    return windowWin32->initialized;
+}

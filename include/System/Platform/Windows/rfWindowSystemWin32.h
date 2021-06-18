@@ -24,6 +24,7 @@ public:
 	virtual ~rfWindowSystemWin32();
 
 	HWND Window() override;
+	bool Initialized() override;
 
 private:
 	HWND			hWnd;

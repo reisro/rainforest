@@ -17,12 +17,13 @@
 #include "System/Subsystem.h"
 #include "System/Interfaces/IStartup.h"
 
-class RFGE_API rfRenderer: public rfSubsystem, public IStartup
+class RFGE_API rfRenderer: public IStartup
 {
 public:
-						rfRenderer()  {};
-	virtual				~rfRenderer() {};
+						rfRenderer();
+	virtual				~rfRenderer();
 
+	static void         CreateInstance();
 	static bool			Init();
 
 	// interface
@@ -42,8 +43,4 @@ public:
 
 	virtual void		CameraSetup();
 	static rfRenderer*	GetInstance();
-
-protected:
-
-	static rfRenderer*	Singleton;
 };
