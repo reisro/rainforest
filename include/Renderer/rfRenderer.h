@@ -12,10 +12,11 @@
 #pragma once
 
 #include "RFGEAPI.h"
+#include "System/Interfaces/IStartup.h"
 #include "Renderer/rfRenderCommand.h"
 #include "System/Platform/rfWindowSystem.h"
-#include "System/Subsystem.h"
-#include "System/Interfaces/IStartup.h"
+
+class rfWindowSystem;
 
 class RFGE_API rfRenderer: public IStartup
 {
@@ -43,4 +44,8 @@ public:
 
 	virtual void		CameraSetup();
 	static rfRenderer*	GetInstance();
+
+protected:
+
+	static rfRenderer* Singleton;
 };

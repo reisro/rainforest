@@ -1,11 +1,12 @@
 #include "rfRenderer.h"
 #include "Renderer/Platform/Directx9Renderer.h"
 #include "System/rfConfig.h"
+#include "System/Platform/rfWindowSystem.h"
 
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
 //-----------------------------------------------------------------------------
-static rfRenderer* Singleton = 0;
+rfRenderer* rfRenderer::Singleton = 0;
 
 void rfRenderer::CreateInstance()
 {
@@ -15,10 +16,12 @@ void rfRenderer::CreateInstance()
 
 bool rfRenderer::Init()
 {
-    Singleton->CreateInstance();
-
     return Singleton?Singleton->Initialized():0;
 }
+
+//-----------------------------------------------------------------------------
+// Instance Member Definitions.
+//-----------------------------------------------------------------------------
 
 rfRenderer::rfRenderer()
 {

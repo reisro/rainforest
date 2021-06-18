@@ -13,19 +13,22 @@ void rfWindowSystem::CreateInstance()
 
 bool rfWindowSystem::Initialized()
 {
-    return Singleton->Initialized();
+    return Singleton->Initialize();
 }
 
 bool rfWindowSystem::Init()
 {
-    Singleton->CreateInstance();
-
     return Singleton?Singleton->Initialized():0;
 }
 
 rfWindowSystem* rfWindowSystem::GetInstance()
 {
     return static_cast<rfWindowSystem*> (Singleton);
+}
+
+bool rfWindowSystem::Initialize()
+{
+    return true;
 }
 
 HWND rfWindowSystem::Window()

@@ -16,7 +16,6 @@
 
 #include "RFGEAPI.h"
 #include "System/Platform/rfWindow.h"
-#include "System/Subsystem.h"
 #include "System/Interfaces/IStartup.h"
 
 class RFGE_API rfWindowSystem: public IStartup
@@ -32,6 +31,7 @@ public:
 	// interface
 	bool 				    Initialized() override;
 
+	virtual bool			Initialize();
 	virtual HWND			Window();
 
 	static rfWindowSystem*	GetInstance();

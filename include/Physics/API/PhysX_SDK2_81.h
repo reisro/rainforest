@@ -23,7 +23,7 @@ public:
 	~PhysX_2_81_();
 
 	bool CreateSDK();
-	bool Init();
+	bool Initialize();
 	void SetSDKParameters();
 	void SetDebugParameters();
 	void CreateDefaultMaterial();

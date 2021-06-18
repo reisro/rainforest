@@ -26,6 +26,8 @@ public:
 	HWND Window() override;
 	bool Initialized() override;
 
+	bool Initialize() override;
+
 private:
 	HWND			hWnd;
 	rfWindowWin32*  windowWin32;

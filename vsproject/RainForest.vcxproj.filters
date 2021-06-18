@@ -82,6 +82,12 @@
     <Filter Include="Header Files\System\Interfaces">
       <UniqueIdentifier>{9577391d-1689-4faf-9390-32f51aabe0ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics\API">
+      <UniqueIdentifier>{f571deae-316f-4cc1-b308-73a7a7eaa639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\API">
+      <UniqueIdentifier>{faa9035c-2940-45e1-90c4-a92989505da5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
@@ -174,6 +180,9 @@
     <ClInclude Include="..\include\System\Interfaces\IStartup.h">
       <Filter>Header Files\System\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Physics\API\PhysX_SDK2_81.h">
+      <Filter>Header Files\Physics\API</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -235,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="..\include\System\Subsystem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Physics\API\PhysX_SDK2_81.cpp">
+      <Filter>Source Files\Physics\API</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

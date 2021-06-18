@@ -456,22 +456,22 @@ void Directx9Renderer::CreateDefaultPrimitive()
         0);
 
     // Loading  Resources
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\Net.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Frame.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Antenna.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Bench.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seat_yellow.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\bench_table.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\long_bench.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\standsBase_plates.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\base_Ground.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\court_Inner.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\court_GameOutter.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\Net.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\net_Frame.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\net_Antenna.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\net_Bench.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\net_Pillars.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\net_SafetyPillars.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\hook_Bindings.x");
+    meshNames.push_back("E:\\Cpp\\rainforest\\games\\Assets\\seat_yellow.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {

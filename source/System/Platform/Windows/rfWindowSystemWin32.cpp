@@ -20,3 +20,8 @@ bool rfWindowSystemWin32::Initialized()
 {
     return windowWin32->initialized;
 }
+
+bool rfWindowSystemWin32::Initialize()
+{
+    return windowWin32->initialized;
+}

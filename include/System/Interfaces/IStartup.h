@@ -14,8 +14,10 @@
 #ifndef _RFI_STARTUP_H_
 #define _RFI_STARTUP_H_
 
-class IStartup
+class RFGE_API IStartup
 {
+public:
+
 	virtual bool Initialized() = 0;
 };
 

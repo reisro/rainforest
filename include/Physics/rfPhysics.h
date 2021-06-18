@@ -13,21 +13,26 @@
 #ifndef _RFPHYSICS_
 #define _RFPHYSICS_
 
+#include "RFGEAPI.h"
+#include "System/Interfaces/IStartup.h"
 
-
-class rfPhysics
+class RFGE_API rfPhysics: public IStartup
 {
 public:
 
 	rfPhysics();
 	~rfPhysics();
-	
-	static void	CreateInstance();
-	static bool	Initialized();
+
+	static void			CreateInstance();
+	static bool			Init();
+
+	// interface
+	bool			Initialized();
+
+	virtual bool		Initialize();
 
 private:
 	
-
 	static rfPhysics* Singleton;
 };
 
