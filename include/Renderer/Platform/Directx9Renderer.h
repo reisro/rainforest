@@ -29,7 +29,6 @@
 #include "Resources/Platform/Directx9IndexBuffer.h"
 #include "Resources/rfMesh.h"
 
-
 //-----------------------------------------------------------------------------
 // Enum (Vertex Processing)
 // Types of vertex processing when using graphics card
@@ -276,7 +275,7 @@ private:
 
 		std::stack<rfRenderCommand> renderCmdStack;
 		std::vector<rfMesh*>        meshes;
-		std::vector<LPCSTR>        meshNames;
+		std::vector<LPCSTR>         meshNames;
 
 		rfVertex::Vertex* vertex;
 };

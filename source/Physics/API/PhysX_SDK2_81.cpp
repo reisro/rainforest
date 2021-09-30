@@ -32,7 +32,7 @@ bool PhysX_2_81_::CreateSDK()
 	bool created;
 
 	_PhysicsSDK = NxCreatePhysicsSDK(NX_PHYSICS_SDK_VERSION);
-	!_PhysicsSDK ? created = true : created = false;
+	_PhysicsSDK ? created = true : created = false;
 
 	return created;
 }

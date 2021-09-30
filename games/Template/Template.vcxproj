@@ -105,14 +105,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(RAINFOREST_ENGINE_SDK)\include;$(DXSDK_DIR)Include;..\include;$(PHYSICX_ENGINE_SDK)\SDKs\PhysXLoader\include;$(PHYSICX_ENGINE_SDK)\SDKs\Physics\include;$(PHYSICX_ENGINE_SDK)\SDKs\Foundation\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(RAINFOREST_ENGINE_SDK)\include;$(DXSDK_DIR)\Include;..\include;$(PHYSICX_ENGINE_SDK)\SDKs\PhysXLoader\include;$(PHYSICX_ENGINE_SDK)\SDKs\Physics\include;$(PHYSICX_ENGINE_SDK)\SDKs\Foundation\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(PHYSICX_ENGINE_SDK)\SDKs\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;$(PHYSICX_ENGINE_SDK)\SDKs\lib\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -37,7 +37,7 @@ bool rfApplication::Init()
 
 	InitWindow()   ? RFGE_LOG("\n  Success initiating window system..."):   Abort();
 	InitRenderer() ? RFGE_LOG("\n  Success initiating render system..."):   Abort();
-	//InitPhysics()  ? RFGE_LOG("\n  Success initiating physics system..."):  Abort();
+	InitPhysics()  ? RFGE_LOG("\n  Success initiating physics system..."):  Abort();
 
 	return !subSystemsInitiated;
 }
