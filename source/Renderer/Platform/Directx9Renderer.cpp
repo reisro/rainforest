@@ -10,6 +10,7 @@
 //---------------------------------------------------------------------------//
 
 #include "Renderer/Platform/Directx9Renderer.h"
+#include <Physics/rfPhysics.h>
 
 //-----------------------------------------------------------------------------
 // Constructor
@@ -308,7 +309,7 @@ bool Directx9Renderer::endFrame()
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
     SetRect(&rect, 0, 0,500,30);
-    sprintf_s(FPSString, "FPS = %.1f", 1.0f/timeDelta);
+    //sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->7);
 
     Font->DrawTextA(
         NULL,

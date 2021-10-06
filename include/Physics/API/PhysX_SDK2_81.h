@@ -22,6 +22,8 @@ public:
 	PhysX_2_81_();
 	~PhysX_2_81_();
 
+	float GetFPS() override;
+
 	bool CreateSDK();
 	bool Initialize();
 	void SetSDKParameters();
@@ -29,13 +31,19 @@ public:
 	void CreateDefaultMaterial();
 	void CreateDefaultActor();
 	void Simulate(float DeltaTime);
+	void UpdateTime();
 
 private:
 
 	NxPhysicsSDK* _PhysicsSDK;
+	NxReal		  _DeltaTime;
 	NxVec3		  _DefaultGravity;
 	NxScene*      _Scene;
 	NxSceneDesc   _SceneDesc;
+	float		  _Seconds;
+	__int64       _LastTime;
+	__int64		  _Time;
+	__int64		  _Frequency;
 };
 
 #endif _RFPHYSICX_2_81_H

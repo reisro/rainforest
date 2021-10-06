@@ -29,3 +29,5 @@ typedef unsigned int            rfUInt;
 typedef float                   rfFloat;    
 typedef double                  rfDouble;   
 typedef float                   rfReal;     
+
+#define RF_NULL 0

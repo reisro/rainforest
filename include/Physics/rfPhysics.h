@@ -27,11 +27,10 @@ public:
 	static bool			Init();
 
 	// interface
-	bool			Initialized();
+	bool				Initialized();
 
 	virtual bool		Initialize();
-
-private:
+	virtual float		GetFPS();
 	
 	static rfPhysics* Singleton;
 };

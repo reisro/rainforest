@@ -35,6 +35,18 @@
 #define _RFGE_STRING(String)
 #define RFGE_LOG(x) DebugLog(x)
 
+#ifndef _RFGE_SAFE_DELETE
+#define _RFGE_SAFE_DELETE(p)       { if (p) { delete (p);     (p)=NULL; } }
+#endif
+
+#ifndef _RFGE_SAFE_DELETE_ARRAY
+#define _RFGE_SAFE_DELETE_ARRAY(p) { if (p) { delete[] (p);   (p)=NULL; } }
+#endif 
+
+#ifndef _RFGE_SAFE_RELEASE
+#define _RFGE_SAFE_RELEASE(p)      { if (p) { (p)->Release(); (p)=NULL; } }
+#endif
+
 //-----------------------------------------------------------------------------
 // Global Defines & Macros
 //-----------------------------------------------------------------------------

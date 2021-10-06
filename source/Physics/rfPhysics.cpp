@@ -43,3 +43,8 @@ bool rfPhysics::Initialize()
 {
 	return true;
 }
+
+float rfPhysics::GetFPS()
+{
+	return Singleton->GetFPS();
+}

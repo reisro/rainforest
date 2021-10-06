@@ -45,9 +45,15 @@ bool PhysX_2_81_::Initialize()
 	if (!CreateSDK())
 		return false;
 
+	SetSDKParameters();
+
 	_SceneDesc.gravity = _DefaultGravity;
 	_SceneDesc.simType = NX_SIMULATION_SW;
 	_Scene = _PhysicsSDK->createScene(_SceneDesc);
+
+	CreateDefaultMaterial();
+
+	UpdateTime();
 
 	return true;
 }
@@ -119,6 +125,20 @@ void PhysX_2_81_::CreateDefaultActor()
 //-----------------------------------------------------------------------------
 void PhysX_2_81_::Simulate(float DeltaTime)
 {
+	UpdateTime();
+
 	_Scene->simulate(DeltaTime);
 	_Scene->flushStream();
+}
+
+void PhysX_2_81_::UpdateTime()
+{
+	QueryPerformanceCounter((LARGE_INTEGER*) &_Time);
+	_DeltaTime = (NxReal)(_Time - _LastTime) / (NxReal)_Frequency;
+	_LastTime = _Time;
+}
+
+float PhysX_2_81_::GetFPS()
+{
+	return 1.0f/_DeltaTime;
 }
