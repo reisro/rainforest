@@ -28,7 +28,7 @@ public:
 	ID3DXMesh* GetGeometry() const;
 	std::vector<D3DMATERIAL9> GetMaterial() const;
 	bool LoadMeshGeometry(LPCSTR filename);
-	void SetMaterial(D3DMATERIAL9* _mat);
+	void SetMaterials();
 	int GetNumberMaterials() const;
 
 private:

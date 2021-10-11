@@ -28,6 +28,10 @@ public :
 	rfWindow* GetInstance();
 
 	bool initialized;
+
+private:
+	int Width;
+	int Height;
 };
 
 #endif _RFWINDOW_H_

@@ -40,6 +40,13 @@ namespace EngineConfig
 		PhysX_ver2_81,
 		PhysX_ver3_34
 	};
+
+	enum class WindowResolution
+	{
+		HighDefinition,
+		FullHighDefinition,
+		UltraHighDefinition
+	};
 }
 
 class RFGE_API rfConfig
@@ -50,9 +57,10 @@ public:
 
 	static rfConfig Instance;
 	
-	EngineConfig::Platform	  platform;
-	EngineConfig::GraphicsAPI graphicsAPI;
-	EngineConfig::PhysicsAPI  physicsAPI;
+	EngineConfig::Platform			platform;
+	EngineConfig::GraphicsAPI		graphicsAPI;
+	EngineConfig::PhysicsAPI		physicsAPI;
+	EngineConfig::WindowResolution	windowResolution;
 }; 
 
 #endif _RFCONFIG_H_

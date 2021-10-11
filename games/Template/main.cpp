@@ -33,6 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Set which physics version to use
 	engineConfig.physicsAPI = EngineConfig::PhysicsAPI::PhysX_ver2_81;
 
+	// Set window resolution of the application
+	engineConfig.windowResolution = EngineConfig::WindowResolution::FullHighDefinition;
+
 	// Setup engine configuration  
 	rfApplication::Setup(engineConfig);
 

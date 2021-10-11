@@ -32,7 +32,7 @@ void rfWindowWin32::CreateWin32Window()
 
     // Creating the window
     hWnd = CreateWindowExA(0, "WindowTitle", (LPCSTR) titleName, WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+        CW_USEDEFAULT, CW_USEDEFAULT, 1920, 1080, NULL, NULL, hInstance, NULL);
 
     if (hWnd == NULL)
     {

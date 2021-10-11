@@ -38,49 +38,48 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 
 		D3DXMatrixTranslation(&this->worldPosition, .0f, .0f, .0f);
 
+		if (materialBuffer != 0 && numberMaterials != 0)
+		{
+			D3DXMATERIAL* mtrls = (D3DXMATERIAL*)materialBuffer->GetBufferPointer();
+
+			for (int i = 0; i < numberMaterials; i++)
+			{
+				mtrls[i].MatD3D.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+				renderDevice->SetMaterial(&mtrls[i].MatD3D);
+
+				materials.push_back(mtrls[i].MatD3D);
+
+				if (mtrls[i].pTextureFilename != 0)
+				{
+					IDirect3DTexture9* texture = 0;
+
+					D3DXCreateTextureFromFileA(
+						renderDevice,
+						mtrls[i].pTextureFilename,
+						&texture);
+
+					textures.push_back(texture);
+				}
+				else
+				{
+					textures.push_back(0);
+				}
+			}
+		}
+
 	if (FAILED(hr))
 	{
 		::MessageBoxA(0, "D3DXLoadMeshFromX() - FAILED", 0, 0);
 		return false;
 	}
 
-	if (materialBuffer != 0 && numberMaterials != 0)
-	{
-		D3DXMATERIAL* mtrls = (D3DXMATERIAL*)materialBuffer->GetBufferPointer();
-
-		for (int i = 0; i < numberMaterials; i++)
-		{
-			mtrls[i].MatD3D.Ambient = mtrls[i].MatD3D.Diffuse;
-			
-			//SetMaterial(&mtrls[i].MatD3D);
-
-			materials.push_back(mtrls[i].MatD3D);
-
-			if (mtrls[i].pTextureFilename != 0)
-			{
-				IDirect3DTexture9* texture = 0;
-
-				D3DXCreateTextureFromFileA(
-					renderDevice,
-					mtrls[i].pTextureFilename,
-					&texture);
-
-				textures.push_back(texture);
-			}
-			else
-			{
-				textures.push_back(0);
-			}
-		}
-	}
-	
-
 	return true;
 }
 
-void rfMesh::SetMaterial(D3DMATERIAL9* _mat)
+void rfMesh::SetMaterials()
 {
-	renderDevice->SetMaterial(_mat);
+	
 }
 
 int rfMesh::GetNumberMaterials() const

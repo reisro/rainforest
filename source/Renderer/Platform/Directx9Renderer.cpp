@@ -158,7 +158,7 @@ bool Directx9Renderer::PostInit()
     dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
    
     // Data structure that holds camera configuration
-    dsrCamera._Position = new rfVector3(0.0f, 0.0f, -2.0f);
+    dsrCamera._Position = new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
     dsrCamera._ratioWidth = 1920;
@@ -329,8 +329,8 @@ bool Directx9Renderer::endFrame()
 
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
+            device->SetMaterial(&meshes[i]->GetMaterial()[j]);
             meshes[i]->GetGeometry()->DrawSubset(j);
-            device->SetMaterial(&meshes[i]->GetMaterial()[0]);
         }
     }
 
@@ -390,9 +390,10 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 
 void Directx9Renderer::SetRenderState()
 {
-    device->SetRenderState(FLATSHADING.RenderStateType, FLATSHADING.Value);
+    device->SetRenderState(GOURAUDSHADING.RenderStateType, GOURAUDSHADING.Value);
     device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
     device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
+    device->SetRenderState(D3DRS_AMBIENT, TRUE);
 }
 
 //-----------------------------------------------------------------------------
@@ -459,7 +460,11 @@ void Directx9Renderer::CreateDefaultPrimitive()
     // Loading  Resources
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center_centerright.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
@@ -472,7 +477,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seat_yellow.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {
