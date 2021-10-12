@@ -244,16 +244,16 @@ bool Directx9Renderer::beginFrame()
     D3DXMATRIX CameraView;
 
     if (::GetAsyncKeyState('W') & 0x8000f)
-        renderCamera->Move(100.0f * timeDelta);
+        renderCamera->Move(300.0f * timeDelta);
 
     if (::GetAsyncKeyState('S') & 0x8000f)
-        renderCamera->Move(-100.0f * timeDelta);
+        renderCamera->Move(-300.0f * timeDelta);
 
     if (::GetAsyncKeyState('A') & 0x8000f)
-        renderCamera->Yaw(-2.5f * timeDelta);
+        renderCamera->Yaw(-1.5f * timeDelta);
 
     if (::GetAsyncKeyState('D') & 0x8000f)
-        renderCamera->Yaw(2.5f * timeDelta);
+        renderCamera->Yaw(1.5f * timeDelta);
 
     if (::GetAsyncKeyState('Q') & 0x8000f)
         renderCamera->MoveUp(100.0f * timeDelta);
@@ -410,7 +410,7 @@ void Directx9Renderer::CameraSetup()
     D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
 
     // Set the perspective projection matrix
-    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.5f, // 45 degrees
+    D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.25f, // 45 degrees
         (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
 
     device->SetTransform(D3DTS_PROJECTION, &Projection);
@@ -478,6 +478,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {
