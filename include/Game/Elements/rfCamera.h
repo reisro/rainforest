@@ -20,13 +20,13 @@
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"
 
-class Camera
+class rfCamera
 {
 public:
 
-	Camera();
-	Camera(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt);
-	~Camera();
+	rfCamera();
+	rfCamera(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt);
+	~rfCamera();
 
 	void Setup(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt);
 

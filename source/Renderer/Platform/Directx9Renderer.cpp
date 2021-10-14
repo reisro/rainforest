@@ -24,7 +24,7 @@ Directx9Renderer::Directx9Renderer():
     msg = {};
     renderCmdStack = {};
     Singleton = this;
-    renderCamera = new Camera();
+    renderCamera = new rfCamera();
     renderCamera->SetPosition(rfVector3::Zero()->toD3DVECTOR3());
 
     vertexBuffer = 0;

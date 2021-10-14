@@ -99,9 +99,6 @@
     <ClInclude Include="rfActor.h">
       <Filter>Header Files\Game\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="rfScene.h">
-      <Filter>Header Files\Game\Elements</Filter>
-    </ClInclude>
     <ClInclude Include="rfPhysics.h">
       <Filter>Header Files\Game\Elements</Filter>
     </ClInclude>
@@ -159,7 +156,7 @@
     <ClInclude Include="..\include\rfBaseTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Game\Elements\Camera.h">
+    <ClInclude Include="..\include\Game\Elements\rfCamera.h">
       <Filter>Header Files\Game\Elements</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Resources\rfMesh.h">
@@ -182,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Physics\API\PhysX_SDK2_81.h">
       <Filter>Header Files\Physics\API</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Game\Elements\rfScene.h">
+      <Filter>Header Files\Game\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -233,7 +233,7 @@
     <ClCompile Include="..\source\Math\rfMatrix.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Game\Elements\Camera.cpp">
+    <ClCompile Include="..\source\Game\Elements\rfCamera.cpp">
       <Filter>Source Files\Game\Elements</Filter>
     </ClCompile>
     <ClCompile Include="..\source\Resources\rfMesh.cpp">
@@ -247,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="..\source\Physics\API\PhysX_SDK2_81.cpp">
       <Filter>Source Files\Physics\API</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game\Elements\rfScene.cpp">
+      <Filter>Source Files\Game\Elements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

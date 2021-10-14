@@ -19,7 +19,7 @@
 #include <stack>
 #include <string>
 #include <stdio.h>
-#include "Game/Elements/Camera.h"
+#include "Game/Elements/rfCamera.h"
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"
 #include "Renderer/rfRenderer.h"
@@ -266,7 +266,7 @@ private:
 		HWND						renderWindow;
 		ID3DXFont*                  Font;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
-		Camera*                     renderCamera;
+		rfCamera*                   renderCamera;
 		D3DDEVTYPE					deviceType;
 		MSG							msg;
 		dsRenderScene				dsrScene;

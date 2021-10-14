@@ -1,6 +1,6 @@
-#include "Game/Elements/Camera.h"
+#include "Game/Elements/rfCamera.h"
 
-Camera::Camera()
+rfCamera::rfCamera()
 {
 	Position = new D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	Right =   new D3DXVECTOR3(1.0f, 0.0f, 0.0f);
@@ -8,7 +8,7 @@ Camera::Camera()
 	LookAt =   new D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 }
 
-Camera::Camera(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt)
+rfCamera::rfCamera(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt)
 {
 	Position = (D3DXVECTOR3*)&position;
 	Right = (D3DXVECTOR3*)&target;
@@ -16,11 +16,11 @@ Camera::Camera(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 loo
 	LookAt = (D3DXVECTOR3*)&lookAt;
 }
 
-Camera::~Camera()
+rfCamera::~rfCamera()
 {
 }
 
-void Camera::Setup(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt)
+void rfCamera::Setup(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt)
 {
 	Position = (D3DXVECTOR3*)&position;
 	Right = (D3DXVECTOR3*)&target;
@@ -28,14 +28,14 @@ void Camera::Setup(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3
 	LookAt = (D3DXVECTOR3*)&lookAt;
 }
 
-void Camera::SetPosition(D3DXVECTOR3 pos)
+void rfCamera::SetPosition(D3DXVECTOR3 pos)
 {
 	Position->x = pos.x;
 	Position->y = pos.y;
 	Position->z = pos.z;
 }
 
-D3DXMATRIX Camera::BuildViewMatrix()
+D3DXMATRIX rfCamera::BuildViewMatrix()
 {
 	// Make LookAt vector unit length
 	D3DXVec3Normalize(LookAt, LookAt);
@@ -66,17 +66,17 @@ D3DXMATRIX Camera::BuildViewMatrix()
 	return View;
 }
 
-void Camera::Move(float units)
+void rfCamera::Move(float units)
 {
 	*Position += GetLookAt() * units;
 }
 
-void Camera::MoveUp(float units)
+void rfCamera::MoveUp(float units)
 {
 	*Position += GetUp() * units;
 }
 
-void Camera::Pitch(rfFloat angle)
+void rfCamera::Pitch(rfFloat angle)
 {
 	D3DXMATRIX P;
 	D3DXMatrixRotationAxis(&P, Right, angle);
@@ -85,7 +85,7 @@ void Camera::Pitch(rfFloat angle)
 	D3DXVec3TransformCoord(LookAt, LookAt, &P);
 }
 
-void Camera::Yaw(rfFloat angle)
+void rfCamera::Yaw(rfFloat angle)
 {
 	D3DXMATRIX Y;
 	D3DXMatrixRotationY(&Y, angle);
@@ -94,7 +94,7 @@ void Camera::Yaw(rfFloat angle)
 	D3DXVec3TransformCoord(LookAt, LookAt, &Y);
 }
 
-void Camera::Roll(rfFloat angle)
+void rfCamera::Roll(rfFloat angle)
 {
 	D3DXMATRIX R;
 

@@ -169,7 +169,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Game\Elements\Camera.h" />
+    <ClInclude Include="..\include\Game\Elements\rfCamera.h" />
+    <ClInclude Include="..\include\Game\Elements\rfScene.h" />
     <ClInclude Include="..\include\Game\Elements\rfVertex.h" />
     <ClInclude Include="..\include\Math\rfMatrix.h" />
     <ClInclude Include="..\include\Math\rfVector3.h" />
@@ -199,14 +200,14 @@
     <ClInclude Include="rfMath.h" />
     <ClInclude Include="rfPhysics.h" />
     <ClInclude Include="rfPhysicsActor.h" />
-    <ClInclude Include="rfScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\Renderer\rfRenderer.cpp" />
     <ClCompile Include="..\include\System\Platform\rfWindow.cpp" />
     <ClCompile Include="..\include\System\Subsystem.cpp" />
-    <ClCompile Include="..\source\Game\Elements\Camera.cpp" />
+    <ClCompile Include="..\source\Game\Elements\rfCamera.cpp" />
     <ClCompile Include="..\source\Game\Elements\rfActor.cpp" />
+    <ClCompile Include="..\source\Game\Elements\rfScene.cpp" />
     <ClCompile Include="..\source\Math\rfMatrix.cpp" />
     <ClCompile Include="..\source\Math\rfVector3.cpp" />
     <ClCompile Include="..\source\Physics\API\PhysX_SDK2_81.cpp" />
