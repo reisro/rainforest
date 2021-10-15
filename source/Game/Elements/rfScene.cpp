@@ -11,5 +11,5 @@ rfScene::~rfScene()
 
 ID3DXMesh* rfScene::GetSceneMeshAtIndex(int index)
 {
-	return rfRenderer::GetInstance()->;
+	return nullptr;// rfRenderer::GetInstance()->;
 }

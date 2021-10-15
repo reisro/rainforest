@@ -479,6 +479,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {

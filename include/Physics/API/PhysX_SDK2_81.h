@@ -26,12 +26,16 @@ public:
 
 	bool CreateSDK();
 	bool Initialize();
+	void Release();
 	void SetSDKParameters();
 	void SetDebugParameters();
 	void CreateDefaultMaterial();
 	void CreateDefaultActor();
 	void Simulate(float DeltaTime);
 	void UpdateTime();
+	void GetPhysicsResults();
+	void Reset();
+	NxActor* CreateGroundPlane();
 
 private:
 

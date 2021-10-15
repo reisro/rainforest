@@ -14,14 +14,7 @@ PhysX_2_81_::PhysX_2_81_() :
 //-----------------------------------------------------------------------------
 PhysX_2_81_::~PhysX_2_81_()
 {
-	if (_Scene)
-	{
-		while (!_Scene->fetchResults(NX_RIGID_BODY_FINISHED, false));
-		_PhysicsSDK->releaseScene(*_Scene);
-	}
-
-	if (_PhysicsSDK)
-		_PhysicsSDK->release();
+	Release();
 }
 
 //-----------------------------------------------------------------------------
@@ -55,7 +48,25 @@ bool PhysX_2_81_::Initialize()
 
 	UpdateTime();
 
+	QueryPerformanceFrequency((LARGE_INTEGER*)& _Frequency);
+
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Create the Scene
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::Release()
+{
+	if (_Scene)
+	{
+		while (!_Scene->fetchResults(NX_RIGID_BODY_FINISHED, false));
+		_PhysicsSDK->releaseScene(*_Scene);
+	}
+
+	if (_PhysicsSDK)
+		_PhysicsSDK->release();
 }
 
 //-----------------------------------------------------------------------------
@@ -131,12 +142,55 @@ void PhysX_2_81_::Simulate(float DeltaTime)
 	_Scene->flushStream();
 }
 
+//-----------------------------------------------------------------------------
+// Start collision and dynamics for delta time since last frame
+//-----------------------------------------------------------------------------
+
 void PhysX_2_81_::UpdateTime()
 {
 	QueryPerformanceCounter((LARGE_INTEGER*) &_Time);
 	_DeltaTime = (NxReal)(_Time - _LastTime) / (NxReal)_Frequency;
 	_LastTime = _Time;
 }
+
+//-----------------------------------------------------------------------------
+// Start collision and dynamics for delta time since last frame
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::GetPhysicsResults()
+{
+	// Get results from Scene->simulate(DeltaTime)
+	while (!_Scene->fetchResults(NX_RIGID_BODY_FINISHED, false));
+}
+
+//-----------------------------------------------------------------------------
+// Start collision and dynamics for delta time since last frame
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::Reset()
+{
+	Release();
+	Initialize();
+}
+
+//-----------------------------------------------------------------------------
+// Start collision and dynamics for delta time since last frame
+//-----------------------------------------------------------------------------
+
+NxActor* PhysX_2_81_::CreateGroundPlane()
+{
+	// Create a plane with default descriptor
+	NxPlaneShapeDesc planeDesc;
+	NxActorDesc actorDesc;
+	planeDesc.normal = NxVec3(0.0f, 0.0f, 0.0f);
+	actorDesc.shapes.pushBack(&planeDesc);
+	
+	return _Scene->createActor(actorDesc);
+}
+
+//-----------------------------------------------------------------------------
+// Start collision and dynamics for delta time since last frame
+//-----------------------------------------------------------------------------
 
 float PhysX_2_81_::GetFPS()
 {
