@@ -17,6 +17,9 @@ void rfPhysics::CreateInstance()
 		Singleton = new PhysX_2_81_();
 }
 
+//-----------------------------------------------------------------------------
+// Create Instance based on engine configuration
+//-----------------------------------------------------------------------------
 bool rfPhysics::Init()
 {
 	return Singleton ? Singleton->Initialized() : 0;
@@ -30,19 +33,44 @@ rfPhysics::rfPhysics()
 {
 }
 
+//-----------------------------------------------------------------------------
+// Create Instance based on engine configuration
+//-----------------------------------------------------------------------------
+
 rfPhysics::~rfPhysics()
 {
 }
+
+//-----------------------------------------------------------------------------
+// Create Instance based on engine configuration
+//-----------------------------------------------------------------------------
 
 bool rfPhysics::Initialized()
 {
 	return Singleton->Initialize();
 }
 
+//-----------------------------------------------------------------------------
+// Create Instance based on engine configuration
+//-----------------------------------------------------------------------------
+
 bool rfPhysics::Initialize()
 {
 	return true;
 }
+
+//-----------------------------------------------------------------------------
+// Create Instance based on engine configuration
+//-----------------------------------------------------------------------------
+
+void rfPhysics::Simulate()
+{
+	Singleton->Simulate();
+}
+
+//-----------------------------------------------------------------------------
+// Create Instance based on engine configuration
+//-----------------------------------------------------------------------------
 
 float rfPhysics::GetFPS()
 {

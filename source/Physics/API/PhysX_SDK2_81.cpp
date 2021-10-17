@@ -39,16 +39,16 @@ bool PhysX_2_81_::Initialize()
 		return false;
 
 	SetSDKParameters();
+	SetDebugParameters();
 
 	_SceneDesc.gravity = _DefaultGravity;
 	_SceneDesc.simType = NX_SIMULATION_SW;
 	_Scene = _PhysicsSDK->createScene(_SceneDesc);
 
 	CreateDefaultMaterial();
+	CreateDefaultActor();
 
-	UpdateTime();
-
-	QueryPerformanceFrequency((LARGE_INTEGER*)& _Frequency);
+	if (_Scene) Simulate();
 
 	return true;
 }
@@ -110,8 +110,8 @@ void PhysX_2_81_::CreateDefaultActor()
 
 	NxReal sphereStartHeight = 3.5f;
 
-	NxActorDesc actorPDesc;
-	NxActorDesc actorSDesc;
+	NxActorDesc actorPlaneDesc;
+	NxActorDesc actorSphereDesc;
 
 	NxBodyDesc bodySDesc;
 
@@ -119,26 +119,36 @@ void PhysX_2_81_::CreateDefaultActor()
 	sphereDesc.localPose.t = NxVec3(.0f, .0f, .0f);
 
 	// Plane
-	actorPDesc.shapes.pushBack(&planeDesc);
+	actorPlaneDesc.shapes.pushBack(&planeDesc);
 
 	// Sphere
-	actorSDesc.shapes.pushBack(&sphereDesc);
-	actorSDesc.body = &bodySDesc;
-	actorSDesc.density = 10.0f;
-	actorSDesc.globalPose.t = NxVec3(3.0f, sphereStartHeight, .0f);
+	actorSphereDesc.shapes.pushBack(&sphereDesc);
+	actorSphereDesc.body = &bodySDesc;
+	actorSphereDesc.density = 10.0f;
+	actorSphereDesc.globalPose.t = NxVec3(5.0f, sphereStartHeight, .0f);
 
-	_Scene->createActor(actorPDesc);
-	_Scene->createActor(actorSDesc);
+	assert(actorSphereDesc.isValid());
+
+	_Scene->createActor(actorPlaneDesc);
+	_Scene->createActor(actorSphereDesc);
+}
+
+//-----------------------------------------------------------------------------
+// Visualize wireframe actors in physics simulation
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::DebugWireframeMode()
+{
 }
 
 //-----------------------------------------------------------------------------
 // Start collision and dynamics for delta time since last frame
 //-----------------------------------------------------------------------------
-void PhysX_2_81_::Simulate(float DeltaTime)
+void PhysX_2_81_::Simulate()
 {
 	UpdateTime();
 
-	_Scene->simulate(DeltaTime);
+	_Scene->simulate(_DeltaTime);
 	_Scene->flushStream();
 }
 

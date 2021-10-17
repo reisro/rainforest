@@ -30,6 +30,7 @@ public:
 	bool				Initialized();
 
 	virtual bool		Initialize();
+	virtual void		Simulate();
 	virtual float		GetFPS();
 	
 	static rfPhysics* Singleton;

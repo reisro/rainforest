@@ -22,6 +22,7 @@ public:
 	PhysX_2_81_();
 	~PhysX_2_81_();
 
+	void Simulate() override;
 	float GetFPS() override;
 
 	bool CreateSDK();
@@ -31,10 +32,11 @@ public:
 	void SetDebugParameters();
 	void CreateDefaultMaterial();
 	void CreateDefaultActor();
-	void Simulate(float DeltaTime);
+	void DebugWireframeMode();
 	void UpdateTime();
 	void GetPhysicsResults();
 	void Reset();
+
 	NxActor* CreateGroundPlane();
 
 private:
