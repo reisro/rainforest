@@ -16,6 +16,8 @@
 #include <crtdbg.h>
 #include "RainForest.h"
 
+extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {	

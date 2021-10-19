@@ -33,6 +33,7 @@ public:
 	void CreateDefaultMaterial();
 	void CreateDefaultActor();
 	void DebugWireframeMode();
+	void RenderDefaultActors();
 	void UpdateTime();
 	void GetPhysicsResults();
 	void Reset();
@@ -46,6 +47,8 @@ private:
 	NxVec3		  _DefaultGravity;
 	NxScene*      _Scene;
 	NxSceneDesc   _SceneDesc;
+	NxActor*     _defaultActor;
+	NxActor*     _defaultSphere;
 	float		  _Seconds;
 	__int64       _LastTime;
 	__int64		  _Time;

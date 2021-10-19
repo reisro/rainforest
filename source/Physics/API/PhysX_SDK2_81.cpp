@@ -7,6 +7,7 @@
 PhysX_2_81_::PhysX_2_81_() :
 	_PhysicsSDK(NULL), _Scene(NULL), _DefaultGravity(.0f,-9.8f,.0f)
 {
+	_defaultActor = 
 }
 
 //-----------------------------------------------------------------------------
@@ -108,29 +109,31 @@ void PhysX_2_81_::CreateDefaultActor()
 	NxPlaneShapeDesc planeDesc;
 	NxSphereShapeDesc sphereDesc;
 
-	NxReal sphereStartHeight = 3.5f;
+	NxReal sphereStartHeight = 0.0f;
 
 	NxActorDesc actorPlaneDesc;
 	NxActorDesc actorSphereDesc;
 
 	NxBodyDesc bodySDesc;
 
-	sphereDesc.radius = 0.65f;
-	sphereDesc.localPose.t = NxVec3(.0f, .0f, .0f);
+	planeDesc.normal = NxVec3(0.0f, 1.0f, 0.0f);
 
 	// Plane
 	actorPlaneDesc.shapes.pushBack(&planeDesc);
 
+	sphereDesc.radius = 4.0f;
+	sphereDesc.localPose.t = NxVec3(.0f, .0f, .0f);
+	
 	// Sphere
 	actorSphereDesc.shapes.pushBack(&sphereDesc);
 	actorSphereDesc.body = &bodySDesc;
 	actorSphereDesc.density = 10.0f;
-	actorSphereDesc.globalPose.t = NxVec3(5.0f, sphereStartHeight, .0f);
+	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, .0f);
 
 	assert(actorSphereDesc.isValid());
 
-	_Scene->createActor(actorPlaneDesc);
-	_Scene->createActor(actorSphereDesc);
+	_defaultActor =  _Scene->createActor(actorPlaneDesc);
+	_defaultSphere = _Scene->createActor(actorSphereDesc);
 }
 
 //-----------------------------------------------------------------------------
@@ -138,6 +141,14 @@ void PhysX_2_81_::CreateDefaultActor()
 //-----------------------------------------------------------------------------
 
 void PhysX_2_81_::DebugWireframeMode()
+{
+}
+
+//-----------------------------------------------------------------------------
+// Start collision and dynamics for delta time since last frame
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::RenderDefaultActors()
 {
 }
 
