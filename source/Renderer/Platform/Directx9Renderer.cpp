@@ -25,7 +25,7 @@ Directx9Renderer::Directx9Renderer():
     renderCmdStack = {};
     Singleton = this;
     renderCamera = new rfCamera();
-    renderCamera->SetPosition(rfVector3::Zero()->toD3DVECTOR3());
+    renderCamera->SetPosition(D3DXVECTOR3(-256.37f,275.20f,2012.07f));
 
     vertexBuffer = 0;
     indexBuffer = 0;
@@ -250,10 +250,10 @@ bool Directx9Renderer::beginFrame()
         renderCamera->Move(-300.0f * timeDelta);
 
     if (::GetAsyncKeyState('A') & 0x8000f)
-        renderCamera->Yaw(-1.5f * timeDelta);
+        renderCamera->RotateYaw(-1.5f * timeDelta);
 
     if (::GetAsyncKeyState('D') & 0x8000f)
-        renderCamera->Yaw(1.5f * timeDelta);
+        renderCamera->RotateYaw(1.5f * timeDelta);
 
     if (::GetAsyncKeyState('Q') & 0x8000f)
         renderCamera->MoveUp(100.0f * timeDelta);
@@ -308,16 +308,44 @@ bool Directx9Renderer::endFrame()
 
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
-    SetRect(&rect, 0, 0,500,30);
-    //sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->7);
+    sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->GetFPS());
 
-    Font->DrawTextA(
-        NULL,
-        FPSString,
-        -1, // size of string or -1 indicates null terminating string
-        &rect,            // rectangle text is to be formatted to in windows coords
-        DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-        0xffffffff);      // black text
+    static char CameraPosString_[100];
+    RECT rect_ = { 5, 35, 1280, 720 };
+    
+    try
+    {
+        Font->DrawText(
+            NULL,
+            FPSString,
+            -1, // size of string or -1 indicates null terminating string
+            &rect,            // rectangle text is to be formatted to in windows coords
+            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+            0xffffffff);      // black text
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "excetion caught: " << e.what() << '\n';
+    }
+   
+    try
+    {
+        sprintf_s(CameraPosString_, "Camera Position(%f,%f,%f)", renderCamera->GetPosition()->x,
+            renderCamera->GetPosition()->y,
+            renderCamera->GetPosition()->z);
+
+        Font->DrawText(
+            NULL,
+            CameraPosString_,
+            -1, // size of string or -1 indicates null terminating string
+            &rect_,            // rectangle text is to be formatted to in windows coords
+            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+            0xffffffff);      // black text
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "excetion caught: " << e.what() << '\n';
+    }
 
     device->SetTransform(D3DTS_WORLD, &defaultMeshWorldMat);
 
@@ -401,8 +429,10 @@ void Directx9Renderer::SetRenderState()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::Cleanup()
 {
-    d3d9->Release();
-    device->Release();
+    _RFGE_SAFE_RELEASE(d3d9);
+    _RFGE_SAFE_RELEASE(device);
+    _RFGE_SAFE_RELEASE(Font);
+    _RFGE_SAFE_DELETE(Font);
 }
 
 void Directx9Renderer::CameraSetup()
@@ -662,8 +692,8 @@ void Directx9Renderer::ShowFPS()
 {
     HRESULT hr;
 
-    hr = (D3DXCreateFontA(device, 20, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET,
-        OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &Font));
+    hr = (D3DXCreateFontA(device, 24, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET,
+        OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Sitka Display Regular", &Font));
 
     //hr = (D3DXCreateFontIndirectA(device, &dsrCamera._debugFPS, &Font));
     

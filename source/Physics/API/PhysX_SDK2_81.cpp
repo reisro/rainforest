@@ -7,7 +7,6 @@
 PhysX_2_81_::PhysX_2_81_() :
 	_PhysicsSDK(NULL), _Scene(NULL), _DefaultGravity(.0f,-9.8f,.0f)
 {
-	_defaultActor = 
 }
 
 //-----------------------------------------------------------------------------

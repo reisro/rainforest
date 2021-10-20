@@ -19,6 +19,7 @@
 #include <stack>
 #include <string>
 #include <stdio.h>
+#include <exception>
 #include "Game/Elements/rfCamera.h"
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"

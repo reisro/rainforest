@@ -43,18 +43,21 @@ public:
 	void Move(float units);
 	void MoveUp(float units);
 
-	void Pitch(rfFloat angle);
-	void Yaw(rfFloat angle);
-	void Roll(rfFloat angle);
+	void RotatePitch(rfFloat angle);
+	void RotateYaw(rfFloat angle);
+	void RotateRoll(rfFloat angle);
 
 private:
 
-	D3DXVECTOR3* Position;
-	D3DXVECTOR3* Right;
-	D3DXVECTOR3* Up;
-	D3DXVECTOR3* LookAt;
-	D3DXMATRIX   View;
-	D3DXMATRIX   Projection;
+	D3DXVECTOR3*		Position;
+	D3DXVECTOR3*		Right;
+	D3DXVECTOR3*		Up;
+	D3DXVECTOR3*		LookAt;
+	D3DXQUATERNION*		Roll;
+	D3DXQUATERNION*		Yaw;
+	D3DXQUATERNION*		Pitch;
+	D3DXMATRIX			View;
+	D3DXMATRIX			Projection;
 };
 
 #endif RFGE_CAMERA_H

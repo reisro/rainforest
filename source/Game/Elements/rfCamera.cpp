@@ -76,7 +76,7 @@ void rfCamera::MoveUp(float units)
 	*Position += GetUp() * units;
 }
 
-void rfCamera::Pitch(rfFloat angle)
+void rfCamera::RotatePitch(rfFloat angle)
 {
 	D3DXMATRIX P;
 	D3DXMatrixRotationAxis(&P, Right, angle);
@@ -85,7 +85,7 @@ void rfCamera::Pitch(rfFloat angle)
 	D3DXVec3TransformCoord(LookAt, LookAt, &P);
 }
 
-void rfCamera::Yaw(rfFloat angle)
+void rfCamera::RotateYaw(rfFloat angle)
 {
 	D3DXMATRIX Y;
 	D3DXMatrixRotationY(&Y, angle);
@@ -94,7 +94,7 @@ void rfCamera::Yaw(rfFloat angle)
 	D3DXVec3TransformCoord(LookAt, LookAt, &Y);
 }
 
-void rfCamera::Roll(rfFloat angle)
+void rfCamera::RotateRoll(rfFloat angle)
 {
 	D3DXMATRIX R;
 
