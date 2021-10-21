@@ -183,6 +183,9 @@
     <ClInclude Include="..\include\Game\Elements\rfScene.h">
       <Filter>Header Files\Game\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Math\rfQuaternion.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -250,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="..\source\Game\Elements\rfScene.cpp">
       <Filter>Source Files\Game\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Math\rfQuaternion.cpp">
+      <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
