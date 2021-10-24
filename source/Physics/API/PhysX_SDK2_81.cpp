@@ -48,7 +48,7 @@ bool PhysX_2_81_::Initialize()
 	CreateDefaultMaterial();
 	CreateDefaultActor();
 
-	if (_Scene) Simulate();
+	//if (_Scene) Simulate();
 
 	return true;
 }

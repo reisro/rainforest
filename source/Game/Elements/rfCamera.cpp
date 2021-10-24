@@ -35,6 +35,27 @@ void rfCamera::SetPosition(D3DXVECTOR3 pos)
 	Position->z = pos.z;
 }
 
+void rfCamera::SetRight(D3DXVECTOR3 right)
+{
+	Right->x = right.x;
+	Right->y = right.y;
+	Right->z = right.z;
+}
+
+void rfCamera::SetUp(D3DXVECTOR3 up)
+{
+	Up->x = up.x;
+	Up->y = up.y;
+	Up->z = up.z;
+}
+
+void rfCamera::SetLookAt(D3DXVECTOR3 lookAt)
+{
+	LookAt->x = lookAt.x;
+	LookAt->y = lookAt.y;
+	LookAt->z = lookAt.z;
+}
+
 D3DXMATRIX rfCamera::BuildViewMatrix()
 {
 	// Make LookAt vector unit length

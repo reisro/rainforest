@@ -42,10 +42,11 @@ public:
 	rfQuaternion(rfFloat _x, rfFloat _y, rfFloat _z, rfFloat _w);
 	~rfQuaternion();
 
+	rfQuaternion* Conjugate();
+
 	//-------------------------------------------------------------------------
 	// Public Methods
 	//-------------------------------------------------------------------------
-
 	inline static rfQuaternion* RotationYawPitchRoll(rfQuaternion& out, rfFloat yaw, rfFloat pitch, rfFloat roll)
 	{
 		return (rfQuaternion*)D3DXQuaternionRotationYawPitchRoll((D3DXQUATERNION*)&out, yaw, pitch, roll);

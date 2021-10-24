@@ -11,3 +11,8 @@ rfQuaternion::rfQuaternion(rfFloat x, rfFloat y, rfFloat z, rfFloat w)
 rfQuaternion::~rfQuaternion()
 {
 }
+
+rfQuaternion* rfQuaternion::Conjugate()
+{
+    return nullptr;
+}

@@ -25,7 +25,10 @@ Directx9Renderer::Directx9Renderer():
     renderCmdStack = {};
     Singleton = this;
     renderCamera = new rfCamera();
-    renderCamera->SetPosition(D3DXVECTOR3(-256.37f,275.20f,2012.07f));
+    renderCamera->SetPosition(D3DXVECTOR3(-1427.39f,505.599f,2435.707f));
+    renderCamera->SetRight(D3DXVECTOR3(-0.898f, .0f, -0.438f));
+    renderCamera->SetUp(D3DXVECTOR3(.0f, 1.0f, .0f));
+    renderCamera->SetLookAt(D3DXVECTOR3(0.522f, .0f, -0.852f));
 
     vertexBuffer = 0;
     indexBuffer = 0;
@@ -312,6 +315,15 @@ bool Directx9Renderer::endFrame()
 
     static char CameraPosString_[100];
     RECT rect_ = { 5, 35, 1280, 720 };
+
+    static char CameraOrientationRightString[100];
+    RECT rect__ = { 5, 70, 1280, 720 };
+
+    static char CameraOrientationUpString[100];
+    RECT rect3 = { 5, 105, 1280, 720 };
+
+    static char CameraOrientationLookAtString[100];
+    RECT rect4 = { 5, 140, 1280, 720 };
     
     try
     {
@@ -339,6 +351,63 @@ bool Directx9Renderer::endFrame()
             CameraPosString_,
             -1, // size of string or -1 indicates null terminating string
             &rect_,            // rectangle text is to be formatted to in windows coords
+            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+            0xffffffff);      // black text
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "excetion caught: " << e.what() << '\n';
+    }
+
+    try
+    {
+        sprintf_s(CameraOrientationRightString, "Camera Right Vector(%f,%f,%f)", renderCamera->GetRight().x,
+            renderCamera->GetRight().y,
+            renderCamera->GetRight().z);
+
+        Font->DrawText(
+            NULL,
+            CameraOrientationRightString,
+            -1, // size of string or -1 indicates null terminating string
+            &rect__,            // rectangle text is to be formatted to in windows coords
+            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+            0xffffffff);      // black text
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "excetion caught: " << e.what() << '\n';
+    }
+
+    try
+    {
+        sprintf_s(CameraOrientationUpString, "Camera Up Vector(%f,%f,%f)", renderCamera->GetUp().x,
+            renderCamera->GetUp().y,
+            renderCamera->GetUp().z);
+
+        Font->DrawText(
+            NULL,
+            CameraOrientationUpString,
+            -1, // size of string or -1 indicates null terminating string
+            &rect3,            // rectangle text is to be formatted to in windows coords
+            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+            0xffffffff);      // black text
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "excetion caught: " << e.what() << '\n';
+    }
+
+    try
+    {
+        sprintf_s(CameraOrientationLookAtString, "Camera Look At Vector(%f,%f,%f)", renderCamera->GetLookAt().x,
+            renderCamera->GetLookAt().y,
+            renderCamera->GetLookAt().z);
+
+        Font->DrawText(
+            NULL,
+            CameraOrientationLookAtString,
+            -1, // size of string or -1 indicates null terminating string
+            &rect4,            // rectangle text is to be formatted to in windows coords
             DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
             0xffffffff);      // black text
     }

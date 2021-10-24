@@ -31,6 +31,9 @@ public:
 	void Setup(rfVector3 position, rfVector3 target, rfVector3 up, rfVector3 lookAt);
 
 	void SetPosition(D3DXVECTOR3 pos);
+	void SetRight(D3DXVECTOR3 right);
+	void SetUp(D3DXVECTOR3 up);
+	void SetLookAt(D3DXVECTOR3 lookAt);
 
 	D3DXVECTOR3* GetPosition() const { return Position; }
 	D3DXVECTOR3 GetRight() const { return *Right; }
