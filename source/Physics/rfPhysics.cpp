@@ -76,3 +76,13 @@ float rfPhysics::GetFPS()
 {
 	return Singleton->GetFPS();
 }
+
+void rfPhysics::GetPhysicsResults()
+{
+	Singleton->GetPhysicsResults();
+}
+
+rfPhysics* rfPhysics::GetInstance()
+{
+	return Singleton;
+}

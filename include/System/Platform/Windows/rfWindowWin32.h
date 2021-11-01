@@ -35,7 +35,7 @@ protected:
 	LPCSTR		Name;
 	HWND		hWnd;
 	WNDCLASS	wc;
-	LPCWSTR		titleName;
+	LPCSTR		titleName;
 
 	int cmdShow;
 

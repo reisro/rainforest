@@ -9,7 +9,6 @@ rfMesh::rfMesh(IDirect3DDevice9* device)
 
 rfMesh::~rfMesh()
 {
-
 }
 
 ID3DXMesh* rfMesh::GetGeometry() const
@@ -79,7 +78,6 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 
 void rfMesh::SetMaterials()
 {
-	
 }
 
 int rfMesh::GetNumberMaterials() const

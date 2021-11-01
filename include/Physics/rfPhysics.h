@@ -32,6 +32,9 @@ public:
 	virtual bool		Initialize();
 	virtual void		Simulate();
 	virtual float		GetFPS();
+	virtual void		GetPhysicsResults();
+
+	static rfPhysics* GetInstance();
 	
 	static rfPhysics* Singleton;
 };

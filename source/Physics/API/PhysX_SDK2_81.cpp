@@ -48,7 +48,10 @@ bool PhysX_2_81_::Initialize()
 	CreateDefaultMaterial();
 	CreateDefaultActor();
 
-	//if (_Scene) Simulate();
+	UpdateTime();
+
+	// Get processor freq
+	QueryPerformanceFrequency((LARGE_INTEGER*) &_Frequency);
 
 	return true;
 }

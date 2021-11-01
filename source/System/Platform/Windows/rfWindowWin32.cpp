@@ -4,7 +4,7 @@ rfWindowWin32::rfWindowWin32()
 {
     hWnd = NULL;
     wc = {};
-    titleName = L"Rain Forest Engine";
+    titleName = "Rain Forest Engine";
     hInstance = (HINSTANCE)GetModuleHandle(NULL);
     Name = "";
     cmdShow = 10;
@@ -31,7 +31,7 @@ void rfWindowWin32::CreateWin32Window()
     RegisterClass(&wc);
 
     // Creating the window
-    hWnd = CreateWindowExA(0, "WindowTitle", (LPCSTR) titleName, WS_OVERLAPPEDWINDOW,
+    hWnd = CreateWindowExA(0, "WindowTitle", titleName, WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 1920, 1080, NULL, NULL, hInstance, NULL);
 
     if (hWnd == NULL)

@@ -152,9 +152,9 @@ bool Directx9Renderer::PostInit()
     dsrScene.numberMeshes = 5;
 
     // Data structure that holds light information data
-    dsrLight.angleX = 0.707f;
-    dsrLight.angleY = -0.707f;
-    dsrLight.angleZ = 0.707f;
+    dsrLight.angleX = -255.292f;
+    dsrLight.angleY = 293.29f;
+    dsrLight.angleZ = 382.70f;
     dsrLight._Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
     dsrLight._Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -233,6 +233,9 @@ bool Directx9Renderer::beginFrame()
 {
     RFGE_LOG("Begin Frame Render.");
 
+    rfPhysics::GetInstance()->GetPhysicsResults();
+    rfPhysics::GetInstance()->Simulate();
+
     // Initialization checks
     if (initialized)
     {
@@ -246,6 +249,7 @@ bool Directx9Renderer::beginFrame()
 
     D3DXMATRIX CameraView;
 
+    // Camera navigation controls
     if (::GetAsyncKeyState('W') & 0x8000f)
         renderCamera->Move(300.0f * timeDelta);
 
@@ -266,6 +270,7 @@ bool Directx9Renderer::beginFrame()
 
     // Build camera view matrix according to keyboard input
     CameraView = renderCamera->BuildViewMatrix();
+
     device->SetTransform(D3DTS_VIEW, &CameraView);
 
     // Adjust the light rotation using wasd keyboard keys
@@ -312,18 +317,6 @@ bool Directx9Renderer::endFrame()
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
     sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->GetFPS());
-
-    static char CameraPosString_[100];
-    RECT rect_ = { 5, 35, 1280, 720 };
-
-    static char CameraOrientationRightString[100];
-    RECT rect__ = { 5, 70, 1280, 720 };
-
-    static char CameraOrientationUpString[100];
-    RECT rect3 = { 5, 105, 1280, 720 };
-
-    static char CameraOrientationLookAtString[100];
-    RECT rect4 = { 5, 140, 1280, 720 };
     
     try
     {
@@ -339,90 +332,10 @@ bool Directx9Renderer::endFrame()
     {
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
-   
-    try
-    {
-        sprintf_s(CameraPosString_, "Camera Position(%f,%f,%f)", renderCamera->GetPosition()->x,
-            renderCamera->GetPosition()->y,
-            renderCamera->GetPosition()->z);
-
-        Font->DrawText(
-            NULL,
-            CameraPosString_,
-            -1, // size of string or -1 indicates null terminating string
-            &rect_,            // rectangle text is to be formatted to in windows coords
-            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-            0xffffffff);      // black text
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "excetion caught: " << e.what() << '\n';
-    }
-
-    try
-    {
-        sprintf_s(CameraOrientationRightString, "Camera Right Vector(%f,%f,%f)", renderCamera->GetRight().x,
-            renderCamera->GetRight().y,
-            renderCamera->GetRight().z);
-
-        Font->DrawText(
-            NULL,
-            CameraOrientationRightString,
-            -1, // size of string or -1 indicates null terminating string
-            &rect__,            // rectangle text is to be formatted to in windows coords
-            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-            0xffffffff);      // black text
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "excetion caught: " << e.what() << '\n';
-    }
-
-    try
-    {
-        sprintf_s(CameraOrientationUpString, "Camera Up Vector(%f,%f,%f)", renderCamera->GetUp().x,
-            renderCamera->GetUp().y,
-            renderCamera->GetUp().z);
-
-        Font->DrawText(
-            NULL,
-            CameraOrientationUpString,
-            -1, // size of string or -1 indicates null terminating string
-            &rect3,            // rectangle text is to be formatted to in windows coords
-            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-            0xffffffff);      // black text
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "excetion caught: " << e.what() << '\n';
-    }
-
-    try
-    {
-        sprintf_s(CameraOrientationLookAtString, "Camera Look At Vector(%f,%f,%f)", renderCamera->GetLookAt().x,
-            renderCamera->GetLookAt().y,
-            renderCamera->GetLookAt().z);
-
-        Font->DrawText(
-            NULL,
-            CameraOrientationLookAtString,
-            -1, // size of string or -1 indicates null terminating string
-            &rect4,            // rectangle text is to be formatted to in windows coords
-            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-            0xffffffff);      // black text
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "excetion caught: " << e.what() << '\n';
-    }
-
-    device->SetTransform(D3DTS_WORLD, &defaultMeshWorldMat);
-
-    defaultMesh->DrawSubset(0);
 
     for (int i = 0; i < meshes.size(); i++)
     {
-        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
+        //device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
 
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
@@ -562,7 +475,6 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center_centerright.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\stands.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");

@@ -24,6 +24,7 @@ public:
 
 	void Simulate() override;
 	float GetFPS() override;
+	void GetPhysicsResults() override;
 
 	bool CreateSDK();
 	bool Initialize();
@@ -35,7 +36,6 @@ public:
 	void DebugWireframeMode();
 	void RenderDefaultActors();
 	void UpdateTime();
-	void GetPhysicsResults();
 	void Reset();
 
 	NxActor* CreateGroundPlane();

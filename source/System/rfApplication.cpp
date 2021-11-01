@@ -85,6 +85,9 @@ void rfApplication::Run()
 {
 	RFGE_LOG("\n  Rendering frame...");
 
+	// Start physics simulation
+	rfPhysics::GetInstance()->Simulate();
+
 	// Render the scene
 	rfRenderer::GetInstance()->Render();
 
