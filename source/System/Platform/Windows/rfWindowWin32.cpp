@@ -4,7 +4,7 @@ rfWindowWin32::rfWindowWin32()
 {
     hWnd = NULL;
     wc = {};
-    titleName = "Rain Forest Engine";
+    titleName = "Rain Forest Engine - Volleyball Court";
     hInstance = (HINSTANCE)GetModuleHandle(NULL);
     Name = "";
     cmdShow = 10;
