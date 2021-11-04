@@ -62,7 +62,11 @@ typedef struct rfgeDX9Color
 	rfgeDX9Color(rfFloat r, rfFloat g, rfFloat b, rfFloat a)
 	{	
 		Red = r; Green = g; Blue = b; Alpha = a;
-		D3DXCOLOR(Red,Green,Blue,Alpha);
+
+		Color.r = Red;
+		Color.g = Green;
+		Color.b = Blue;
+		Color.a = Alpha;
 	}
 
 	rfFloat Red;
@@ -70,7 +74,7 @@ typedef struct rfgeDX9Color
 	rfFloat Blue;
 	rfFloat Alpha;
 
-	D3DXCOLOR* ToD3DXCOLOR() { return (D3DXCOLOR*) &Red; }
+	D3DXCOLOR Color;
 
 } rfgeDX9Color;
 
@@ -88,6 +92,32 @@ typedef struct rfgeDX9Light
 	rfFloat Alpha;
 
 } rfgeDX9Light;
+
+typedef struct rfgeDX9Material
+{
+	rfgeDX9Material(rfgeDX9Color a, rfgeDX9Color d, rfgeDX9Color s, rfgeDX9Color e, rfFloat p)
+	{
+		ambient = a.Color;
+		diffuse = d.Color;
+		specular = s.Color;
+		emissive = e.Color;
+		power = p;
+		
+		material.Ambient = ambient;
+		material.Diffuse = diffuse;
+		material.Specular = specular;
+		material.Emissive = emissive;
+		material.Power = power;
+	}
+
+	D3DXCOLOR    ambient;
+	D3DXCOLOR    diffuse;
+	D3DXCOLOR    specular;
+	D3DXCOLOR    emissive;
+	rfFloat	     power;
+	D3DMATERIAL9 material;
+
+} rfgeDX9Material;
 
 //-----------------------------------------------------------------------------
 // Render States Drawing Modes
@@ -113,9 +143,9 @@ const rfgeDX9RenderState PHONGSHADING(D3DRS_SHADEMODE, D3DSHADE_PHONG);
 // Constant Colors
 //-----------------------------------------------------------------------------
 
-const rfgeDX9Color WHITE(1.0f, 1.0f, 1.0f, 1.0f); 
-const rfgeDX9Color BLACK(.0f, .0f, .0f, 1.0f);
-const rfgeDX9Color RED(1.0f, .0f, .0f, 1.0f);
+const rfgeDX9Color WHITE(1.0f, 1.0f, 1.0f, 1.0f);
+const rfgeDX9Color BLACK(.18f, .18f, .18f, 1.0f);
+const rfgeDX9Color RED(1.0f, .0f, .0f, 0.5f);
 const rfgeDX9Color GREEN(.0f, 1.0f, .0f, 1.0f);
 const rfgeDX9Color BLUE(.0f, .0f, 1.0f,1.0f);
 const rfgeDX9Color OCEANBLUE(51.0f/255.0f, 153.0f/255.0f, 102/255.0f, 1.0f);
@@ -131,6 +161,12 @@ const rfgeDX9Light REDAMBIENT(1.0f, 0.0f, 0.0f, 1.0f);
 const rfgeDX9Light GREENAMBIENT(.0f, 1.0f, .0f, 1.0f);
 const rfgeDX9Light BLUEAMBIENT(.0f, .0f, 1.0f, 1.0f);
 const rfgeDX9Light NOEMISSIVE(.0f, .0f, .0f, 1.0f);
+
+//-----------------------------------------------------------------------------
+// Constant Material Values
+//-----------------------------------------------------------------------------
+
+const rfgeDX9Material WHITEMATERIAL(WHITE, WHITE, WHITE, BLACK, 1.0f);
 
 //-----------------------------------------------------------------------------
 // Class (mgeDeviceCaps)
@@ -201,7 +237,7 @@ protected:
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DVertexBuffer9*, rfVertexBuffer)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DIndexBuffer9*, rfIndexBuffer)
 		RFGE_STACK_DECLARE(rfRenderCommand, IndexedPrimitiveSize, rfIndexedPrimitiveSize)
-		RFGE_QUEUE_DECLARE(LPCSTR, bool, rfPhysicsActor)
+		RFGE_QUEUE_DECLARE(LPCSTR, bool, rfRenderMesh)
 	
 		// Stack strucutures that store default values
 		ClearColorStack			clearColorStack;
@@ -211,7 +247,7 @@ protected:
 		rfVertexBuffer			sceneVertexBufferStack;
 		rfIndexBuffer			sceneIndexBufferStack;
 		rfIndexedPrimitiveSize	sceneIndexedPrimitiveStack;
-		rfPhysicsActor			scenePhysicsActor;
+		rfRenderMesh			sceneRenderMesh;
 
 		// Data structure that holds rendering scene buffer constants
 		struct dsRenderScene

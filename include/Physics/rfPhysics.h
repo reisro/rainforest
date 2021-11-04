@@ -2,7 +2,7 @@
 //                                                                           //
 // File : rfPhysics.h														 //
 //                                                                           //
-// Desc : Provides physics simulation using the NVidia PhysX SDK             //
+// Desc : Handles physics simulation using the NVidia PhysX SDK             //
 //															                 //
 //---------------------------------------------------------------------------//
 //     Rain Forest 2020.	Rodrigo dos Reis (reisro)			             //
@@ -34,11 +34,18 @@ public:
 	virtual void		Simulate();
 	virtual float		GetFPS();
 	virtual void		GetPhysicsResults();
-	virtual D3DXMATRIX		CreatePhysicsActor();
+	virtual D3DXMATRIX	CreatePhysicsActor();
 
 	static rfPhysics* GetInstance();
 	
 	static rfPhysics* Singleton;
+
+protected:
+
+	// Define declaration types
+	RFGE_QUEUE_DECLARE(LPCSTR, bool, rfPhysicsActor)
+
+	rfPhysicsActor		scenePhysicsActor;
 };
 
 #endif _RFPHYSICS_

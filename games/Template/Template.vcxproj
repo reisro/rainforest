@@ -152,6 +152,9 @@
       <Project>{5d0fe1fa-6104-4132-836f-da493e8ef135}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\VolleyballCourtGame.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

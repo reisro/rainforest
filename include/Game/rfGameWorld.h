@@ -1,38 +1,30 @@
 //---------------------------------------------------------------------------//
 //                                                                           //
-// File : rfGame.h                                                           //
+// File : rfGameWorld.h                                                      //
 //                                                                           //
-// Desc : Provides graphics rendering using the DirectX 9 SDK                //
+// Desc : Handles game world actors creation and life cycle management       //
 //															                 //
 //---------------------------------------------------------------------------//
-//     Mange 2020.	Rodrigo dos Reis (reisro)			                     //
+//     Rain Forest 2021.	Rodrigo dos Reis (reiso)			             //
 //---------------------------------------------------------------------------//
 
 #pragma once
 
-#ifndef _RFGAME_H
-#define _RFGAME_H
+#ifndef RF_GAMEWORLD_H_
+#define RF_GAMEWORLD_H_
 
 #include "RFGEAPI.h"
-#include <string>
 
-class RFGE_API rfGame
+class RFGE_API rfGameWorld
 {
 public:
-	rfGame();
-	~rfGame();
 
-	void Setup();
-	void Start();
-	void End();
+	rfGameWorld();
+	rfGameWorld(int entities);
 
-	struct gameInfo
-	{
-		std::string WindowTitle;
-	};
+	~rfGameWorld();
 
-private:
-
+	void LoadActor(LPCSTR actorName);
 };
 
-#endif // !_RFGAME_H
+#endif RF_GAMEWORLD_H_

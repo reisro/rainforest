@@ -7,3 +7,4 @@
 #include "System/rfApplication.h"
 #include "System/rfConfig.h"
 #include "Game/Elements/rfGame.h"
+#include "Game/rfGameWorld.h"

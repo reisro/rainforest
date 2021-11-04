@@ -333,27 +333,27 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    for (int i = 0; i < meshes.size()-2; i++)
+    for (int i = 0; i < meshes.size()-1; i++)
     {
+        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
+
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
             device->SetMaterial(&meshes[i]->GetMaterial()[j]);
             meshes[i]->GetGeometry()->DrawSubset(j);
         }
-
-        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
     }
 
-    device->SetTransform(D3DTS_WORLD, &meshes[20]->worldPosition);
-
     D3DXMATRIX mat = rfPhysics::GetInstance()->CreatePhysicsActor();
+    
     device->SetTransform(D3DTS_WORLD, &mat);
+
     for (int j = 0; j < meshes[20]->GetNumberMaterials(); j++)
     {
         device->SetMaterial(&meshes[20]->GetMaterial()[j]);
         meshes[20]->GetGeometry()->DrawSubset(j);
     }
-    
+
     // End rendering scene
     device->EndScene();
 
@@ -586,8 +586,8 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
     light.Direction = _direction;
     light.Ambient = _color * 0.4f;
     light.Diffuse = _color;
-    light.Specular = _color * 0.6f;
-    light.Falloff = 0.5f;
+    light.Specular = _color * 0.3f;
+    light.Falloff = 0.2f;
 
     return light;
 }
