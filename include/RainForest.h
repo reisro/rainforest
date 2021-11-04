@@ -6,3 +6,4 @@
 #include "Renderer/Platform/Directx9Renderer.h"
 #include "System/rfApplication.h"
 #include "System/rfConfig.h"
+#include "Game/Elements/rfGame.h"

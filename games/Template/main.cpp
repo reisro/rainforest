@@ -41,6 +41,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Setup engine configuration  
 	rfApplication::Setup(engineConfig);
 
+	// Setup the game class
+	rfGame volleyballGame;
+
+	// Populate the game info with game information data
+	rfGame::gameInfo volleyballGameInfo;
+	volleyballGameInfo.Name = "Volleyball Court";
+
+	// Setup the game entry function call
+	volleyballGame.Setup();
+
 	// Start rendering the application if engine initiated properly
 	if (rfApplication::Init()) rfApplication::Run();
 

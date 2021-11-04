@@ -15,6 +15,7 @@
 
 #include "RFGEAPI.h"
 #include "System/Interfaces/IStartup.h"
+#include <Resources/rfMesh.h>
 
 class RFGE_API rfPhysics: public IStartup
 {
@@ -33,6 +34,7 @@ public:
 	virtual void		Simulate();
 	virtual float		GetFPS();
 	virtual void		GetPhysicsResults();
+	virtual D3DXMATRIX		CreatePhysicsActor();
 
 	static rfPhysics* GetInstance();
 	

@@ -1,6 +1,7 @@
 #include "Physics/rfPhysics.h"
 #include "Physics/API/PhysX_SDK2_81.h"
 #include "System/rfConfig.h"
+#include <d3dx9.h>
 
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
@@ -80,6 +81,11 @@ float rfPhysics::GetFPS()
 void rfPhysics::GetPhysicsResults()
 {
 	Singleton->GetPhysicsResults();
+}
+
+D3DXMATRIX rfPhysics::CreatePhysicsActor()
+{
+	return Singleton->CreatePhysicsActor();
 }
 
 rfPhysics* rfPhysics::GetInstance()

@@ -251,10 +251,10 @@ bool Directx9Renderer::beginFrame()
 
     // Camera navigation controls
     if (::GetAsyncKeyState('W') & 0x8000f)
-        renderCamera->Move(300.0f * timeDelta);
+        renderCamera->Move(500.0f * timeDelta);
 
     if (::GetAsyncKeyState('S') & 0x8000f)
-        renderCamera->Move(-300.0f * timeDelta);
+        renderCamera->Move(-500.0f * timeDelta);
 
     if (::GetAsyncKeyState('A') & 0x8000f)
         renderCamera->RotateYaw(-1.5f * timeDelta);
@@ -333,17 +333,27 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    for (int i = 0; i < meshes.size(); i++)
+    for (int i = 0; i < meshes.size()-2; i++)
     {
-        //device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
-
         for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
         {
             device->SetMaterial(&meshes[i]->GetMaterial()[j]);
             meshes[i]->GetGeometry()->DrawSubset(j);
         }
+
+        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
     }
 
+    device->SetTransform(D3DTS_WORLD, &meshes[20]->worldPosition);
+
+    D3DXMATRIX mat = rfPhysics::GetInstance()->CreatePhysicsActor();
+    device->SetTransform(D3DTS_WORLD, &mat);
+    for (int j = 0; j < meshes[20]->GetNumberMaterials(); j++)
+    {
+        device->SetMaterial(&meshes[20]->GetMaterial()[j]);
+        meshes[20]->GetGeometry()->DrawSubset(j);
+    }
+    
     // End rendering scene
     device->EndScene();
 
@@ -490,7 +500,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
 
     for (int i = 0; i < meshNames.size(); i++)
     {

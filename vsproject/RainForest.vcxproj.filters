@@ -186,6 +186,9 @@
     <ClInclude Include="..\include\Math\rfQuaternion.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Game\Elements\rfGame.h">
+      <Filter>Header Files\Game\Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -256,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="..\source\Math\rfQuaternion.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game\Elements\rfGame.cpp">
+      <Filter>Source Files\Game\Elements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

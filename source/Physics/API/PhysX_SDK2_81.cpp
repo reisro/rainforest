@@ -47,6 +47,7 @@ bool PhysX_2_81_::Initialize()
 
 	CreateDefaultMaterial();
 	CreateDefaultActor();
+	CreateDefaultPlane();
 
 	UpdateTime();
 
@@ -104,38 +105,49 @@ void PhysX_2_81_::CreateDefaultMaterial()
 
 //-----------------------------------------------------------------------------
 // Create the default actor for any physics scene
-// which is a plane and a sphere
 //-----------------------------------------------------------------------------
 void PhysX_2_81_::CreateDefaultActor()
 {
-	NxPlaneShapeDesc planeDesc;
+	NxReal sphereStartHeight = 200.0f;
+
 	NxSphereShapeDesc sphereDesc;
-
-	NxReal sphereStartHeight = 0.0f;
-
-	NxActorDesc actorPlaneDesc;
 	NxActorDesc actorSphereDesc;
-
 	NxBodyDesc bodySDesc;
 
-	planeDesc.normal = NxVec3(0.0f, 1.0f, 0.0f);
-
-	// Plane
-	actorPlaneDesc.shapes.pushBack(&planeDesc);
-
 	sphereDesc.radius = 4.0f;
-	sphereDesc.localPose.t = NxVec3(.0f, .0f, .0f);
+	sphereDesc.group = 2;
 	
 	// Sphere
 	actorSphereDesc.shapes.pushBack(&sphereDesc);
 	actorSphereDesc.body = &bodySDesc;
-	actorSphereDesc.density = 10.0f;
-	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, .0f);
+	actorSphereDesc.density = 3;
+	actorSphereDesc.globalPose.t = NxVec3(-1.60464f, sphereStartHeight, 1.61223f);
+
+	bodySDesc.linearDamping = 0.2;
+	bodySDesc.angularDamping = 0.2;
 
 	assert(actorSphereDesc.isValid());
 
-	_defaultActor =  _Scene->createActor(actorPlaneDesc);
 	_defaultSphere = _Scene->createActor(actorSphereDesc);
+}
+
+//-----------------------------------------------------------------------------
+// Create the default plane for any physics scene
+//-----------------------------------------------------------------------------
+void PhysX_2_81_::CreateDefaultPlane()
+{
+	NxPlaneShapeDesc planeDesc;
+	NxActorDesc actorPlaneDesc;
+
+	planeDesc.normal = NxVec3(0.0f, 1.0f, 0.0f);
+
+	// Plane
+	actorPlaneDesc.globalPose.t = NxVec3(.0f, -1.0f, .0f);
+	actorPlaneDesc.shapes.pushBack(&planeDesc);
+
+	assert(actorPlaneDesc.isValid());
+
+	_defaultActor = _Scene->createActor(actorPlaneDesc);
 }
 
 //-----------------------------------------------------------------------------
@@ -168,7 +180,6 @@ void PhysX_2_81_::Simulate()
 //-----------------------------------------------------------------------------
 // Start collision and dynamics for delta time since last frame
 //-----------------------------------------------------------------------------
-
 void PhysX_2_81_::UpdateTime()
 {
 	QueryPerformanceCounter((LARGE_INTEGER*) &_Time);
@@ -184,6 +195,14 @@ void PhysX_2_81_::GetPhysicsResults()
 {
 	// Get results from Scene->simulate(DeltaTime)
 	while (!_Scene->fetchResults(NX_RIGID_BODY_FINISHED, false));
+}
+
+D3DXMATRIX PhysX_2_81_::CreatePhysicsActor()
+{
+	NxMat34 world = _defaultSphere->getGlobalPose();
+	world.getColumnMajor44((float*)&_WorldMatrix);
+
+	return _WorldMatrix;
 }
 
 //-----------------------------------------------------------------------------

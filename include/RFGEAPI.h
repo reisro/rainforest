@@ -21,6 +21,7 @@
 #include <vector>
 #include <list>
 #include <stack>
+#include <queue>
 #include <map>
 #include <set>
 
@@ -73,5 +74,7 @@ static void DebugLog(std::string msg)
 //-----------------------------------------------------------------------------
 // Stack Declaration
 #define RFGE_STACK_DECLARE(renderCmd, type, typeDefName) typedef std::stack< std::pair<renderCmd,type> > typeDefName;
+// Queue Declaration
+#define RFGE_QUEUE_DECLARE(meshName, physicsActor, typeDefName) typedef std::queue< std::pair<meshName, physicsActor> > typeDefName;
 
 #endif _RFGE_API_H_
