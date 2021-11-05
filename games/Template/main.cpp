@@ -52,8 +52,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Setup the game entry function call
 	volleyballGame.Setup();
 
-	rfGameWorld* gameWorld = new rfGameWorld();
-
 	// Start rendering the application if engine initiated properly
 	if (rfApplication::Init()) rfApplication::Run();
 

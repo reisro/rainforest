@@ -16,15 +16,24 @@
     <Filter Include="Game">
       <UniqueIdentifier>{cfdfe147-f780-479e-be17-b52b47741e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Public">
+      <UniqueIdentifier>{74d1a105-1c3b-49d3-b315-f4025f2445c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Private">
+      <UniqueIdentifier>{f0f25c37-de49-4322-bd0d-54dfa2a65b67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Private\VolleyballCourtGame.cpp">
+      <Filter>Game\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\VolleyballCourtGame.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="Game\Public\VolleyballCourtGame.h">
+      <Filter>Game\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

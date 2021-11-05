@@ -16,6 +16,7 @@ public:
 	{
 		ClearColor,
 		DrawPrimitive,
+		DrawMesh,
 		DrawIndexedPrimitive,
 		DrawTexturedPrimitive,
 		Draw3DText,

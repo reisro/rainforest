@@ -87,6 +87,14 @@ void rfRenderer::Cleanup()
 {
 }
 
+void rfRenderer::GetDevice()
+{
+    #if defined RFGE_DX9_RENDER_SUPPORT
+        
+        
+    #endif
+}
+
 void rfRenderer::CameraSetup()
 {
 }

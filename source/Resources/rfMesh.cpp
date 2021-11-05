@@ -1,6 +1,11 @@
 
 #include "Resources/rfMesh.h"
 
+rfMesh::rfMesh()
+{
+	renderDevice = nullptr;
+}
+
 rfMesh::rfMesh(IDirect3DDevice9* device)
 {
 	renderDevice = device;
@@ -78,6 +83,11 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 
 void rfMesh::SetMaterials()
 {
+}
+
+void rfMesh::SetRenderDevice(IDirect3DDevice9* device)
+{
+	renderDevice = device;
 }
 
 int rfMesh::GetNumberMaterials() const

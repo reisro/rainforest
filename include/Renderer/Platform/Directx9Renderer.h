@@ -180,6 +180,8 @@ typedef struct rfgeDX9DeviceCaps
 
 class Directx9Renderer: public rfRenderer
 {
+	friend class rfGameWorld;
+
 public:
 
 		Directx9Renderer();
@@ -199,6 +201,7 @@ public:
 
 		void			  CameraSetup() override;
 		void			  SetDefaultMaterial();
+		void			  DrawMeshData();
 		
 		HRESULT           CreateDevice();
 		void			  CreateDefaultPrimitive();
@@ -232,6 +235,7 @@ protected:
 		// Define declaration types
 		RFGE_STACK_DECLARE(rfRenderCommand, int, ClearColorStack)
 		RFGE_STACK_DECLARE(rfRenderCommand::PrimitiveType, rfVertex::VertexColor, rfIndexedPrimitive)
+		RFGE_STACK_DECLARE(rfRenderCommand::CommandType, rfMesh*, rfMeshDrawStack)
 		RFGE_STACK_DECLARE(rfRenderCommand, D3DMATERIAL9, rfSceneMaterial)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DTexture9*, rfSceneTexture)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DVertexBuffer9*, rfVertexBuffer)
@@ -242,6 +246,7 @@ protected:
 		// Stack strucutures that store default values
 		ClearColorStack			clearColorStack;
 		rfIndexedPrimitive		defaultPrimitiveStack;
+		rfMeshDrawStack			meshDrawStack;
 		rfSceneMaterial			primitiveMaterialStack;
 		rfSceneTexture			primitiveTextureStack;
 		rfVertexBuffer			sceneVertexBufferStack;
@@ -272,10 +277,10 @@ protected:
 			rfVector3*      _Forward;
 			D3DXMATRIX      _View;
 			D3DXMATRIX      _Proj;
-			rfInt          _ratioWidth;
-			rfInt          _ratioHeight;
-			rfFloat        _nearPlane;
-			rfFloat        _farPlane;
+			rfInt           _ratioWidth;
+			rfInt           _ratioHeight;
+			rfFloat         _nearPlane;
+			rfFloat         _farPlane;
 			D3DXFONT_DESCA  _debugFPS;
 		};
 

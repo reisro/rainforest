@@ -49,6 +49,17 @@ namespace EngineConfig
 	};
 }
 
+//-----------------------------------------------------------------------------
+// API Support
+//-----------------------------------------------------------------------------
+// 
+// Support DirectX 9 rendering API (render driver and resource types).
+#if !defined(RFGE_DX9_RENDER_SUPPORT)
+#define RFGE_DX9_RENDER_SUPPORT
+#else
+#undef RFGE_DX9_RENDER_SUPPORT
+#endif
+
 class RFGE_API rfConfig
 {
 public:

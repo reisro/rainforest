@@ -41,6 +41,7 @@ public:
 	virtual void		SetRenderWindow(rfWindowSystem* windowSystem);
 	virtual void		SetRenderState();
 	virtual void		Cleanup();
+	virtual void		GetDevice();
 
 	virtual void		CameraSetup();
 	static rfRenderer*	GetInstance();

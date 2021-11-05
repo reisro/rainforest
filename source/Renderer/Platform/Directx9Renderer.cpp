@@ -443,6 +443,10 @@ void Directx9Renderer::SetDefaultMaterial()
    dsrScene.material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
 }
 
+void Directx9Renderer::DrawMeshData()
+{
+}
+
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
@@ -584,9 +588,10 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
 
     light.Type = _type;
     light.Direction = _direction;
+    light.Position = D3DXVECTOR3(100.0f, 29.0f, 79.0f);
     light.Ambient = _color * 0.4f;
     light.Diffuse = _color;
-    light.Specular = _color * 0.3f;
+    light.Specular = _color * 0.1f;
     light.Falloff = 0.2f;
 
     return light;

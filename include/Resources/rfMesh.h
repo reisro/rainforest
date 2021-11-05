@@ -22,6 +22,7 @@ public:
 
 	D3DXMATRIX  worldPosition;
 
+	rfMesh();
 	rfMesh(IDirect3DDevice9* device);
 	~rfMesh();
 
@@ -29,6 +30,7 @@ public:
 	std::vector<D3DMATERIAL9> GetMaterial() const;
 	bool LoadMeshGeometry(LPCSTR filename);
 	void SetMaterials();
+	void SetRenderDevice(IDirect3DDevice9* device);
 	int GetNumberMaterials() const;
 
 private:
