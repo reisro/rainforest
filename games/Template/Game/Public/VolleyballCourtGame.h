@@ -13,6 +13,7 @@
 #include <wtypes.h>
 #include <vector>
 #include "Game/Elements/rfGame.h"
+#include "RainForest.h"
 
 #ifndef _VOLLEYBALLCOURTGAME_H_
 #define _VOLLEYBALLCOURTGAME_H_
@@ -25,10 +26,12 @@ public:
 
 	void Setup() override;
 	void Run() override;
-	void ImportAssetsToGameWorld();
+	void ImportAssetsToGameWorld(rfGameWorld* gameWorld);
+	void AddPhysicsAssets(rfGameWorld* gameWorld);
 
 private:
 	std::vector<LPCSTR>    gameMeshes;
+	std::vector<LPCSTR>    gamePhysicsMeshes;
 };
 
 #endif _VOLLEYBALLCOURTGAME_H_

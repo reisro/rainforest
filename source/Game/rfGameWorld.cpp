@@ -55,6 +55,14 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames)
 	SendMeshDrawStack();
 }
 
+//-----------------------------------------------------------------------------------------
+// Once the meshes names are populated it stores all loaded geometry of the game world
+//-----------------------------------------------------------------------------------------
+
+void rfGameWorld::CreatePhysicsMeshes(std::vector<LPCSTR>& actorPhysicsNames, PhysicsActorType actorType)
+{
+}
+
 //-----------------------------------------------------------------------------
 // Set the mesh draw stack to send to the renderer
 //-----------------------------------------------------------------------------

@@ -19,6 +19,8 @@
 
 class RFGE_API rfPhysics: public IStartup
 {
+	friend class rfGameWorld;
+
 public:
 
 	rfPhysics();
