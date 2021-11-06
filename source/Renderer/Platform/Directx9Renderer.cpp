@@ -158,7 +158,15 @@ bool Directx9Renderer::PostInit()
     dsrLight._Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
     dsrLight._Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
+    // Data structure that holds light information data
+    dsrLightSecond.angleX = -0.7070f;
+    dsrLightSecond.angleY = 0.7070f;
+    dsrLightSecond.angleZ = 0.7070f;
+    dsrLightSecond._Direction = D3DXVECTOR3(dsrLightSecond.angleX, dsrLightSecond.angleY, dsrLightSecond.angleZ);
+    dsrLightSecond._Color = D3DXCOLOR(0.0f, 1.0f, 1.0f, 1.0f);
+
     dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
+    dsrScene.lightAux = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLightSecond._Direction, dsrLightSecond._Color);
    
     // Data structure that holds camera configuration
     dsrCamera._Position = new rfVector3(0.0f, 0.0f, 0.0f);
@@ -189,7 +197,7 @@ bool Directx9Renderer::PostInit()
     ShowFPS();
 
     // Create the default cube for the render scene
-    CreateDefaultPrimitive();
+    //CreateDefaultPrimitive();
 
     // Set configuration camera to render scene
     CameraSetup();
@@ -333,7 +341,9 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    for (int i = 0; i < meshes.size()-1; i++)
+    DrawMeshData();
+
+    /*for (int i = 0; i < meshes.size() - 1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
 
@@ -352,7 +362,7 @@ bool Directx9Renderer::endFrame()
     {
         device->SetMaterial(&meshes[20]->GetMaterial()[j]);
         meshes[20]->GetGeometry()->DrawSubset(j);
-    }
+    }*/
 
     // End rendering scene
     device->EndScene();
@@ -427,6 +437,10 @@ void Directx9Renderer::Cleanup()
     _RFGE_SAFE_DELETE(Font);
 }
 
+//-----------------------------------------------------------------------------
+// After initialization, fill out with default constants for rendering
+//-----------------------------------------------------------------------------
+
 void Directx9Renderer::CameraSetup()
 {
     D3DXMATRIX Projection = renderCamera->GetProjectionMatrix();
@@ -438,13 +452,37 @@ void Directx9Renderer::CameraSetup()
     device->SetTransform(D3DTS_PROJECTION, &Projection);
 }
 
+//-----------------------------------------------------------------------------
+// After initialization, fill out with default constants for rendering
+//-----------------------------------------------------------------------------
+
 void Directx9Renderer::SetDefaultMaterial()
 {
    dsrScene.material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
 }
 
+//-----------------------------------------------------------------------------
+// After initialization, fill out with default constants for rendering
+//-----------------------------------------------------------------------------
+
 void Directx9Renderer::DrawMeshData()
 {
+    while (meshDrawStack.size() > 0)
+    {
+        meshes.push_back(meshDrawStack.top().second);
+        meshDrawStack.pop();
+    }
+
+    for (size_t i = 0; i < meshes.size(); i++)
+    {
+        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
+
+        for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
+        {
+            device->SetMaterial(&meshes[i]->GetMaterial()[j]);
+            meshes[i]->GetGeometry()->DrawSubset(j);
+        }
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -593,6 +631,7 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
     light.Diffuse = _color;
     light.Specular = _color * 0.1f;
     light.Falloff = 0.2f;
+    light.Range = 5.0f;
 
     return light;
 }
@@ -625,6 +664,9 @@ void Directx9Renderer::AdjustLight()
 
     // Turn on the light in the render scene
     EnableLight(dsrScene.light, true);
+
+    // Turn on the light auxiliary if needed in the render scene
+    //EnableLight(dsrScene.lightAux, true);
 }
 
 //--------------------------------------------------------------------------------------

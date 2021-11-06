@@ -261,6 +261,7 @@ protected:
 			D3DMATERIAL9		material;
 			IDirect3DTexture9*	texture;
 			D3DLIGHT9			light;
+			D3DLIGHT9			lightAux;
 			UINT				numberVertices;
 			UINT				totalVertices;
 			int					numberMeshes;
@@ -316,6 +317,7 @@ private:
 		dsRenderScene				dsrScene;
 		dsRenderCamera				dsrCamera;
 		dsRenderLight				dsrLight;
+		dsRenderLight				dsrLightSecond;
 
 		std::stack<rfRenderCommand> renderCmdStack;
 		std::vector<rfMesh*>        meshes;

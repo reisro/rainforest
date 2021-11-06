@@ -12,7 +12,7 @@ void rfGame::Setup()
 {
 }
 
-void rfGame::Start()
+void rfGame::Run()
 {
 }
 

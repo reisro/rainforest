@@ -12,17 +12,19 @@
 #pragma once
 #include <wtypes.h>
 #include <vector>
+#include "Game/Elements/rfGame.h"
 
 #ifndef _VOLLEYBALLCOURTGAME_H_
 #define _VOLLEYBALLCOURTGAME_H_
 
-class VolleyballCourtGame
+class VolleyballCourtGame: public rfGame
 {
 public:
 	VolleyballCourtGame();
 	~VolleyballCourtGame();
 
-	void RunGame();
+	void Setup() override;
+	void Run() override;
 	void ImportAssetsToGameWorld();
 
 private:

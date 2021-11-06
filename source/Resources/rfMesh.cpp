@@ -50,8 +50,6 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 			{
 				mtrls[i].MatD3D.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-				renderDevice->SetMaterial(&mtrls[i].MatD3D);
-
 				materials.push_back(mtrls[i].MatD3D);
 
 				if (mtrls[i].pTextureFilename != 0)

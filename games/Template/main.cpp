@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "RainForest.h"
+#include "Game/Public/VolleyballCourtGame.h"
 
 extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }
 
@@ -42,18 +43,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	rfApplication::Setup(engineConfig);
 
 	// Setup the game class
-	rfGame volleyballGame;
+	VolleyballCourtGame* volleyballGame = new VolleyballCourtGame();
 
 	// Populate the game info with game information data
 	rfGame::gameInfo volleyballGameInfo;
 
 	volleyballGameInfo.WindowTitle = "Volleyball Court";
 
-	// Setup the game entry function call
-	volleyballGame.Setup();
-
 	// Start rendering the application if engine initiated properly
-	if (rfApplication::Init()) rfApplication::Run();
+	if (rfApplication::Init())
+	{
+		// Setup the game entry function call
+		volleyballGame->Setup();
+
+		// Start Game Loop of the application
+		rfApplication::Run();
+	}
 
 	// Engine cleanup resources
 	rfApplication::ShutDown();

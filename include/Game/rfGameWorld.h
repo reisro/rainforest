@@ -15,6 +15,8 @@
 
 #include "RFGEAPI.h"
 #include <Resources/rfMesh.h>
+#include <Renderer/rfRenderer.h>
+#include <Renderer/Platform/Directx9Renderer.h>
 
 class RFGE_API rfGameWorld
 {
@@ -27,11 +29,19 @@ public:
 
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames);
 	void SendMeshDrawStack();
-	void Render();
+	void Build();
+
+	static rfGameWorld* GetInstance();
+
+protected:
+
+	static rfGameWorld* Singleton;
 
 private:
 
 	std::vector<rfMesh*> worldMeshes;
+
+	rfRenderer* renderer;
 };
 
 #endif RF_GAMEWORLD_H_

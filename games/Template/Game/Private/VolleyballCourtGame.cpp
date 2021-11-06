@@ -9,9 +9,13 @@ VolleyballCourtGame::~VolleyballCourtGame()
 {
 }
 
-void VolleyballCourtGame::RunGame()
+void VolleyballCourtGame::Setup()
 {
 	ImportAssetsToGameWorld();
+}
+
+void VolleyballCourtGame::Run()
+{
 }
 
 void VolleyballCourtGame::ImportAssetsToGameWorld()
@@ -21,6 +25,7 @@ void VolleyballCourtGame::ImportAssetsToGameWorld()
 	
     // Loading  World Game Actors
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
+	gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
 
 	// Pass to Game World to create the game actors in the world
 	gameWorld->LoadMeshGeometry(gameMeshes);

@@ -1,4 +1,5 @@
 #include "System/rfApplication.h"
+#include <Game/rfGameWorld.h>
 
 rfConfig rfConfig::Instance;
 static rfWindowSystem* windowSystem;
@@ -83,15 +84,14 @@ bool rfApplication::InitPhysics()
 //-----------------------------------------------------------------------------
 void rfApplication::Run()
 {
-	RFGE_LOG("\n  Rendering frame...");
+	RFGE_LOG("\n  Running application...");
 
-	// Start physics simulation
-	rfPhysics::GetInstance()->Simulate();
+	// Build the game world
+	// Initializing the rendering of the game world meshes
+	// And simulating the physics properties of the dynamic actors lying in the world
+	rfGameWorld::GetInstance()->Build();
 
-	// Render the scene
-	rfRenderer::GetInstance()->Render();
-
-	RFGE_LOG("\n  Finalized rendering frame...");
+	RFGE_LOG("\n  Finalized running application...");
 }
 
 //-----------------------------------------------------------------------------

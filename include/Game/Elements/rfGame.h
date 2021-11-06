@@ -22,9 +22,9 @@ public:
 	rfGame();
 	~rfGame();
 
-	void Setup();
-	void Start();
-	void End();
+	virtual void Setup();
+	virtual void Run();
+	virtual void End();
 
 	struct gameInfo
 	{
