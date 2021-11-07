@@ -54,17 +54,24 @@ namespace EngineConfig
 //-----------------------------------------------------------------------------
 // 
 // Support DirectX 9 rendering API (render driver and resource types).
-#if !defined(RFGE_DX9_RENDER_SUPPORT)
+#if !defined (RFGE_DX9_RENDER_SUPPORT)
 #define RFGE_DX9_RENDER_SUPPORT
 #else
-#undef RFGE_DX9_RENDER_SUPPORT
+//#undef RFGE_DX9_RENDER_SUPPORT
 #endif
 
-class RFGE_API rfConfig
+struct RFGE_API rfConfig
 {
 public:
-	rfConfig() {};
-	virtual ~rfConfig() {};
+	rfConfig() :
+
+	#if defined(RFGE_DX9_RENDER_SUPPORT)
+		graphicsAPI(EngineConfig::GraphicsAPI::DirectX9),
+	#endif	
+
+		platform(EngineConfig::Platform::Windows),
+		physicsAPI(EngineConfig::PhysicsAPI::PhysX_ver2_81),
+		windowResolution(EngineConfig::WindowResolution::FullHighDefinition) {}
 
 	static rfConfig Instance;
 	

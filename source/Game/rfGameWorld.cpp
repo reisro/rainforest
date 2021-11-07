@@ -40,7 +40,7 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames)
 
 	Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
-	#endif // RFGE_DX9_RENDER_SUPPORT
+	#endif // RFGE_DX9_RENDER_SUPPORT  
 
 	for (size_t i = 0; i < actorNames.size(); i++)
 	{

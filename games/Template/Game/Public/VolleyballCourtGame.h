@@ -27,7 +27,7 @@ public:
 	void Setup() override;
 	void Run() override;
 	void ImportAssetsToGameWorld(rfGameWorld* gameWorld);
-	void AddPhysicsAssets(rfGameWorld* gameWorld);
+	void CreatePhysicsAssets(rfGameWorld* gameWorld);
 
 private:
 	std::vector<LPCSTR>    gameMeshes;

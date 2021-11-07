@@ -3,7 +3,7 @@
 //                                                                           //
 // File : main.cpp                                                           //
 //                                                                           //
-// Desc : Template game entry point									         //
+// Desc : Application game entry point									         //
 //                                                                           //
 //                                                                           //
 //---------------------------------------------------------------------------//
@@ -12,10 +12,10 @@
 
 #define _CRTDBG_MAP_ALLOC
 
+#include <RainForest.h>
+#include "Game/Public/VolleyballCourtGame.h"
 #include <stdlib.h>
 #include <crtdbg.h>
-#include "RainForest.h"
-#include "Game/Public/VolleyballCourtGame.h"
 
 extern "C" { _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001; }
 
@@ -63,6 +63,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Engine cleanup resources
 	rfApplication::ShutDown();
 
+	// Checking out memory leaks if any
 	_CrtDumpMemoryLeaks();
 
 	return 0;
