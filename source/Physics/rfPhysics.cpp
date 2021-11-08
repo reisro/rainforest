@@ -88,6 +88,16 @@ D3DXMATRIX rfPhysics::CreatePhysicsActor()
 	return Singleton->CreatePhysicsActor();
 }
 
+void rfPhysics::CreateDefaultPlane()
+{
+	Singleton->CreateDefaultPlane();
+}
+
+void rfPhysics::CreateDynamicSphere()
+{
+	Singleton->CreateDynamicSphere();
+}
+
 rfPhysics* rfPhysics::GetInstance()
 {
 	return Singleton;

@@ -46,8 +46,6 @@ bool PhysX_2_81_::Initialize()
 	_Scene = _PhysicsSDK->createScene(_SceneDesc);
 
 	CreateDefaultMaterial();
-	CreateDefaultActor();
-	CreateDefaultPlane();
 
 	UpdateTime();
 
@@ -106,7 +104,7 @@ void PhysX_2_81_::CreateDefaultMaterial()
 //-----------------------------------------------------------------------------
 // Create the default actor for any physics scene
 //-----------------------------------------------------------------------------
-void PhysX_2_81_::CreateDefaultActor()
+void PhysX_2_81_::CreateDynamicSphere()
 {
 	NxReal sphereStartHeight = 200.0f;
 

@@ -37,6 +37,8 @@ public:
 	virtual float		GetFPS();
 	virtual void		GetPhysicsResults();
 	virtual D3DXMATRIX	CreatePhysicsActor();
+	virtual void		CreateDefaultPlane();
+	virtual void        CreateDynamicSphere();
 
 	static rfPhysics* GetInstance();
 	

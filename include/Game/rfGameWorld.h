@@ -35,9 +35,11 @@ public:
 
 	~rfGameWorld();
 
-	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames);
-	void CreatePhysicsMeshes(std::vector<LPCSTR>& actorPhysicsNames, PhysicsActorType actorType);
+	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
+	void CreatePhysicsActor(PhysicsActorType actorType);
+	void CreatePhysicsMesh(std::vector<LPCSTR>& actorPhysicsName, PhysicsActorType actorType);
 	void SendMeshDrawStack();
+	void SendPhysicsMeshDrawStack();
 	void Build();
 
 	static rfGameWorld* GetInstance();

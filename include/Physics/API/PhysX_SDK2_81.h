@@ -23,23 +23,23 @@ public:
 	PhysX_2_81_();
 	~PhysX_2_81_();
 
-	void Simulate() override;
-	float GetFPS() override;
-	void GetPhysicsResults() override;
+	void       Simulate() override;
+	float      GetFPS() override;
+	void       GetPhysicsResults() override;
 	D3DXMATRIX CreatePhysicsActor() override;
+	void       CreateDefaultPlane() override;
+	void       CreateDynamicSphere() override;
 
-	bool CreateSDK();
-	bool Initialize();
-	void Release();
-	void SetSDKParameters();
-	void SetDebugParameters();
-	void CreateDefaultMaterial();
-	void CreateDefaultActor();
-	void CreateDefaultPlane();
-	void DebugWireframeMode();
-	void RenderDefaultActors();
-	void UpdateTime();
-	void Reset();
+	bool       CreateSDK();
+	bool       Initialize();
+	void       Release();
+	void       SetSDKParameters();
+	void       SetDebugParameters();
+	void       CreateDefaultMaterial();
+	void       DebugWireframeMode();
+	void       RenderDefaultActors();
+	void       UpdateTime();
+	void       Reset();
 
 	NxActor* CreateGroundPlane();
 

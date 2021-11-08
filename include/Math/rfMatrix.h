@@ -94,6 +94,14 @@ public:
 		return (rfMatrix*) D3DXMatrixIdentity((D3DXMATRIX*) &out);
 	}
 
+	inline static D3DXMATRIX Identity()
+	{
+		return * (D3DXMATRIX*) new rfMatrix(1.0f, 0.0f, 0.0f, 0.0f,
+											0.0f, 1.0f, 0.0f, 0.0f,
+											0.0f, 0.0f, 1.0f, 0.0f,
+											0.0f, 0.0f, 0.0f, 1.0f);
+	}
+
 	inline static rfMatrix* Tranpose(rfMatrix& out, rfMatrix& mat)
 	{
 		return (rfMatrix*) D3DXMatrixTranspose((D3DXMATRIX*) &out, (D3DXMATRIX*) &mat);

@@ -33,7 +33,7 @@ rfGameWorld::~rfGameWorld()
 // Once the meshes names are populated it stores all loaded geometry of the game world
 //-----------------------------------------------------------------------------------------
 
-void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames)
+void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation)
 {
 	// Set render device depending on used graphics api
 	#ifdef RFGE_DX9_RENDER_SUPPORT
@@ -58,9 +58,28 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames)
 //-----------------------------------------------------------------------------------------
 // Once the meshes names are populated it stores all loaded geometry of the game world
 //-----------------------------------------------------------------------------------------
-
-void rfGameWorld::CreatePhysicsMeshes(std::vector<LPCSTR>& actorPhysicsNames, PhysicsActorType actorType)
+void rfGameWorld::CreatePhysicsActor(PhysicsActorType actorType)
 {
+	if (actorType == PhysicsActorType::Ground)
+		rfPhysics::GetInstance()->CreateDefaultPlane();
+}
+
+//-----------------------------------------------------------------------------------------
+// Once the meshes names are populated it stores all loaded geometry of the game world
+//-----------------------------------------------------------------------------------------
+
+void rfGameWorld::CreatePhysicsMesh(std::vector<LPCSTR>& actorPhysicsName, PhysicsActorType actorType)
+{
+	D3DXMATRIX matrix;
+
+	if (actorType == PhysicsActorType::Sphere)
+	{
+		rfPhysics::GetInstance()->CreateDynamicSphere();
+
+		matrix = rfPhysics::GetInstance()->CreatePhysicsActor();
+
+		dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance())->GetDevice()->SetTransform(D3DTS_WORLD, &matrix);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -78,6 +97,10 @@ void rfGameWorld::SendMeshDrawStack()
 		rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[i] });
 
 	#endif // RFGE_DX9_RENDER_SUPPORT
+}
+
+void rfGameWorld::SendPhysicsMeshDrawStack()
+{
 }
 
 //-----------------------------------------------------------------------------

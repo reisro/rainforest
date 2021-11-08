@@ -63,15 +63,17 @@ namespace EngineConfig
 struct RFGE_API rfConfig
 {
 public:
+
+	// Constructor
 	rfConfig() :
 
 	#if defined(RFGE_DX9_RENDER_SUPPORT)
 		graphicsAPI(EngineConfig::GraphicsAPI::DirectX9),
 	#endif	
-
 		platform(EngineConfig::Platform::Windows),
 		physicsAPI(EngineConfig::PhysicsAPI::PhysX_ver2_81),
-		windowResolution(EngineConfig::WindowResolution::FullHighDefinition) {}
+		windowResolution(EngineConfig::WindowResolution::FullHighDefinition),
+		multiThreaded(false), windowed(false) {}
 
 	static rfConfig Instance;
 	
@@ -79,6 +81,8 @@ public:
 	EngineConfig::GraphicsAPI		graphicsAPI;
 	EngineConfig::PhysicsAPI		physicsAPI;
 	EngineConfig::WindowResolution	windowResolution;
+	bool							multiThreaded;
+	bool							windowed;
 }; 
 
 #endif _RFCONFIG_H_
