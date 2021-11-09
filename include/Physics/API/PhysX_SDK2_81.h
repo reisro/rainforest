@@ -26,7 +26,7 @@ public:
 	void       Simulate() override;
 	float      GetFPS() override;
 	void       GetPhysicsResults() override;
-	D3DXMATRIX CreatePhysicsActor() override;
+	D3DXMATRIX UpdateGlobalPosition() override;
 	void       CreateDefaultPlane() override;
 	void       CreateDynamicSphere() override;
 

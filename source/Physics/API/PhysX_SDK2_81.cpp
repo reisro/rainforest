@@ -195,7 +195,7 @@ void PhysX_2_81_::GetPhysicsResults()
 	while (!_Scene->fetchResults(NX_RIGID_BODY_FINISHED, false));
 }
 
-D3DXMATRIX PhysX_2_81_::CreatePhysicsActor()
+D3DXMATRIX PhysX_2_81_::UpdateGlobalPosition()
 {
 	NxMat34 world = _defaultSphere->getGlobalPose();
 	world.getColumnMajor44((float*)&_WorldMatrix);

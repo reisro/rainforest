@@ -17,6 +17,7 @@
 #include <Resources/rfMesh.h>
 #include <Renderer/rfRenderer.h>
 #include <Renderer/Platform/Directx9Renderer.h>
+#include <System/rfConfig.h>
 
 class RFGE_API rfGameWorld
 {
@@ -38,6 +39,7 @@ public:
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
 	void CreatePhysicsActor(PhysicsActorType actorType);
 	void CreatePhysicsMesh(std::vector<LPCSTR>& actorPhysicsName, PhysicsActorType actorType);
+	void UpdatePhysicsMeshPositioning(std::vector<LPCSTR>& actorPhysics);
 	void SendMeshDrawStack();
 	void SendPhysicsMeshDrawStack();
 	void Build();

@@ -83,9 +83,9 @@ void rfPhysics::GetPhysicsResults()
 	Singleton->GetPhysicsResults();
 }
 
-D3DXMATRIX rfPhysics::CreatePhysicsActor()
+D3DXMATRIX rfPhysics::UpdateGlobalPosition()
 {
-	return Singleton->CreatePhysicsActor();
+	return Singleton->UpdateGlobalPosition();
 }
 
 void rfPhysics::CreateDefaultPlane()

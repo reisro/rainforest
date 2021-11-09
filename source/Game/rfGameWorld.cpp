@@ -1,8 +1,6 @@
 #include "Game/rfGameWorld.h"
 #include <Physics/rfPhysics.h>
 
-#define RFGE_DX9_RENDER_SUPPORT
-
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
 //-----------------------------------------------------------------------------
@@ -67,29 +65,31 @@ void rfGameWorld::CreatePhysicsActor(PhysicsActorType actorType)
 
 void rfGameWorld::CreatePhysicsMesh(std::vector<LPCSTR>& actorPhysicsName, PhysicsActorType actorType)
 {
+	if (actorType == PhysicsActorType::Sphere) rfPhysics::GetInstance()->CreateDynamicSphere();
+}
+
+//-----------------------------------------------------------------------------------------
+// Once the meshes names are populated it stores all loaded geometry of the game world
+//-----------------------------------------------------------------------------------------
+
+void rfGameWorld::UpdatePhysicsMeshPositioning(std::vector<LPCSTR>& actorPhysics)
+{
 	D3DXMATRIX matrix;
 
-	if (actorType == PhysicsActorType::Sphere)
+	matrix = rfPhysics::GetInstance()->UpdateGlobalPosition();
+
+	Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
+
+	// Create empty rfMesh with no loaded geometry
+	worldMeshes.push_back(new rfMesh(rendererDX9->GetDevice()));
+
+	int32_t size = worldMeshes.size() - 1;
+
+	for (size_t i = 0; i < actorPhysics.size(); i++)
 	{
-		rfPhysics::GetInstance()->CreateDynamicSphere();
+		worldMeshes[size]->LoadMeshGeometry(actorPhysics[i], matrix._41, matrix._42, matrix._43);
 
-		matrix = rfPhysics::GetInstance()->CreatePhysicsActor();
-
-		Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
-
-		//rendererDX9->GetDevice()->SetTransform(D3DTS_WORLD, &matrix);
-
-		// Create empty rfMesh with no loaded geometry
-		worldMeshes.push_back(new rfMesh(rendererDX9->GetDevice()));
-
-		int32_t size = worldMeshes.size() - 1;
-
-		for (size_t i = 0; i < actorPhysicsName.size(); i++)
-		{
-			worldMeshes[size]->LoadMeshGeometry(actorPhysicsName[i], matrix._41, matrix._42, matrix._43);
-
-			rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[size] });
-		}
+		rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[size] });
 	}
 
 	// Populate and send the stack with game world meshes to be rendered by the renderer

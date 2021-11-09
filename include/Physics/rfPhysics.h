@@ -36,7 +36,7 @@ public:
 	virtual void		Simulate();
 	virtual float		GetFPS();
 	virtual void		GetPhysicsResults();
-	virtual D3DXMATRIX	CreatePhysicsActor();
+	virtual D3DXMATRIX	UpdateGlobalPosition();
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
 
