@@ -27,28 +27,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Setup Game Engine Configuration
 	rfConfig engineConfig;
 
-	// Only OS supported by now is Windows
-	engineConfig.platform = EngineConfig::Platform::Windows;
-
-	// Only Graphics API is DirectX 9
-	engineConfig.graphicsAPI = EngineConfig::GraphicsAPI::DirectX9;
-
-	// Set which physics version to use
-	engineConfig.physicsAPI = EngineConfig::PhysicsAPI::PhysX_ver2_81;
-
-	// Set window resolution of the application
-	engineConfig.windowResolution = EngineConfig::WindowResolution::FullHighDefinition;
-
 	// Setup engine configuration  
 	rfApplication::Setup(engineConfig);
 
 	// Setup the game class
 	VolleyballCourtGame* volleyballGame = new VolleyballCourtGame();
-
-	// Populate the game info with game information data
-	rfGame::gameInfo volleyballGameInfo;
-
-	volleyballGameInfo.WindowTitle = "Volleyball Court";
 
 	// Start rendering the application if engine initiated properly
 	if (rfApplication::Init())
