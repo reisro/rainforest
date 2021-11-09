@@ -15,6 +15,7 @@
 
 #include <d3dx9.h>
 #include <vector>
+#include <Math/rfVector3.h>
 
 class rfMesh
 {
@@ -28,7 +29,7 @@ public:
 
 	ID3DXMesh* GetGeometry() const;
 	std::vector<D3DMATERIAL9> GetMaterial() const;
-	bool LoadMeshGeometry(LPCSTR filename);
+	bool LoadMeshGeometry(LPCSTR filename, float x, float y, float z);
 	void SetMaterials();
 	void SetRenderDevice(IDirect3DDevice9* device);
 	int GetNumberMaterials() const;

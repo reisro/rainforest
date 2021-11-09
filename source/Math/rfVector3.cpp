@@ -21,20 +21,19 @@ rfVector3::rfVector3(const rfVector3& _vector)
 
 rfVector3::~rfVector3()
 {
-    
 }
 
-rfFloat rfVector3::xValue() const
+rfFloat rfVector3::x() const
 {
     return this->_x;
 }
 
-rfFloat rfVector3::yValue() const
+rfFloat rfVector3::y() const
 {
     return this->_y;
 }
 
-rfFloat rfVector3::zValue() const
+rfFloat rfVector3::z() const
 {
     return this->_z;
 }

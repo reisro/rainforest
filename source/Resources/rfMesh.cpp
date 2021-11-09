@@ -26,7 +26,7 @@ std::vector<D3DMATERIAL9> rfMesh::GetMaterial() const
 	return materials;
 }
 
-bool rfMesh::LoadMeshGeometry(LPCSTR filename)
+bool rfMesh::LoadMeshGeometry(LPCSTR filename, float x, float y, float z)
 {
 	HRESULT hr;
 
@@ -40,7 +40,7 @@ bool rfMesh::LoadMeshGeometry(LPCSTR filename)
 		&numberMaterials,
 		&geometry);
 
-		D3DXMatrixTranslation(&this->worldPosition, .0f, .0f, .0f);
+		D3DXMatrixTranslation(&this->worldPosition,x,y,z);
 
 		if (materialBuffer != 0 && numberMaterials != 0)
 		{

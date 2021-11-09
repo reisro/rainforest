@@ -45,7 +45,6 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld* gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
-    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
     
 	// Pass to Game World to create the game actors in the world
 	gameWorld->LoadMeshGeometry(gameMeshes);

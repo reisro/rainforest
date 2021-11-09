@@ -547,7 +547,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     for (int i = 0; i < meshNames.size(); i++)
     {
         meshes.push_back(new rfMesh(device));
-        meshes[i]->LoadMeshGeometry(meshNames[i]);
+        //meshes[i]->LoadMeshGeometry(meshNames[i]);
     }
 }
 

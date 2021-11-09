@@ -31,9 +31,9 @@ public:
 	~rfVector3();
 
 	// Getters
-	rfFloat xValue() const;
-	rfFloat yValue() const;
-	rfFloat zValue() const;
+	rfFloat x() const;
+	rfFloat y() const;
+	rfFloat z() const;
 	rfVector3& Value();
 
 	// Setters
@@ -52,7 +52,7 @@ public:
 	static inline float Magnitude(const rfVector3& vec);
 
 	// zero vector and basis vector values
-	static inline rfVector3* Zero() { return new rfVector3(.0f, .0f, .0f); }
+	static inline rfVector3& Zero() { return *new rfVector3(rfFloat(.0f), rfFloat(.0f), rfFloat(.0f)); }
 	static inline rfVector3* Up(const rfVector3& vec);
 	static inline rfVector3* Right(const rfVector3& vec);
 	static inline rfVector3* Forward(const rfVector3& vec);
@@ -67,8 +67,10 @@ public:
 	// converts to a Matrix
 	//rfMatrix& ToMatrix(const rfVector3& _vector) const;
 
-private:
 	rfFloat _x, _y, _z;
+
+private:
+	
 };
 
 #endif _RFVECTOR3H_
