@@ -52,12 +52,11 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld* gameWorld)
 
 void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld* gameWorld)
 {
-    // Loading World Game Physics Actors
-    gamePhysicsMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
-
     // Create the volleyball game world ground physics actor
     gameWorld->CreatePhysicsActor(rfGameWorld::PhysicsActorType::Ground);
 
     // Create the volleyball ball as a physics actor to receive physics simulation
-    gameWorld->CreatePhysicsMesh(gamePhysicsMeshes, rfGameWorld::PhysicsActorType::Sphere);
+    gameWorld->CreatePhysicsMesh(rfGameWorld::PhysicsActorType::Sphere);
+
+    gameWorld->UpdatePhysicsMeshPositioning();
 }

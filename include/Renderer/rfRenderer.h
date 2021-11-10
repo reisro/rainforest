@@ -15,6 +15,7 @@
 #include "System/Interfaces/IStartup.h"
 #include "Renderer/rfRenderCommand.h"
 #include "System/Platform/rfWindowSystem.h"
+#include <functional>
 
 class rfWindowSystem;
 
@@ -36,7 +37,7 @@ public:
 	virtual bool		CreateIndexBuffer();
 	virtual bool		beginFrame();
 	virtual bool		endFrame();
-	virtual void		Render();
+	virtual void		Render(std::function<bool(void)> ptr_loop);
 	virtual void		SendRenderCmdList(const std::vector<rfRenderCommand>& list);
 	virtual void		SetRenderWindow(rfWindowSystem* windowSystem);
 	virtual void		SetRenderState();

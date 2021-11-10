@@ -243,7 +243,7 @@ bool Directx9Renderer::beginFrame()
 
     rfPhysics::GetInstance()->GetPhysicsResults();
     rfPhysics::GetInstance()->Simulate();
-
+    
     // Initialization checks
     if (initialized)
     {
@@ -379,7 +379,7 @@ bool Directx9Renderer::endFrame()
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
-void Directx9Renderer::Render()
+void Directx9Renderer::Render(std::function<bool(void)> ptr_loop)
 {
     ::ZeroMemory(&msg, sizeof(MSG));
 
@@ -396,6 +396,8 @@ void Directx9Renderer::Render()
                 ::TranslateMessage(&msg);
                 ::DispatchMessage(&msg);
             }
+
+            rfApplication::gameLoop = false;
         }
         else // as long user does not quit engine window, process the begin and end frames
         {
@@ -404,6 +406,8 @@ void Directx9Renderer::Render()
 
             beginFrame();
             endFrame();
+
+            ptr_loop();
 
             lastTime = currTime;
         }

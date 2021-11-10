@@ -63,7 +63,7 @@ void rfGameWorld::CreatePhysicsActor(PhysicsActorType actorType)
 // Once the meshes names are populated it stores all loaded geometry of the game world
 //-----------------------------------------------------------------------------------------
 
-void rfGameWorld::CreatePhysicsMesh(std::vector<LPCSTR>& actorPhysicsName, PhysicsActorType actorType)
+void rfGameWorld::CreatePhysicsMesh(PhysicsActorType actorType)
 {
 	if (actorType == PhysicsActorType::Sphere) rfPhysics::GetInstance()->CreateDynamicSphere();
 }
@@ -72,7 +72,7 @@ void rfGameWorld::CreatePhysicsMesh(std::vector<LPCSTR>& actorPhysicsName, Physi
 // Once the meshes names are populated it stores all loaded geometry of the game world
 //-----------------------------------------------------------------------------------------
 
-void rfGameWorld::UpdatePhysicsMeshPositioning(std::vector<LPCSTR>& actorPhysics)
+bool rfGameWorld::UpdatePhysicsMeshPositioning()
 {
 	D3DXMATRIX matrix;
 
@@ -85,12 +85,9 @@ void rfGameWorld::UpdatePhysicsMeshPositioning(std::vector<LPCSTR>& actorPhysics
 
 	int32_t size = worldMeshes.size() - 1;
 
-	for (size_t i = 0; i < actorPhysics.size(); i++)
-	{
-		worldMeshes[size]->LoadMeshGeometry(actorPhysics[i], matrix._41, matrix._42, matrix._43);
+	worldMeshes[size]->LoadMeshGeometry("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x", matrix._41, matrix._42, matrix._43);
 
-		rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[size] });
-	}
+	rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[size] });
 
 	// Populate and send the stack with game world meshes to be rendered by the renderer
 	SendMeshDrawStack();
@@ -126,8 +123,11 @@ void rfGameWorld::Build()
 	// Start physics simulation
 	rfPhysics::GetInstance()->Simulate();
 
-	// Render the scene
-	rfRenderer::GetInstance()->Render();
+	while (rfApplication::gameLoop)
+	{
+		// Render the game scene
+		rfRenderer::GetInstance()->Render(UpdatePhysicsMeshPositioning);
+	}
 }
 
 //-----------------------------------------------------------------------------

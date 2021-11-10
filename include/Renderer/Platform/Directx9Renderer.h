@@ -29,6 +29,7 @@
 #include "Resources/Platform/Directx9VertexBuffer.h"
 #include "Resources/Platform/Directx9IndexBuffer.h"
 #include "Resources/rfMesh.h"
+#include "System/rfApplication.h"
 
 //-----------------------------------------------------------------------------
 // Enum (Vertex Processing)
@@ -194,7 +195,7 @@ public:
 		bool			  CreateIndexBuffer() override;
 		bool			  beginFrame() override;
 		bool			  endFrame() override;
-		void			  Render() override;
+		void			  Render(std::function<bool(void)> ptr_loop) override;
 		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
 		void			  SetRenderState() override;
 		void			  Cleanup() override;

@@ -4,6 +4,7 @@
 rfConfig rfConfig::Instance;
 static rfWindowSystem* windowSystem;
 static rfRenderer* renderer = NULL;
+bool rfApplication::gameLoop = true;
 static bool	subSystemsInitiated;
 
 rfApplication::rfApplication()
