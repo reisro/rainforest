@@ -48,6 +48,9 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX w
 		// for each mesh loads its corresponding geometry
 		worldMeshes[i]->LoadMeshGeometry(actorNames[i], .0f,.0f,.0f);
 	}
+
+	// Populate and send the stack with game world meshes to be rendered by the renderer
+	SendMeshDrawStack();
 }
 
 //-----------------------------------------------------------------------------------------
@@ -89,8 +92,7 @@ bool rfGameWorld::UpdatePhysicsMeshPositioning()
 
 	rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[size] });
 
-	// Populate and send the stack with game world meshes to be rendered by the renderer
-	SendMeshDrawStack();
+	
 }
 
 //-----------------------------------------------------------------------------
@@ -123,11 +125,13 @@ void rfGameWorld::Build()
 	// Start physics simulation
 	rfPhysics::GetInstance()->Simulate();
 
-	while (rfApplication::gameLoop)
-	{
-		// Render the game scene
-		rfRenderer::GetInstance()->Render(UpdatePhysicsMeshPositioning);
-	}
+	// Render the game scene
+	rfRenderer::GetInstance()->Render();
+
+	//while (rfApplication::gameLoop)
+	//{
+		
+	//}
 }
 
 //-----------------------------------------------------------------------------

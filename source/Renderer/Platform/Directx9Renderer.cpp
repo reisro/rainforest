@@ -341,9 +341,15 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    DrawMeshData();
+    //DrawMeshData();
 
-    /*for (int i = 0; i < meshes.size() - 1; i++)
+    while (meshDrawStack.size() > 0)
+    {
+        meshes.push_back(meshDrawStack.top().second);
+        meshDrawStack.pop();
+    }
+
+    for (int i = 0; i < meshes.size(); i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
 
@@ -354,7 +360,7 @@ bool Directx9Renderer::endFrame()
         }
     }
 
-    D3DXMATRIX mat = rfPhysics::GetInstance()->CreatePhysicsActor();
+    /*D3DXMATRIX mat = rfPhysics::GetInstance()->CreatePhysicsActor();
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
@@ -379,7 +385,7 @@ bool Directx9Renderer::endFrame()
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
-void Directx9Renderer::Render(std::function<bool(void)> ptr_loop)
+void Directx9Renderer::Render()
 {
     ::ZeroMemory(&msg, sizeof(MSG));
 
@@ -397,7 +403,7 @@ void Directx9Renderer::Render(std::function<bool(void)> ptr_loop)
                 ::DispatchMessage(&msg);
             }
 
-            rfApplication::gameLoop = false;
+            //rfApplication::gameLoop = false;
         }
         else // as long user does not quit engine window, process the begin and end frames
         {
@@ -406,8 +412,6 @@ void Directx9Renderer::Render(std::function<bool(void)> ptr_loop)
 
             beginFrame();
             endFrame();
-
-            ptr_loop();
 
             lastTime = currTime;
         }

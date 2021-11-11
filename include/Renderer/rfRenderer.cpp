@@ -66,7 +66,7 @@ bool rfRenderer::endFrame()
     return true;
 }
 
-void rfRenderer::Render(std::function<bool(void)> ptr_loop)
+void rfRenderer::Render()
 {
 }
 

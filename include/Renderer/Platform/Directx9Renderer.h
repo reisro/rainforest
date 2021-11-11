@@ -195,7 +195,7 @@ public:
 		bool			  CreateIndexBuffer() override;
 		bool			  beginFrame() override;
 		bool			  endFrame() override;
-		void			  Render(std::function<bool(void)> ptr_loop) override;
+		void			  Render() override;
 		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
 		void			  SetRenderState() override;
 		void			  Cleanup() override;

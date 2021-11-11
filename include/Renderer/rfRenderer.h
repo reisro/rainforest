@@ -37,7 +37,7 @@ public:
 	virtual bool		CreateIndexBuffer();
 	virtual bool		beginFrame();
 	virtual bool		endFrame();
-	virtual void		Render(std::function<bool(void)> ptr_loop);
+	virtual void		Render();
 	virtual void		SendRenderCmdList(const std::vector<rfRenderCommand>& list);
 	virtual void		SetRenderWindow(rfWindowSystem* windowSystem);
 	virtual void		SetRenderState();
