@@ -1,5 +1,6 @@
 
 #include "Physics/API/PhysX_SDK2_81.h"
+#include <Renderer/Platform/Directx9Renderer.h>
 
 //-----------------------------------------------------------------------------
 // Constructor
@@ -45,8 +46,12 @@ bool PhysX_2_81_::Initialize()
 	_SceneDesc.simType = NX_SIMULATION_SW;
 	_Scene = _PhysicsSDK->createScene(_SceneDesc);
 
-	CreateDefaultMaterial();
+	CreateDefaultPlane();
 
+	CreateDynamicSphere();
+
+	CreateDefaultMaterial();
+	
 	UpdateTime();
 
 	// Get processor freq
@@ -127,6 +132,20 @@ void PhysX_2_81_::CreateDynamicSphere()
 	assert(actorSphereDesc.isValid());
 
 	_defaultSphere = _Scene->createActor(actorSphereDesc);
+}
+
+void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
+{
+	physicsMesh.push_back(actorName);
+
+	#if defined(RFGE_DX9_RENDER_SUPPORT)
+
+	// Get the dynamic part of the renderer
+	Directx9Renderer* renderer = dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance());
+
+	#endif
+
+	physicsMeshMap.insert(std::pair<LPCSTR, rfMesh*>(actorName, new rfMesh(renderer->GetDevice())));
 }
 
 //-----------------------------------------------------------------------------

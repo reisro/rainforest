@@ -90,7 +90,16 @@ void rfApplication::Run()
 	// Build the game world
 	// Initializing the rendering of the game world meshes
 	// And simulating the physics properties of the dynamic actors lying in the world
-	rfGameWorld::GetInstance()->Build();
+	// Start physics simulation
+	rfPhysics::GetInstance()->Simulate();
+
+	// Render the game scene
+	rfRenderer::GetInstance()->Render();
+
+	while (gameLoop)
+	{
+
+	}
 
 	RFGE_LOG("\n  Finalized running application...");
 }

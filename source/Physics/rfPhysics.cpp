@@ -98,6 +98,11 @@ void rfPhysics::CreateDynamicSphere()
 	Singleton->CreateDynamicSphere();
 }
 
+void rfPhysics::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
+{
+	Singleton->CreatePhysicsActor(actorName, type);
+}
+
 rfPhysics* rfPhysics::GetInstance()
 {
 	return Singleton;

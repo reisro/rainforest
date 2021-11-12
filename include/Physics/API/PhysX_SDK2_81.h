@@ -14,6 +14,7 @@
 #define _RFPHYSICX_2_81_H
 
 #include "Physics/rfPhysics.h"
+#include "Renderer/rfRenderer.h"
 #include "NxPhysics.h"
 #include <d3dx9.h>
 
@@ -29,6 +30,7 @@ public:
 	D3DXMATRIX UpdateGlobalPosition() override;
 	void       CreateDefaultPlane() override;
 	void       CreateDynamicSphere() override;
+	void	   CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
 
 	bool       CreateSDK();
 	bool       Initialize();
@@ -41,7 +43,7 @@ public:
 	void       UpdateTime();
 	void       Reset();
 
-	NxActor* CreateGroundPlane();
+	NxActor*   CreateGroundPlane();
 
 private:
 
@@ -58,6 +60,8 @@ private:
 	__int64       _LastTime;
 	__int64		  _Time;
 	__int64		  _Frequency;
+
+	std::vector<LPCSTR> physicsMesh;
 };
 
 #endif _RFPHYSICX_2_81_H

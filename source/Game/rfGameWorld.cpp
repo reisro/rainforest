@@ -56,24 +56,6 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX w
 //-----------------------------------------------------------------------------------------
 // Once the meshes names are populated it stores all loaded geometry of the game world
 //-----------------------------------------------------------------------------------------
-void rfGameWorld::CreatePhysicsActor(PhysicsActorType actorType)
-{
-	if (actorType == PhysicsActorType::Ground)
-		rfPhysics::GetInstance()->CreateDefaultPlane();
-}
-
-//-----------------------------------------------------------------------------------------
-// Once the meshes names are populated it stores all loaded geometry of the game world
-//-----------------------------------------------------------------------------------------
-
-void rfGameWorld::CreatePhysicsMesh(PhysicsActorType actorType)
-{
-	if (actorType == PhysicsActorType::Sphere) rfPhysics::GetInstance()->CreateDynamicSphere();
-}
-
-//-----------------------------------------------------------------------------------------
-// Once the meshes names are populated it stores all loaded geometry of the game world
-//-----------------------------------------------------------------------------------------
 
 bool rfGameWorld::UpdatePhysicsMeshPositioning()
 {
@@ -127,11 +109,6 @@ void rfGameWorld::Build()
 
 	// Render the game scene
 	rfRenderer::GetInstance()->Render();
-
-	//while (rfApplication::gameLoop)
-	//{
-		
-	//}
 }
 
 //-----------------------------------------------------------------------------

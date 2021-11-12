@@ -75,6 +75,8 @@ static void DebugLog(std::string msg)
 // Stack Declaration
 #define RFGE_STACK_DECLARE(renderCmd, type, typeDefName) typedef std::stack< std::pair<renderCmd,type> > typeDefName;
 // Queue Declaration
-#define RFGE_QUEUE_DECLARE(meshName, type, typeDefName) typedef std::queue< std::pair<meshName, type> > typeDefName;
+#define RFGE_QUEUE_DECLARE(meshName, type, typeDefName)  typedef std::queue< std::pair<meshName, type> > typeDefName;
+// Map declaration
+#define RFGE_MAP_DECLARE(key, value, typeDefName)        typedef std::map<key, value> typeDefName;
 
 #endif _RFGE_API_H_

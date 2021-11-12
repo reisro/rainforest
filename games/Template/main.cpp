@@ -30,18 +30,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Setup engine configuration  
 	rfApplication::Setup(engineConfig);
 
-	// Setup the game class
-	VolleyballCourtGame* volleyballGame = new VolleyballCourtGame();
-
 	// Start rendering the application if engine initiated properly
-	if (rfApplication::Init())
-	{
-		// Setup the game entry function call
-		volleyballGame->Setup();
-
-		// Start Game Loop of the application
-		rfApplication::Run();
-	}
+	if (rfApplication::Init()) rfApplication::Run();
 
 	// Engine cleanup resources
 	rfApplication::ShutDown();

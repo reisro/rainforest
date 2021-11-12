@@ -117,13 +117,13 @@ bool Directx9Renderer::Initialize()
 //-----------------------------------------------------------------------------
 bool Directx9Renderer::PostInit()
 {
-    vertexBuffer = new Directx9VertexBuffer();
-    indexBuffer = new Directx9IndexBuffer();
+    //vertexBuffer = new Directx9VertexBuffer();
+    //indexBuffer = new Directx9IndexBuffer();
     
-    LockVertexBufferMemory();
+    //LockVertexBufferMemory();
 
     // Assign the indices for the default cube
-    LockIndexBufferMemory();
+    //LockIndexBufferMemory();
 
     // Default device initialization render
     rfVertex::VertexColor vertexColor;
@@ -197,7 +197,7 @@ bool Directx9Renderer::PostInit()
     ShowFPS();
 
     // Create the default cube for the render scene
-    //CreateDefaultPrimitive();
+    CreateDefaultPrimitive();
 
     // Set configuration camera to render scene
     CameraSetup();
@@ -341,15 +341,7 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    //DrawMeshData();
-
-    while (meshDrawStack.size() > 0)
-    {
-        meshes.push_back(meshDrawStack.top().second);
-        meshDrawStack.pop();
-    }
-
-    for (int i = 0; i < meshes.size(); i++)
+    for (int i = 0; i < meshes.size()-1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
 
@@ -360,7 +352,7 @@ bool Directx9Renderer::endFrame()
         }
     }
 
-    /*D3DXMATRIX mat = rfPhysics::GetInstance()->CreatePhysicsActor();
+    D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
@@ -368,7 +360,7 @@ bool Directx9Renderer::endFrame()
     {
         device->SetMaterial(&meshes[20]->GetMaterial()[j]);
         meshes[20]->GetGeometry()->DrawSubset(j);
-    }*/
+    }
 
     // End rendering scene
     device->EndScene();
@@ -403,10 +395,12 @@ void Directx9Renderer::Render()
                 ::DispatchMessage(&msg);
             }
 
-            //rfApplication::gameLoop = false;
+            rfApplication::gameLoop = false;
         }
         else // as long user does not quit engine window, process the begin and end frames
         {
+            rfApplication::gameLoop = true;
+
             float currTime = (float)timeGetTime();
             timeDelta = (currTime - lastTime) * 0.001f;
 
@@ -506,20 +500,20 @@ HRESULT Directx9Renderer::CreateDevice()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::CreateDefaultPrimitive()
 {
-    vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
+    //vertexBuffer->GetBuffer()->Lock(0, 0, (void**)&vertex, 0);
 
     // fill in the front face vertex data
-    vertex[0] = rfVertex::Vertex(-1.0f, -1.0f, -1.0f);
-    vertex[1] = rfVertex::Vertex(-1.0f, 1.0f, -1.0f);
-    vertex[2] = rfVertex::Vertex(1.0f, 1.0f, -1.0f);
-    vertex[3] = rfVertex::Vertex(1.0f, -1.0f, -1.0f);
-    vertex[4] = rfVertex::Vertex(-1.0f, -1.0f, 1.0f);
-    vertex[5] = rfVertex::Vertex(-1.0f, 1.0f, 1.0f);
-    vertex[6] = rfVertex::Vertex(1.0f, 1.0f, 1.0f);
-    vertex[7] = rfVertex::Vertex(1.0f, -1.0f, 1.0f);
+    //vertex[0] = rfVertex::Vertex(-1.0f, -1.0f, -1.0f);
+    //vertex[1] = rfVertex::Vertex(-1.0f, 1.0f, -1.0f);
+    //vertex[2] = rfVertex::Vertex(1.0f, 1.0f, -1.0f);
+    //vertex[3] = rfVertex::Vertex(1.0f, -1.0f, -1.0f);
+    //vertex[4] = rfVertex::Vertex(-1.0f, -1.0f, 1.0f);
+    //vertex[5] = rfVertex::Vertex(-1.0f, 1.0f, 1.0f);
+    //vertex[6] = rfVertex::Vertex(1.0f, 1.0f, 1.0f);
+    //vertex[7] = rfVertex::Vertex(1.0f, -1.0f, 1.0f);
 
     // Once Primitive has been setup unlock the buffer
-    vertexBuffer->GetBuffer()->Unlock();
+    //vertexBuffer->GetBuffer()->Unlock();
 
     D3DXCreateBox(
         device,
@@ -555,7 +549,7 @@ void Directx9Renderer::CreateDefaultPrimitive()
     for (int i = 0; i < meshNames.size(); i++)
     {
         meshes.push_back(new rfMesh(device));
-        //meshes[i]->LoadMeshGeometry(meshNames[i]);
+        meshes[i]->LoadMeshGeometry(meshNames[i],.0f,.0f,.0f);
     }
 }
 
@@ -672,9 +666,6 @@ void Directx9Renderer::AdjustLight()
 
     // Turn on the light in the render scene
     EnableLight(dsrScene.light, true);
-
-    // Turn on the light auxiliary if needed in the render scene
-    //EnableLight(dsrScene.lightAux, true);
 }
 
 //--------------------------------------------------------------------------------------
@@ -740,8 +731,6 @@ void Directx9Renderer::ShowFPS()
 
     hr = (D3DXCreateFontA(device, 24, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET,
         OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Sitka Display Regular", &Font));
-
-    //hr = (D3DXCreateFontIndirectA(device, &dsrCamera._debugFPS, &Font));
     
     if (FAILED(hr))
     {

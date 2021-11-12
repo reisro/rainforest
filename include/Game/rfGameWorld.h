@@ -24,13 +24,7 @@ class RFGE_API rfGameWorld
 {
 public:
 
-	enum class PhysicsActorType
-	{
-		Ground,
-		Box,
-		Sphere,
-		Capsule
-	};
+	
 
 	rfGameWorld();
 	rfGameWorld(int entities);
@@ -38,8 +32,6 @@ public:
 	~rfGameWorld();
 
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
-	void CreatePhysicsActor(PhysicsActorType actorType);
-	void CreatePhysicsMesh(PhysicsActorType actorType);
 	bool UpdatePhysicsMeshPositioning();
 	void SendMeshDrawStack();
 	void SendPhysicsMeshDrawStack();

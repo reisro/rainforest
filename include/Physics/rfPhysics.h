@@ -15,6 +15,7 @@
 
 #include "RFGEAPI.h"
 #include "System/Interfaces/IStartup.h"
+#include "System/rfConfig.h"
 #include <Resources/rfMesh.h>
 
 class RFGE_API rfPhysics: public IStartup
@@ -22,6 +23,14 @@ class RFGE_API rfPhysics: public IStartup
 	friend class rfGameWorld;
 
 public:
+
+	enum class PhysicsActorType
+	{
+		Ground,
+		Box,
+		Sphere,
+		Capsule
+	};
 
 	rfPhysics();
 	~rfPhysics();
@@ -39,17 +48,20 @@ public:
 	virtual D3DXMATRIX	UpdateGlobalPosition();
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
+	virtual void		CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type);
 
-	static rfPhysics* GetInstance();
+	static rfPhysics*   GetInstance();
 	
-	static rfPhysics* Singleton;
+	static rfPhysics*   Singleton;
 
 protected:
 
 	// Define declaration types
-	RFGE_QUEUE_DECLARE(LPCSTR, bool, rfPhysicsActor)
+	RFGE_QUEUE_DECLARE(LPCSTR, PhysicsActorType, rfPhysicsActor)
+	RFGE_MAP_DECLARE(LPCSTR, rfMesh*, rfPhysicsActorMesh)
 
 	rfPhysicsActor		scenePhysicsActor;
+	rfPhysicsActorMesh  physicsMeshMap;
 };
 
 #endif _RFPHYSICS_
