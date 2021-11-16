@@ -8,7 +8,7 @@ rfGame::~rfGame()
 {
 }
 
-void rfGame::Setup()
+void rfGame::LoadAssets()
 {
 }
 

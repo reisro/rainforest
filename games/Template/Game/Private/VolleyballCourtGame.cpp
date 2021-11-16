@@ -9,10 +9,12 @@ VolleyballCourtGame::~VolleyballCourtGame()
 {
 }
 
-void VolleyballCourtGame::Setup()
+void VolleyballCourtGame::LoadAssets()
 {
     // The Game World class is needed to create actors in the game world
-    rfGameWorld* gameWorld = new rfGameWorld();
+    rfGameWorld gameWorld;
+
+    rfApplication::gameWorld = gameWorld;
 
 	ImportAssetsToGameWorld(gameWorld);
 
@@ -23,16 +25,16 @@ void VolleyballCourtGame::Run()
 {
 }
 
-void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld* gameWorld)
+void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
 {
     // Loading  World Game Actors
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
@@ -43,20 +45,15 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld* gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
-    //gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
     
 	// Pass to Game World to create the game actors in the world
-	gameWorld->LoadMeshGeometry(gameMeshes);
+	gameWorld.LoadMeshGeometry(gameMeshes);
 }
 
-void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld* gameWorld)
+void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld gameWorld)
 {
-    // Create the volleyball game world ground physics actor
-    //gameWorld->CreatePhysicsActor(rfGameWorld::PhysicsActorType::Ground);
-
-    // Create the volleyball ball as a physics actor to receive physics simulation
-    //gameWorld->CreatePhysicsMesh(rfGameWorld::PhysicsActorType::Sphere);
-
-    //gameWorld->UpdatePhysicsMeshPositioning();
+    gameWorld.CreateSphere();
 }

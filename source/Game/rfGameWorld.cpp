@@ -4,13 +4,14 @@
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
 //-----------------------------------------------------------------------------
-rfGameWorld* rfGameWorld::Singleton = 0;
+rfGameWorld rfGameWorld::Singleton = 0;
 
 //-----------------------------------------------------------------------------
 // Static Member Definitions.
 //-----------------------------------------------------------------------------
 rfGameWorld::rfGameWorld()
 {
+	Singleton = *this;
 }
 
 //-----------------------------------------------------------------------------
@@ -57,7 +58,7 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX w
 // Once the meshes names are populated it stores all loaded geometry of the game world
 //-----------------------------------------------------------------------------------------
 
-bool rfGameWorld::UpdatePhysicsMeshPositioning()
+void rfGameWorld::UpdatePhysicsMeshPositioning()
 {
 	D3DXMATRIX matrix;
 
@@ -65,16 +66,11 @@ bool rfGameWorld::UpdatePhysicsMeshPositioning()
 
 	Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
-	// Create empty rfMesh with no loaded geometry
-	worldMeshes.push_back(new rfMesh(rendererDX9->GetDevice()));
+	int32_t id = worldMeshes.size() - 1;
 
-	int32_t size = worldMeshes.size() - 1;
+	rendererDX9->GetDevice()->SetTransform(D3DTS_WORLD, &matrix);
 
-	worldMeshes[size]->LoadMeshGeometry("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x", matrix._41, matrix._42, matrix._43);
-
-	rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[size] });
-
-	
+	D3DXMatrixTranslation(&worldMeshes[id]->worldPosition, matrix._41, matrix._42, matrix._43);
 }
 
 //-----------------------------------------------------------------------------
@@ -107,15 +103,22 @@ void rfGameWorld::Build()
 	// Start physics simulation
 	rfPhysics::GetInstance()->Simulate();
 
+	UpdatePhysicsMeshPositioning();
+
 	// Render the game scene
 	rfRenderer::GetInstance()->Render();
+}
+
+void rfGameWorld::CreateSphere()
+{
+	rfPhysics::GetInstance()->CreateDynamicSphere();
 }
 
 //-----------------------------------------------------------------------------
 // Retrieves the singleton for this class
 //-----------------------------------------------------------------------------
 
-rfGameWorld* rfGameWorld::GetInstance()
+rfGameWorld rfGameWorld::GetInstance()
 {
 	return Singleton;
 }

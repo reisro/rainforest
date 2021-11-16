@@ -24,10 +24,10 @@ public:
 	VolleyballCourtGame();
 	~VolleyballCourtGame();
 
-	void Setup() override;
+	void LoadAssets() override;
 	void Run() override;
-	void ImportAssetsToGameWorld(rfGameWorld* gameWorld);
-	void CreatePhysicsAssets(rfGameWorld* gameWorld);
+	void ImportAssetsToGameWorld(rfGameWorld gameWorld);
+	void CreatePhysicsAssets(rfGameWorld gameWorld);
 
 private:
 	std::vector<LPCSTR>    gameMeshes;

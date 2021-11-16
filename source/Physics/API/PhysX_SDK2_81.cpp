@@ -48,8 +48,6 @@ bool PhysX_2_81_::Initialize()
 
 	CreateDefaultPlane();
 
-	CreateDynamicSphere();
-
 	CreateDefaultMaterial();
 	
 	UpdateTime();

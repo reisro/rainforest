@@ -19,6 +19,7 @@
 #include "System/Platform/rfWindowSystem.h"
 #include "System/Platform/Windows/rfWindowSystemWin32.h"
 #include "Renderer/rfRenderer.h"
+#include "Game/rfGameWorld.h"
 #include "Physics/rfPhysics.h"
 #include "Resources/rfVertexBuffer.h"
 #include "Resources/rfIndexBuffer.h"
@@ -44,6 +45,8 @@ public:
 	static void					ShutDown();
 
 	static bool                 gameLoop;
+
+	static rfGameWorld          gameWorld;
 };
 
 #endif _RF_APPLICATION_H_

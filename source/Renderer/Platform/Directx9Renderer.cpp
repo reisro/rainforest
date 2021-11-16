@@ -197,7 +197,7 @@ bool Directx9Renderer::PostInit()
     ShowFPS();
 
     // Create the default cube for the render scene
-    CreateDefaultPrimitive();
+    //CreateDefaultPrimitive();
 
     // Set configuration camera to render scene
     CameraSetup();
@@ -341,7 +341,9 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    for (int i = 0; i < meshes.size()-1; i++)
+    DrawMeshData();
+
+    /*for (int i = 0; i < meshes.size() - 1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
 
@@ -360,7 +362,7 @@ bool Directx9Renderer::endFrame()
     {
         device->SetMaterial(&meshes[20]->GetMaterial()[j]);
         meshes[20]->GetGeometry()->DrawSubset(j);
-    }
+    }*/
 
     // End rendering scene
     device->EndScene();
@@ -399,7 +401,7 @@ void Directx9Renderer::Render()
         }
         else // as long user does not quit engine window, process the begin and end frames
         {
-            rfApplication::gameLoop = true;
+            //rfApplication::gameLoop = true;
 
             float currTime = (float)timeGetTime();
             timeDelta = (currTime - lastTime) * 0.001f;
@@ -515,23 +517,15 @@ void Directx9Renderer::CreateDefaultPrimitive()
     // Once Primitive has been setup unlock the buffer
     //vertexBuffer->GetBuffer()->Unlock();
 
-    D3DXCreateBox(
-        device,
-        2.0f, // width
-        2.0f, // height
-        2.0f, // depth
-        &defaultMesh,
-        0);
-
     // Loading  Resources
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center_centerright.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center_centerright.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
@@ -542,8 +536,8 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
-    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
+    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
 
     for (int i = 0; i < meshNames.size(); i++)

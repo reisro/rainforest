@@ -24,24 +24,23 @@ class RFGE_API rfGameWorld
 {
 public:
 
-	
-
 	rfGameWorld();
 	rfGameWorld(int entities);
 
 	~rfGameWorld();
 
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
-	bool UpdatePhysicsMeshPositioning();
+	void UpdatePhysicsMeshPositioning();
 	void SendMeshDrawStack();
 	void SendPhysicsMeshDrawStack();
 	void Build();
+	void CreateSphere();
 
-	static rfGameWorld* GetInstance();
+	static rfGameWorld GetInstance();
 
 protected:
 
-	static rfGameWorld* Singleton;
+	static rfGameWorld Singleton;
 
 private:
 

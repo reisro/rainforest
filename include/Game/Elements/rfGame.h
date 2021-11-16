@@ -22,7 +22,7 @@ public:
 	rfGame();
 	~rfGame();
 
-	virtual void Setup();
+	virtual void LoadAssets();
 	virtual void Run();
 	virtual void End();
 
