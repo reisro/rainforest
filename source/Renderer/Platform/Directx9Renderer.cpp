@@ -197,7 +197,7 @@ bool Directx9Renderer::PostInit()
     ShowFPS();
 
     // Create the default cube for the render scene
-    //CreateDefaultPrimitive();
+    CreateDefaultPrimitive();
 
     // Set configuration camera to render scene
     CameraSetup();
@@ -325,25 +325,18 @@ bool Directx9Renderer::endFrame()
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
     sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->GetFPS());
-    
-    try
-    {
-        Font->DrawText(
-            NULL,
-            FPSString,
-            -1, // size of string or -1 indicates null terminating string
-            &rect,            // rectangle text is to be formatted to in windows coords
-            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-            0xffffffff);      // black text
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "excetion caught: " << e.what() << '\n';
-    }
 
-    DrawMeshData();
+    Font->DrawText(
+        NULL,
+        FPSString,
+        -1, // size of string or -1 indicates null terminating string
+        &rect,            // rectangle text is to be formatted to in windows coords
+        DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+        0xffffffff);      // black text
 
-    /*for (int i = 0; i < meshes.size() - 1; i++)
+    //();
+
+    for (int i = 0; i < meshes.size(); i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
 
@@ -354,7 +347,7 @@ bool Directx9Renderer::endFrame()
         }
     }
 
-    D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
+    /*D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
@@ -396,8 +389,6 @@ void Directx9Renderer::Render()
                 ::TranslateMessage(&msg);
                 ::DispatchMessage(&msg);
             }
-
-            rfApplication::gameLoop = false;
         }
         else // as long user does not quit engine window, process the begin and end frames
         {
@@ -518,14 +509,14 @@ void Directx9Renderer::CreateDefaultPrimitive()
     //vertexBuffer->GetBuffer()->Unlock();
 
     // Loading  Resources
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center_centerright.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_table.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\long_bench_left.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\bench_center_centerright.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\seats_w.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\standsBase_plates.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\arena_Walls.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\base_Ground.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_Inner.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\court_GameOutter.x");
@@ -536,8 +527,8 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_Pillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\net_SafetyPillars.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\hook_Bindings.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
-    //meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\lights.x");
+    meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
 
     for (int i = 0; i < meshNames.size(); i++)

@@ -43,10 +43,6 @@ public:
 	static void					Run();
 	static void					Abort();
 	static void					ShutDown();
-
-	static bool                 gameLoop;
-
-	static rfGameWorld          gameWorld;
 };
 
 #endif _RF_APPLICATION_H_

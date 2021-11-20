@@ -4,8 +4,6 @@
 rfConfig rfConfig::Instance;
 static rfWindowSystem* windowSystem;
 static rfRenderer* renderer = NULL;
-rfGameWorld rfApplication::gameWorld;
-bool rfApplication::gameLoop = true;
 static bool	subSystemsInitiated;
 
 rfApplication::rfApplication()
@@ -91,18 +89,12 @@ void rfApplication::Run()
 	// Build the game world
 	// Initializing the rendering of the game world meshes
 	// And simulating the physics properties of the dynamic actors lying in the world
+
 	// Start physics simulation
-	//rfPhysics::GetInstance()->Simulate();
+	rfPhysics::GetInstance()->Simulate();
 
 	// Render the game scene
-	//rfRenderer::GetInstance()->Render();
-
-	gameLoop = true;
-
-	while (gameLoop)
-	{
-		rfGameWorld::GetInstance().Build();
-	}
+	rfRenderer::GetInstance()->Render();
 
 	RFGE_LOG("\n  Finalized running application...");
 }

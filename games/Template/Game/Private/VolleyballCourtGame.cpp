@@ -14,8 +14,6 @@ void VolleyballCourtGame::LoadAssets()
     // The Game World class is needed to create actors in the game world
     rfGameWorld gameWorld;
 
-    rfApplication::gameWorld = gameWorld;
-
 	ImportAssetsToGameWorld(gameWorld);
 
     CreatePhysicsAssets(gameWorld);

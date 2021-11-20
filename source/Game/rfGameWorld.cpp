@@ -37,7 +37,7 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX w
 	// Set render device depending on used graphics api
 #ifdef RFGE_DX9_RENDER_SUPPORT
 
-	Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
+	auto rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
 #endif // RFGE_DX9_RENDER_SUPPORT  
 
@@ -64,7 +64,7 @@ void rfGameWorld::UpdatePhysicsMeshPositioning()
 
 	matrix = rfPhysics::GetInstance()->UpdateGlobalPosition();
 
-	Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
+	auto rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
 	int32_t id = worldMeshes.size() - 1;
 
@@ -82,7 +82,7 @@ void rfGameWorld::SendMeshDrawStack()
 	// Set render device depending on used graphics api
 #if defined RFGE_DX9_RENDER_SUPPORT
 
-	Directx9Renderer* rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
+	auto rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
 	for (size_t i = 0; i < worldMeshes.size(); i++)
 		rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[i] });
@@ -100,13 +100,7 @@ void rfGameWorld::SendPhysicsMeshDrawStack()
 
 void rfGameWorld::Build()
 {
-	// Start physics simulation
-	rfPhysics::GetInstance()->Simulate();
-
-	UpdatePhysicsMeshPositioning();
-
-	// Render the game scene
-	rfRenderer::GetInstance()->Render();
+	
 }
 
 void rfGameWorld::CreateSphere()
