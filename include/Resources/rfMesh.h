@@ -13,11 +13,12 @@
 #ifndef RFMESH_H_
 #define RFMESH_H_
 
+#include "RFGEAPI.h"
 #include <d3dx9.h>
 #include <vector>
 #include <Math/rfVector3.h>
 
-class rfMesh
+class RFGE_API rfMesh
 {
 public:
 

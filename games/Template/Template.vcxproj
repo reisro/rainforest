@@ -106,6 +106,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(RAINFOREST_ENGINE_SDK)\include;$(DXSDK_DIR)\Include;..\include;$(PHYSICX_ENGINE_SDK)\SDKs\PhysXLoader\include;$(PHYSICX_ENGINE_SDK)\SDKs\Physics\include;$(PHYSICX_ENGINE_SDK)\SDKs\Foundation\include</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

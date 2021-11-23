@@ -30,8 +30,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Setup engine configuration  
 	rfApplication::Setup(engineConfig);
 
+	VolleyballCourtGame volleyballGame;
+
 	// Start rendering the application if engine initiated properly
-	if (rfApplication::Init()) rfApplication::Run();
+	if (rfApplication::Init())
+	{
+		volleyballGame.LoadAssets();
+
+		rfApplication::Run();
+	}
 
 	// Engine cleanup resources
 	rfApplication::ShutDown();

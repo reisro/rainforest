@@ -236,7 +236,7 @@ protected:
 		// Define declaration types
 		RFGE_STACK_DECLARE(rfRenderCommand, int, ClearColorStack)
 		RFGE_STACK_DECLARE(rfRenderCommand::PrimitiveType, rfVertex::VertexColor, rfIndexedPrimitive)
-		RFGE_STACK_DECLARE(rfRenderCommand::CommandType, rfMesh*, rfMeshDrawStack)
+		RFGE_STACK_DECLARE(rfRenderCommand::CommandType, rfMesh, rfMeshDrawStack)
 		RFGE_STACK_DECLARE(rfRenderCommand, D3DMATERIAL9, rfSceneMaterial)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DTexture9*, rfSceneTexture)
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DVertexBuffer9*, rfVertexBuffer)
@@ -321,7 +321,7 @@ private:
 		dsRenderLight				dsrLightSecond;
 
 		std::stack<rfRenderCommand> renderCmdStack;
-		std::vector<rfMesh*>        meshes;
+		std::vector<rfMesh>         meshes;
 		std::vector<LPCSTR>         meshNames;
 
 		rfVertex::Vertex* vertex;

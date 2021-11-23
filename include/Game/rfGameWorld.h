@@ -44,7 +44,7 @@ protected:
 
 private:
 
-	std::vector<rfMesh*> worldMeshes;
+	std::vector<rfMesh> worldMeshes;
 
 	rfRenderer* renderer;
 };

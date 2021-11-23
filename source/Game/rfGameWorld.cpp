@@ -44,10 +44,10 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX w
 	for (size_t i = 0; i < actorNames.size(); i++)
 	{
 		// Create empty rfMesh with no loaded geometry
-		worldMeshes.push_back(new rfMesh(rendererDX9->GetDevice()));
+		worldMeshes.push_back(rfMesh(rendererDX9->GetDevice()));
 
 		// for each mesh loads its corresponding geometry
-		worldMeshes[i]->LoadMeshGeometry(actorNames[i], .0f,.0f,.0f);
+		worldMeshes[i].LoadMeshGeometry(actorNames[i], .0f,.0f,.0f);
 	}
 
 	// Populate and send the stack with game world meshes to be rendered by the renderer
@@ -70,7 +70,7 @@ void rfGameWorld::UpdatePhysicsMeshPositioning()
 
 	rendererDX9->GetDevice()->SetTransform(D3DTS_WORLD, &matrix);
 
-	D3DXMatrixTranslation(&worldMeshes[id]->worldPosition, matrix._41, matrix._42, matrix._43);
+	D3DXMatrixTranslation(&worldMeshes[id].worldPosition, matrix._41, matrix._42, matrix._43);
 }
 
 //-----------------------------------------------------------------------------
@@ -84,8 +84,8 @@ void rfGameWorld::SendMeshDrawStack()
 
 	auto rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
-	for (size_t i = 0; i < worldMeshes.size(); i++)
-		rendererDX9->meshDrawStack.push({ rfRenderCommand::CommandType::DrawMesh, worldMeshes[i] });
+	for (size_t i = 0; i < worldMeshes.size(); i++) 
+		rendererDX9->meshes.push_back(worldMeshes[i]);
 
 #endif // RFGE_DX9_RENDER_SUPPORT
 }

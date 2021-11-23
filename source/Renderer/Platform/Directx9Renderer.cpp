@@ -128,7 +128,6 @@ bool Directx9Renderer::PostInit()
     // Default device initialization render
     rfVertex::VertexColor vertexColor;
     D3DMATERIAL9 defaultMaterial;
-    LPCWSTR filename = L"crate.jpg";
 
     // Set the index primitive default values
     IndexedPrimitiveSize defaultIndexedPrimitive;
@@ -197,7 +196,7 @@ bool Directx9Renderer::PostInit()
     ShowFPS();
 
     // Create the default cube for the render scene
-    CreateDefaultPrimitive();
+    //CreateDefaultPrimitive();
 
     // Set configuration camera to render scene
     CameraSetup();
@@ -317,54 +316,59 @@ bool Directx9Renderer::endFrame()
         primitiveTextureStack.pop();
 
     // Check engine rendering draw mode
-    !dsrScene.isRenderingIndexedPrimitive ? 
-        drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
-        sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF):
-        RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
+    //!dsrScene.isRenderingIndexedPrimitive ?
+        //drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
+            //sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF) :
+        //RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
     sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->GetFPS());
 
-    Font->DrawText(
-        NULL,
-        FPSString,
-        -1, // size of string or -1 indicates null terminating string
-        &rect,            // rectangle text is to be formatted to in windows coords
-        DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-        0xffffffff);      // black text
-
-    //();
-
-    for (int i = 0; i < meshes.size(); i++)
+    try 
     {
-        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
+        Font->DrawText(
+            NULL,
+            FPSString,
+            -1, // size of string or -1 indicates null terminating string
+            &rect,            // rectangle text is to be formatted to in windows coords
+            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
+            0xffffffff);      // black text
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "excetion caught: " << e.what() << '\n';
+    }
 
-        for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
+    //DrawMeshData();
+
+    for (int i = 0; i < meshes.size() - 1; i++)
+    {
+        device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
+
+        for (int j = 0; j < meshes[i].GetNumberMaterials(); j++)
         {
-            device->SetMaterial(&meshes[i]->GetMaterial()[j]);
-            meshes[i]->GetGeometry()->DrawSubset(j);
+            device->SetMaterial(&meshes[i].GetMaterial()[j]);
+            meshes[i].GetGeometry()->DrawSubset(j);
         }
     }
 
-    /*D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
+    D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
-    for (int j = 0; j < meshes[20]->GetNumberMaterials(); j++)
+    for (int j = 0; j < meshes[19].GetNumberMaterials(); j++)
     {
-        device->SetMaterial(&meshes[20]->GetMaterial()[j]);
-        meshes[20]->GetGeometry()->DrawSubset(j);
-    }*/
+        device->SetMaterial(&meshes[19].GetMaterial()[j]);
+        meshes[19].GetGeometry()->DrawSubset(j);
+    }
 
     // End rendering scene
     device->EndScene();
 
     readyToPresent = true;
 
-    // Present render frame
-    if (readyToPresent)
-        device->Present(0, 0, 0, 0);
+    device->Present(0, 0, 0, 0);
 
     return rfRenderer::endFrame();
 }
@@ -462,20 +466,14 @@ void Directx9Renderer::SetDefaultMaterial()
 
 void Directx9Renderer::DrawMeshData()
 {
-    while (meshDrawStack.size() > 0)
-    {
-        meshes.push_back(meshDrawStack.top().second);
-        meshDrawStack.pop();
-    }
-
     for (size_t i = 0; i < meshes.size(); i++)
     {
-        device->SetTransform(D3DTS_WORLD, &meshes[i]->worldPosition);
+        device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
 
-        for (int j = 0; j < meshes[i]->GetNumberMaterials(); j++)
+        for (int j = 0; j < meshes[i].GetNumberMaterials(); j++)
         {
-            device->SetMaterial(&meshes[i]->GetMaterial()[j]);
-            meshes[i]->GetGeometry()->DrawSubset(j);
+            device->SetMaterial(&meshes[i].GetMaterial()[j]);
+            meshes[i].GetGeometry()->DrawSubset(j);
         }
     }
 }
@@ -531,11 +529,11 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
 
-    for (int i = 0; i < meshNames.size(); i++)
+    /*for (int i = 0; i < meshNames.size(); i++)
     {
         meshes.push_back(new rfMesh(device));
         meshes[i]->LoadMeshGeometry(meshNames[i],.0f,.0f,.0f);
-    }
+    }*/
 }
 
 //-----------------------------------------------------------------------------
