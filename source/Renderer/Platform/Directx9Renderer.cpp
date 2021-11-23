@@ -151,17 +151,17 @@ bool Directx9Renderer::PostInit()
     dsrScene.numberMeshes = 5;
 
     // Data structure that holds light information data
-    dsrLight.angleX = -255.292f;
-    dsrLight.angleY = 293.29f;
-    dsrLight.angleZ = 382.70f;
-    dsrLight._Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
+    dsrLight._AngleX = -255.292f;
+    dsrLight._AngleY = 293.29f;
+    dsrLight._AngleZ = 382.70f;
+    dsrLight._Direction = D3DXVECTOR3(dsrLight._AngleX, dsrLight._AngleY, dsrLight._AngleZ);
     dsrLight._Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
     // Data structure that holds light information data
-    dsrLightSecond.angleX = -0.7070f;
-    dsrLightSecond.angleY = 0.7070f;
-    dsrLightSecond.angleZ = 0.7070f;
-    dsrLightSecond._Direction = D3DXVECTOR3(dsrLightSecond.angleX, dsrLightSecond.angleY, dsrLightSecond.angleZ);
+    dsrLightSecond._AngleX = -0.7070f;
+    dsrLightSecond._AngleY = 0.7070f;
+    dsrLightSecond._AngleZ = 0.7070f;
+    dsrLightSecond._Direction = D3DXVECTOR3(dsrLightSecond._AngleX, dsrLightSecond._AngleY, dsrLightSecond._AngleZ);
     dsrLightSecond._Color = D3DXCOLOR(0.0f, 1.0f, 1.0f, 1.0f);
 
     dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
@@ -409,6 +409,11 @@ void Directx9Renderer::Render()
     }
 }
 
+void Directx9Renderer::PostRender(postRenderPt postRenderFunc)
+{
+    this->postRenderFunc = postRenderFunc;
+}
+
 //-----------------------------------------------------------------------------
 // After initialization, fill out with default constants for rendering
 //-----------------------------------------------------------------------------
@@ -628,24 +633,24 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
 void Directx9Renderer::AdjustLight()
 {
     if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
-        dsrLight.angleX += 2.0f;
+        dsrLight._AngleX += 2.0f;
 
     if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
-        dsrLight.angleX -= 2.0f;
+        dsrLight._AngleX -= 2.0f;
 
     if (::GetAsyncKeyState(VK_UP) & 0x8000f)
-        dsrLight.angleZ -= 2.0f;
+        dsrLight._AngleZ -= 2.0f;
 
     if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
-        dsrLight.angleZ += 2.0f;
+        dsrLight._AngleZ += 2.0f;
 
     if (::GetAsyncKeyState('E') & 0x8000f)
-        dsrLight.angleY -= 2.0f;
+        dsrLight._AngleY -= 2.0f;
 
     if (::GetAsyncKeyState('R') & 0x8000f)
-        dsrLight.angleY += 2.0f;
+        dsrLight._AngleY += 2.0f;
 
-    dsrScene.light.Direction = D3DXVECTOR3(dsrLight.angleX, dsrLight.angleY, dsrLight.angleZ);
+    dsrScene.light.Direction = D3DXVECTOR3(dsrLight._AngleX, dsrLight._AngleY, dsrLight._AngleZ);
 
     // Turn on the light in the render scene
     EnableLight(dsrScene.light, true);

@@ -84,7 +84,7 @@ void rfGameWorld::SendMeshDrawStack()
 
 	auto rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
 
-	for (size_t i = 0; i < worldMeshes.size(); i++) 
+	for (size_t i = 0; i < worldMeshes.size(); i++)
 		rendererDX9->meshes.push_back(worldMeshes[i]);
 
 #endif // RFGE_DX9_RENDER_SUPPORT

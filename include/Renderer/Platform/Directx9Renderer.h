@@ -21,11 +21,11 @@
 #include <stdio.h>
 #include <exception>
 #include "Game/Elements/rfCamera.h"
+#include "Game/Elements/rfVertex.h"
 #include "Math/rfVector3.h"
 #include "Math/rfMatrix.h"
 #include "Renderer/rfRenderer.h"
 #include "Renderer/rfRenderCommand.h"
-#include "Game/Elements/rfVertex.h"
 #include "Resources/Platform/Directx9VertexBuffer.h"
 #include "Resources/Platform/Directx9IndexBuffer.h"
 #include "Resources/rfMesh.h"
@@ -196,6 +196,7 @@ public:
 		bool			  beginFrame() override;
 		bool			  endFrame() override;
 		void			  Render() override;
+		void			  PostRender(postRenderPt postRenderFunc) override;
 		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
 		void			  SetRenderState() override;
 		void			  Cleanup() override;
@@ -254,6 +255,7 @@ protected:
 		rfIndexBuffer			sceneIndexBufferStack;
 		rfIndexedPrimitiveSize	sceneIndexedPrimitiveStack;
 		rfRenderPhysicsMesh	    sceneRenderPhysicsMesh;
+		postRenderPt			postRenderFunc;
 
 		// Data structure that holds rendering scene buffer constants
 		struct dsRenderScene
@@ -271,28 +273,28 @@ protected:
 
 		struct dsRenderCamera
 		{
-			rfVector3*      _Position;
-			rfVector3*      _Direction;
-			rfVector3*      _Target;
-			rfVector3*      _Up;
-			rfVector3*      _Right;
-			rfVector3*      _Forward;
-			D3DXMATRIX      _View;
-			D3DXMATRIX      _Proj;
-			rfInt           _ratioWidth;
-			rfInt           _ratioHeight;
-			rfFloat         _nearPlane;
-			rfFloat         _farPlane;
-			D3DXFONT_DESCA  _debugFPS;
+			rfVector3*          _Position;
+			rfVector3*          _Direction;
+			rfVector3*          _Target;
+			rfVector3*          _Up;
+			rfVector3*          _Right;
+			rfVector3*          _Forward;
+			D3DXMATRIX          _View;
+			D3DXMATRIX          _Proj;
+			rfInt               _ratioWidth;
+			rfInt               _ratioHeight;
+			rfFloat             _nearPlane;
+			rfFloat             _farPlane;
+			D3DXFONT_DESCA      _debugFPS;
 		};
 
 		struct dsRenderLight
 		{
-			rfFloat		angleX;
-			rfFloat		angleY;
-			rfFloat		angleZ;
-			D3DXVECTOR3 _Direction;
-			D3DCOLOR	_Color;
+			rfFloat		        _AngleX;
+			rfFloat		        _AngleY;
+			rfFloat		        _AngleZ;
+			D3DXVECTOR3         _Direction;
+			D3DCOLOR	        _Color;
 		};
 
 private:
