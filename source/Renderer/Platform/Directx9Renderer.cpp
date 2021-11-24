@@ -353,17 +353,8 @@ bool Directx9Renderer::endFrame()
         }
     }
 
+    // Update matrix position of physics actors 
     PostRender(&rfPhysics::UpdateGlobalPosition);
-
-    /*D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
-    
-    device->SetTransform(D3DTS_WORLD, &mat);
-
-    for (int j = 0; j < meshes[19].GetNumberMaterials(); j++)
-    {
-        device->SetMaterial(&meshes[19].GetMaterial()[j]);
-        meshes[19].GetGeometry()->DrawSubset(j);
-    }*/
 
     // End rendering scene
     device->EndScene();

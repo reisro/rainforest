@@ -187,40 +187,40 @@ public:
 
 		typedef D3DXMATRIX (rfPhysics::* postRenderPt)(void);
 
-		Directx9Renderer();
-		~Directx9Renderer();
+		                                Directx9Renderer();
+		                                ~Directx9Renderer();
 		
-		bool			  Initialize() override;
-		bool			  PostInit() override;
-		void			  SendRenderCmdList(const std::vector<rfRenderCommand>& list) override;
-		bool			  CreateVertexBuffer() override;
-		bool			  CreateIndexBuffer() override;
-		bool			  beginFrame() override;
-		bool			  endFrame() override;
-		void			  Render() override;
-		void			  PostRender(postRenderPt postRenderFunc);
-		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
-		void			  SetRenderState() override;
-		void			  Cleanup() override;
-		void			  CameraSetup() override;
+		bool			                Initialize() override;
+		bool			                PostInit() override;
+		void			                SendRenderCmdList(const std::vector<rfRenderCommand>& list) override;
+		bool			                CreateVertexBuffer() override;
+		bool			                CreateIndexBuffer() override;
+		bool			                beginFrame() override;
+		bool			                endFrame() override;
+		void			                Render() override;
+		void			                PostRender(postRenderPt postRenderFunc);
+		void			                SetRenderWindow(rfWindowSystem* windowSystem) override;
+		void			                SetRenderState() override;
+		void			                Cleanup() override;
+		void			                CameraSetup() override;
 
-		void			  SetDefaultMaterial();
-		void			  DrawMeshData();
-		HRESULT           CreateDevice();
-		void			  CreateDefaultPrimitive();
-		void			  LockVertexBufferMemory();
-		void			  LockIndexBufferMemory();
-		void			  SetRenderState(rfgeDX9RenderState _renderState);
-		void			  SetSamplerState();
-		D3DLIGHT9		  CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color);
-		void			  AdjustLight();
-		void			  EnableLight(D3DLIGHT9 _light, bool value);
-		D3DMATERIAL9      CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power);
-		void              SetMaterial(D3DMATERIAL9* _mat);
-		void			  CreateTextureFromFile(LPCSTR filename);
+		void			                SetDefaultMaterial();
+		void			                DrawMeshData();
+		HRESULT                         CreateDevice();
+		void			                CreateDefaultPrimitive();
+		void			                LockVertexBufferMemory();
+		void			                LockIndexBufferMemory();
+		void			                SetRenderState(rfgeDX9RenderState _renderState);
+		void			                SetSamplerState();
+		D3DLIGHT9		                CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _direction, D3DXCOLOR _color);
+		void			                AdjustLight();
+		void			                EnableLight(D3DLIGHT9 _light, bool value);
+		D3DMATERIAL9                    CreateD3DMaterial(D3DXCOLOR _ambient, D3DXCOLOR _diffuse, D3DXCOLOR _specular, D3DXCOLOR _emissive, float _power);
+		void                            SetMaterial(D3DMATERIAL9* _mat);
+		void			                CreateTextureFromFile(LPCSTR filename);
 
-		void			  drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF);
-		void			  ShowFPS();
+		void			                drawIndexedPrimitive(UINT _numberVertices, UINT _totalVertices, UINT _stride, DWORD _FVF);
+		void			                ShowFPS();
 
 		IDirect3DDevice9*               GetDevice()	const;
 		IDirect3DVertexBuffer9*			GetVertexBuffer() const;
@@ -247,55 +247,55 @@ protected:
 		RFGE_QUEUE_DECLARE(LPCSTR, bool, rfRenderPhysicsMesh)
 	
 		// Stack strucutures that store default values
-		ClearColorStack			clearColorStack;
-		rfIndexedPrimitive		defaultPrimitiveStack;
-		rfMeshDrawStack			meshDrawStack;
-		rfSceneMaterial			primitiveMaterialStack;
-		rfSceneTexture			primitiveTextureStack;
-		rfVertexBuffer			sceneVertexBufferStack;
-		rfIndexBuffer			sceneIndexBufferStack;
-		rfIndexedPrimitiveSize	sceneIndexedPrimitiveStack;
-		rfRenderPhysicsMesh	    sceneRenderPhysicsMesh;
-		postRenderPt			postRenderFunc;
+		ClearColorStack			    clearColorStack;
+		rfIndexedPrimitive		    defaultPrimitiveStack;
+		rfMeshDrawStack			    meshDrawStack;
+		rfSceneMaterial			    primitiveMaterialStack;
+		rfSceneTexture			    primitiveTextureStack;
+		rfVertexBuffer			    sceneVertexBufferStack;
+		rfIndexBuffer			    sceneIndexBufferStack;
+		rfIndexedPrimitiveSize	    sceneIndexedPrimitiveStack;
+		rfRenderPhysicsMesh	        sceneRenderPhysicsMesh;
+		postRenderPt			    postRenderFunc;
 
 		// Data structure that holds rendering scene buffer constants
 		struct dsRenderScene
 		{
-			int					clearColor;
-			D3DMATERIAL9		material;
-			IDirect3DTexture9*	texture;
-			D3DLIGHT9			light;
-			D3DLIGHT9			lightAux;
-			UINT				numberVertices;
-			UINT				totalVertices;
-			int					numberMeshes;
-			bool				isRenderingIndexedPrimitive;
+			int					    clearColor;
+			D3DMATERIAL9		    material;
+			IDirect3DTexture9*	    texture;
+			D3DLIGHT9			    light;
+			D3DLIGHT9			    lightAux;
+			UINT				    numberVertices;
+			UINT				    totalVertices;
+			int					    numberMeshes;
+			bool				    isRenderingIndexedPrimitive;
 		};
 
 		struct dsRenderCamera
 		{
-			rfVector3*          _Position;
-			rfVector3*          _Direction;
-			rfVector3*          _Target;
-			rfVector3*          _Up;
-			rfVector3*          _Right;
-			rfVector3*          _Forward;
-			D3DXMATRIX          _View;
-			D3DXMATRIX          _Proj;
-			rfInt               _ratioWidth;
-			rfInt               _ratioHeight;
-			rfFloat             _nearPlane;
-			rfFloat             _farPlane;
-			D3DXFONT_DESCA      _debugFPS;
+			rfVector3*              _Position;
+			rfVector3*              _Direction;
+			rfVector3*              _Target;
+			rfVector3*              _Up;
+			rfVector3*              _Right;
+			rfVector3*              _Forward;
+			D3DXMATRIX              _View;
+			D3DXMATRIX              _Proj;
+			rfInt                   _ratioWidth;
+			rfInt                   _ratioHeight;
+			rfFloat                 _nearPlane;
+			rfFloat                 _farPlane;
+			D3DXFONT_DESCA          _debugFPS;
 		};
 
 		struct dsRenderLight
 		{
-			rfFloat		        _AngleX;
-			rfFloat		        _AngleY;
-			rfFloat		        _AngleZ;
-			D3DXVECTOR3         _Direction;
-			D3DCOLOR	        _Color;
+			rfFloat		            _AngleX;
+			rfFloat		            _AngleY;
+			rfFloat		            _AngleZ;
+			D3DXVECTOR3             _Direction;
+			D3DCOLOR	            _Color;
 		};
 
 private:
@@ -327,7 +327,7 @@ private:
 		std::vector<rfMesh>         meshes;
 		std::vector<LPCSTR>         meshNames;
 
-		rfVertex::Vertex* vertex;
+		rfVertex::Vertex*           vertex;
 };
 
 #endif RFGE_DIRECT3D9_SDK_H_
