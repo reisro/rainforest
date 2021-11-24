@@ -54,25 +54,6 @@ void rfGameWorld::LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX w
 	SendMeshDrawStack();
 }
 
-//-----------------------------------------------------------------------------------------
-// Once the meshes names are populated it stores all loaded geometry of the game world
-//-----------------------------------------------------------------------------------------
-
-void rfGameWorld::UpdatePhysicsMeshPositioning()
-{
-	D3DXMATRIX matrix;
-
-	matrix = rfPhysics::GetInstance()->UpdateGlobalPosition();
-
-	auto rendererDX9 = dynamic_cast<Directx9Renderer*> (rfRenderer::GetInstance());
-
-	int32_t id = worldMeshes.size() - 1;
-
-	rendererDX9->GetDevice()->SetTransform(D3DTS_WORLD, &matrix);
-
-	D3DXMatrixTranslation(&worldMeshes[id].worldPosition, matrix._41, matrix._42, matrix._43);
-}
-
 //-----------------------------------------------------------------------------
 // Set the mesh draw stack to send to the renderer
 //-----------------------------------------------------------------------------

@@ -340,18 +340,8 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    //DrawMeshData();
-
-    for (int i = 0; i < meshes.size() - 1; i++)
-    {
-        device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
-
-        for (int j = 0; j < meshes[i].GetNumberMaterials(); j++)
-        {
-            device->SetMaterial(&meshes[i].GetMaterial()[j]);
-            meshes[i].GetGeometry()->DrawSubset(j);
-        }
-    }
+    // Draw all meshes sen from client game code
+    DrawMeshData();
 
     // Update matrix position of physics actors 
     PostRender(&rfPhysics::UpdateGlobalPosition);
@@ -474,7 +464,7 @@ void Directx9Renderer::SetDefaultMaterial()
 
 void Directx9Renderer::DrawMeshData()
 {
-    for (size_t i = 0; i < meshes.size(); i++)
+    for (size_t i = 0; i < meshes.size()-1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
 

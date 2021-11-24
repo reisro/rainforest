@@ -30,7 +30,6 @@ public:
 	~rfGameWorld();
 
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
-	void UpdatePhysicsMeshPositioning();
 	void SendMeshDrawStack();
 	void SendPhysicsMeshDrawStack();
 	void Build();
