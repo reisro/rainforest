@@ -103,6 +103,10 @@ void rfPhysics::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 	Singleton->CreatePhysicsActor(actorName, type);
 }
 
+void rfPhysics::UpdateActorPosition()
+{
+}
+
 rfPhysics* rfPhysics::GetInstance()
 {
 	return Singleton;

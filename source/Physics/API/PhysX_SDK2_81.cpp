@@ -148,6 +148,11 @@ void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 	physicsMeshMap.insert(std::pair<LPCSTR, rfMesh*>(actorName, new rfMesh(renderer->GetDevice())));
 }
 
+void PhysX_2_81_::UpdateActorPosition()
+{
+
+}
+
 //-----------------------------------------------------------------------------
 // Create the default plane for any physics scene
 //-----------------------------------------------------------------------------

@@ -31,6 +31,7 @@ public:
 	void       CreateDefaultPlane() override;
 	void       CreateDynamicSphere() override;
 	void	   CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
+	void	   UpdateActorPosition() override;
 
 	bool       CreateSDK();
 	bool       Initialize();

@@ -70,10 +70,6 @@ void rfRenderer::Render()
 {
 }
 
-void rfRenderer::PostRender(postRenderPt postRenderFunc)
-{
-}
-
 void rfRenderer::SendRenderCmdList(const std::vector<rfRenderCommand>& list)
 {
 }

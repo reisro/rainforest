@@ -185,6 +185,8 @@ class Directx9Renderer: public rfRenderer
 
 public:
 
+		typedef D3DXMATRIX (rfPhysics::* postRenderPt)(void);
+
 		Directx9Renderer();
 		~Directx9Renderer();
 		
@@ -196,15 +198,14 @@ public:
 		bool			  beginFrame() override;
 		bool			  endFrame() override;
 		void			  Render() override;
-		void			  PostRender(postRenderPt postRenderFunc) override;
+		void			  PostRender(postRenderPt postRenderFunc);
 		void			  SetRenderWindow(rfWindowSystem* windowSystem) override;
 		void			  SetRenderState() override;
 		void			  Cleanup() override;
-
 		void			  CameraSetup() override;
+
 		void			  SetDefaultMaterial();
 		void			  DrawMeshData();
-		
 		HRESULT           CreateDevice();
 		void			  CreateDefaultPrimitive();
 		void			  LockVertexBufferMemory();

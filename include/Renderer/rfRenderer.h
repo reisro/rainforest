@@ -23,9 +23,6 @@ class rfPhysics;
 class RFGE_API rfRenderer: public IStartup
 {
 public:
-
-	typedef void (rfPhysics::* postRenderPt)();
-
 						rfRenderer();
 	virtual				~rfRenderer();
 
@@ -42,14 +39,13 @@ public:
 	virtual bool		beginFrame();
 	virtual bool		endFrame();
 	virtual void		Render();
-	virtual void		PostRender(postRenderPt postRenderFunc);
 	virtual void		SendRenderCmdList(const std::vector<rfRenderCommand>& list);
 	virtual void		SetRenderWindow(rfWindowSystem* windowSystem);
 	virtual void		SetRenderState();
 	virtual void		Cleanup();
 	virtual void		GetDevice();
-
 	virtual void		CameraSetup();
+
 	static rfRenderer*	GetInstance();
 
 protected:

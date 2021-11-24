@@ -316,10 +316,10 @@ bool Directx9Renderer::endFrame()
         primitiveTextureStack.pop();
 
     // Check engine rendering draw mode
-    //!dsrScene.isRenderingIndexedPrimitive ?
-        //drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
-            //sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF) :
-        //RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
+    !dsrScene.isRenderingIndexedPrimitive ?
+        drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
+            sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF) :
+        RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
     static char FPSString[32];
     RECT rect = { 5, 5, 1280, 720 };
@@ -353,7 +353,9 @@ bool Directx9Renderer::endFrame()
         }
     }
 
-    D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
+    PostRender(&rfPhysics::UpdateGlobalPosition);
+
+    /*D3DXMATRIX mat = rfPhysics::GetInstance()->UpdateGlobalPosition();
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
@@ -361,7 +363,7 @@ bool Directx9Renderer::endFrame()
     {
         device->SetMaterial(&meshes[19].GetMaterial()[j]);
         meshes[19].GetGeometry()->DrawSubset(j);
-    }
+    }*/
 
     // End rendering scene
     device->EndScene();
@@ -412,6 +414,16 @@ void Directx9Renderer::Render()
 void Directx9Renderer::PostRender(postRenderPt postRenderFunc)
 {
     this->postRenderFunc = postRenderFunc;
+
+    auto mat = (rfPhysics::GetInstance()->*postRenderFunc)();
+    
+    device->SetTransform(D3DTS_WORLD, &mat);
+
+    for (int j = 0; j < meshes[19].GetNumberMaterials(); j++)
+    {
+        device->SetMaterial(&meshes[19].GetMaterial()[j]);
+        meshes[19].GetGeometry()->DrawSubset(j);
+    }
 }
 
 //-----------------------------------------------------------------------------
