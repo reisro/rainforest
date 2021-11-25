@@ -22,6 +22,9 @@
     <Filter Include="Game\Private">
       <UniqueIdentifier>{f0f25c37-de49-4322-bd0d-54dfa2a65b67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Assets">
+      <UniqueIdentifier>{6b0d59de-aff8-4fc4-b69f-e88989ff72de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -35,5 +38,67 @@
     <ClInclude Include="Game\Public\VolleyballCourtGame.h">
       <Filter>Game\Public</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\Assets\ball_br2.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\arena_Walls.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\base_Ground.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\bench_center.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\bench_table.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\chair_stand.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\court_GameOutter.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\court_Inner.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\hook_Bindings.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\lights.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\long_bench.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\long_bench_left.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\Net.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\net_Antenna.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\net_Bench.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\net_Frame.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\net_Pillars.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\net_SafetyPillars.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\seats_w.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\standsBase_Plates.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

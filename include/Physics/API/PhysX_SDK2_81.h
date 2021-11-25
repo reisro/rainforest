@@ -21,30 +21,30 @@
 class PhysX_2_81_: public rfPhysics
 {
 public:
-	PhysX_2_81_();
-	~PhysX_2_81_();
+	              PhysX_2_81_();
+	              ~PhysX_2_81_();
 
-	void       Simulate() override;
-	float      GetFPS() override;
-	void       GetPhysicsResults() override;
-	D3DXMATRIX UpdateGlobalPosition() override;
-	void       CreateDefaultPlane() override;
-	void       CreateDynamicSphere() override;
-	void	   CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
-	void	   UpdateActorPosition() override;
+	void          Simulate() override;
+	float         GetFPS() override;
+	void          GetPhysicsResults() override;
+	D3DXMATRIX    UpdateGlobalPosition() override;
+	void          CreateDefaultPlane() override;
+	void          CreateDynamicSphere() override;
+	void	      CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
+	void	      UpdateActorPosition() override;
 
-	bool       CreateSDK();
-	bool       Initialize();
-	void       Release();
-	void       SetSDKParameters();
-	void       SetDebugParameters();
-	void       CreateDefaultMaterial();
-	void       DebugWireframeMode();
-	void       RenderDefaultActors();
-	void       UpdateTime();
-	void       Reset();
+	bool          CreateSDK();
+	bool          Initialize();
+	void          Release();
+	void          SetSDKParameters();
+	void          SetDebugParameters();
+	void          CreateDefaultMaterial();
+	void          DebugWireframeMode();
+	void          RenderDefaultActors();
+	void          UpdateTime();
+	void          Reset();
 
-	NxActor*   CreateGroundPlane();
+	NxActor*      CreateGroundPlane();
 
 private:
 

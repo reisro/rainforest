@@ -138,17 +138,17 @@ bool Directx9Renderer::PostInit()
     clearColorStack.push({ rfRenderCommand::CommandType::ClearColor, 0x333333 });
     defaultPrimitiveStack.push({ rfRenderCommand::PrimitiveType::Cube, vertexColor });
     primitiveMaterialStack.push({ rfRenderCommand::CommandType::CreateMaterial, defaultMaterial });
-    primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene.texture});
+    primitiveTextureStack.push({ rfRenderCommand::CommandType::CreateTexture, dsrScene._Texture});
     sceneIndexedPrimitiveStack.push({ rfRenderCommand::CommandType::DrawIndexedPrimitive, defaultIndexedPrimitive });
 
     // Buffer data structure that holds the default rendering scene types
-    dsrScene.numberVertices = defaultIndexedPrimitive.numberVertices;
-    dsrScene.totalVertices = defaultIndexedPrimitive.totalVertices;
-    dsrScene.clearColor = clearColorStack.top().second;
-    dsrScene.material = primitiveMaterialStack.top().second;
-    dsrScene.texture = primitiveTextureStack.top().second;
-    dsrScene.isRenderingIndexedPrimitive = true;
-    dsrScene.numberMeshes = 5;
+    dsrScene._NumberVertices = defaultIndexedPrimitive.numberVertices;
+    dsrScene._TotalVertices = defaultIndexedPrimitive.totalVertices;
+    dsrScene._ClearColor = clearColorStack.top().second;
+    dsrScene._Material = primitiveMaterialStack.top().second;
+    dsrScene._Texture = primitiveTextureStack.top().second;
+    dsrScene._IsRenderingIndexedPrimitive = true;
+    dsrScene._NumberMeshes = 5;
 
     // Data structure that holds light information data
     dsrLight._AngleX = -255.292f;
@@ -164,34 +164,34 @@ bool Directx9Renderer::PostInit()
     dsrLightSecond._Direction = D3DXVECTOR3(dsrLightSecond._AngleX, dsrLightSecond._AngleY, dsrLightSecond._AngleZ);
     dsrLightSecond._Color = D3DXCOLOR(0.0f, 1.0f, 1.0f, 1.0f);
 
-    dsrScene.light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
-    dsrScene.lightAux = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLightSecond._Direction, dsrLightSecond._Color);
+    dsrScene._Light = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLight._Direction, dsrLight._Color);
+    dsrScene._LightAux = CreateD3DLight(D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL, dsrLightSecond._Direction, dsrLightSecond._Color);
    
     // Data structure that holds camera configuration
     dsrCamera._Position = new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Target =   new rfVector3(0.0f, 0.0f, 0.0f);
     dsrCamera._Up =       new rfVector3(0.0f, 1.0f, 0.0f);
-    dsrCamera._ratioWidth = 1920;
-    dsrCamera._ratioHeight = 1080;
-    dsrCamera._nearPlane = 1.0f;
-    dsrCamera._farPlane = 10000.0f;
+    dsrCamera._RatioWidth = 1920;
+    dsrCamera._RatioHeight = 1080;
+    dsrCamera._NearPlane = 1.0f;
+    dsrCamera._FarPlane = 10000.0f;
 
     // Initialize the font
-    ZeroMemory(&dsrCamera._debugFPS, sizeof(D3DXFONT_DESC));
+    ZeroMemory(&dsrCamera._DebugFPS, sizeof(D3DXFONT_DESC));
 
     // Data structure that holds font configuration
     // All values can be modified and set by a setter function
     // to be written later
-    dsrCamera._debugFPS.Height = 25;    // in logical units
-    dsrCamera._debugFPS.Width = 12;    // in logical units
-    dsrCamera._debugFPS.Weight = 500;   // boldness, range 0(light) - 1000(bold)
-    dsrCamera._debugFPS.MipLevels = D3DX_DEFAULT;
-    dsrCamera._debugFPS.Italic = false;
-    dsrCamera._debugFPS.CharSet = ANSI_CHARSET;
-    dsrCamera._debugFPS.OutputPrecision = 0;
-    dsrCamera._debugFPS.Quality = 0;
-    dsrCamera._debugFPS.PitchAndFamily = 0;
-    strcpy_s(dsrCamera._debugFPS.FaceName, "Arial"); // font style
+    dsrCamera._DebugFPS.Height = 25;    // in logical units
+    dsrCamera._DebugFPS.Width = 12;    // in logical units
+    dsrCamera._DebugFPS.Weight = 500;   // boldness, range 0(light) - 1000(bold)
+    dsrCamera._DebugFPS.MipLevels = D3DX_DEFAULT;
+    dsrCamera._DebugFPS.Italic = false;
+    dsrCamera._DebugFPS.CharSet = ANSI_CHARSET;
+    dsrCamera._DebugFPS.OutputPrecision = 0;
+    dsrCamera._DebugFPS.Quality = 0;
+    dsrCamera._DebugFPS.PitchAndFamily = 0;
+    strcpy_s(dsrCamera._DebugFPS.FaceName, "Arial"); // font style
 
     ShowFPS();
 
@@ -316,8 +316,8 @@ bool Directx9Renderer::endFrame()
         primitiveTextureStack.pop();
 
     // Check engine rendering draw mode
-    !dsrScene.isRenderingIndexedPrimitive ?
-        drawIndexedPrimitive(dsrScene.numberVertices, dsrScene.totalVertices,
+    !dsrScene._IsRenderingIndexedPrimitive ?
+        drawIndexedPrimitive(dsrScene._NumberVertices, dsrScene._TotalVertices,
             sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF) :
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
@@ -340,7 +340,7 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
-    // Draw all meshes sen from client game code
+    // Draw all meshes sent from client game code
     DrawMeshData();
 
     // Update matrix position of physics actors 
@@ -444,7 +444,7 @@ void Directx9Renderer::CameraSetup()
 
     // Set the perspective projection matrix
     D3DXMatrixPerspectiveFovLH(&Projection, D3DX_PI * 0.25f, // 45 degrees
-        (float)dsrCamera._ratioWidth / (float)dsrCamera._ratioHeight, dsrCamera._nearPlane, dsrCamera._farPlane);
+        (float)dsrCamera._RatioWidth / (float)dsrCamera._RatioHeight, dsrCamera._NearPlane, dsrCamera._FarPlane);
 
     device->SetTransform(D3DTS_PROJECTION, &Projection);
 }
@@ -455,7 +455,7 @@ void Directx9Renderer::CameraSetup()
 
 void Directx9Renderer::SetDefaultMaterial()
 {
-   dsrScene.material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
+   dsrScene._Material = CreateD3DMaterial(D3DXCOLOR(1.0f,1.0f,1.0f,1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), D3DXCOLOR(.5f, .5f, .5f, 1.0f), D3DXCOLOR(.0f, .0f, .0f, 0.0f), 8.5f);
 }
 
 //-----------------------------------------------------------------------------
@@ -643,10 +643,10 @@ void Directx9Renderer::AdjustLight()
     if (::GetAsyncKeyState('R') & 0x8000f)
         dsrLight._AngleY += 2.0f;
 
-    dsrScene.light.Direction = D3DXVECTOR3(dsrLight._AngleX, dsrLight._AngleY, dsrLight._AngleZ);
+    dsrScene._Light.Direction = D3DXVECTOR3(dsrLight._AngleX, dsrLight._AngleY, dsrLight._AngleZ);
 
     // Turn on the light in the render scene
-    EnableLight(dsrScene.light, true);
+    EnableLight(dsrScene._Light, true);
 }
 
 //--------------------------------------------------------------------------------------
@@ -687,7 +687,7 @@ void Directx9Renderer::SetMaterial(D3DMATERIAL9* _mat)
 //--------------------------------------------------------------------------------------
 void Directx9Renderer::CreateTextureFromFile(LPCSTR filename)
 {
-    D3DXCreateTextureFromFileA(device, filename, &dsrScene.texture);
+    D3DXCreateTextureFromFileA(device, filename, &dsrScene._Texture);
 }
 
 //-----------------------------------------------------------------------------

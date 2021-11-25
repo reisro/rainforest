@@ -261,15 +261,15 @@ protected:
 		// Data structure that holds rendering scene buffer constants
 		struct dsRenderScene
 		{
-			int					    clearColor;
-			D3DMATERIAL9		    material;
-			IDirect3DTexture9*	    texture;
-			D3DLIGHT9			    light;
-			D3DLIGHT9			    lightAux;
-			UINT				    numberVertices;
-			UINT				    totalVertices;
-			int					    numberMeshes;
-			bool				    isRenderingIndexedPrimitive;
+			int					    _ClearColor;
+			D3DMATERIAL9		    _Material;
+			IDirect3DTexture9*	    _Texture;
+			D3DLIGHT9			    _Light;
+			D3DLIGHT9			    _LightAux;
+			UINT				    _NumberVertices;
+			UINT				    _TotalVertices;
+			int					    _NumberMeshes;
+			bool				    _IsRenderingIndexedPrimitive;
 		};
 
 		struct dsRenderCamera
@@ -282,11 +282,11 @@ protected:
 			rfVector3*              _Forward;
 			D3DXMATRIX              _View;
 			D3DXMATRIX              _Proj;
-			rfInt                   _ratioWidth;
-			rfInt                   _ratioHeight;
-			rfFloat                 _nearPlane;
-			rfFloat                 _farPlane;
-			D3DXFONT_DESCA          _debugFPS;
+			rfInt                   _RatioWidth;
+			rfInt                   _RatioHeight;
+			rfFloat                 _NearPlane;
+			rfFloat                 _FarPlane;
+			D3DXFONT_DESCA          _DebugFPS;
 		};
 
 		struct dsRenderLight
