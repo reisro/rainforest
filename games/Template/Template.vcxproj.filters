@@ -25,6 +25,9 @@
     <Filter Include="Game\Assets">
       <UniqueIdentifier>{6b0d59de-aff8-4fc4-b69f-e88989ff72de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Runtime">
+      <UniqueIdentifier>{1dd8aed6-4ff9-432c-8b57-bec40289a992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,6 +102,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="..\Assets\standsBase_Plates.x">
       <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\..\..\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.1\Bin\win32\PhysXLoader.dll">
+      <Filter>Game\Runtime</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

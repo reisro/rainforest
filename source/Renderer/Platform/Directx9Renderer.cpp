@@ -379,8 +379,6 @@ void Directx9Renderer::Render()
         }
         else // as long user does not quit engine window, process the begin and end frames
         {
-            //rfApplication::gameLoop = true;
-
             float currTime = (float)timeGetTime();
             timeDelta = (currTime - lastTime) * 0.001f;
 
