@@ -33,7 +33,7 @@ public:
 	void SendMeshDrawStack();
 	void SendPhysicsMeshDrawStack();
 	void Build();
-	void CreateSphere();
+	void CreateDynamicSphereActor(LPCSTR actorName);
 
 	static rfGameWorld GetInstance();
 

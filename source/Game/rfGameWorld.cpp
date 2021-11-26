@@ -84,9 +84,9 @@ void rfGameWorld::Build()
 	
 }
 
-void rfGameWorld::CreateSphere()
+void rfGameWorld::CreateDynamicSphereActor(LPCSTR actorName)
 {
-	rfPhysics::GetInstance()->CreateDynamicSphere();
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, rfPhysics::PhysicsActorType::Sphere);
 }
 
 //-----------------------------------------------------------------------------

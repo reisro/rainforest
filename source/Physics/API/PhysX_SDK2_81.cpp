@@ -48,8 +48,6 @@ bool PhysX_2_81_::Initialize()
 
 	CreateDefaultPlane();
 
-	CreateDynamicSphere();
-
 	CreateDefaultMaterial();
 	
 	UpdateTime();
@@ -136,16 +134,19 @@ void PhysX_2_81_::CreateDynamicSphere()
 
 void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 {
-	physicsMesh.push_back(actorName);
-
-	#if defined(RFGE_DX9_RENDER_SUPPORT)
+#if defined(RFGE_DX9_RENDER_SUPPORT)
 
 	// Get the dynamic part of the renderer
-	Directx9Renderer* renderer = dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance());
+	auto renderer = dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance());
 
-	#endif
+#endif
 
-	physicsMeshMap.insert(std::pair<LPCSTR, rfMesh*>(actorName, new rfMesh(renderer->GetDevice())));
+	if (type == PhysicsActorType::Sphere)
+	{
+		CreateDynamicSphere();
+
+		physicsMeshMap.insert(std::pair<LPCSTR, NxActor*>(actorName, _defaultSphere));
+	}
 }
 
 void PhysX_2_81_::UpdateActorPosition()

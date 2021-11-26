@@ -18,6 +18,8 @@
 #include "System/rfConfig.h"
 #include <Resources/rfMesh.h>
 
+class NxActor;
+
 class RFGE_API rfPhysics: public IStartup
 {
 	friend class rfGameWorld;
@@ -26,6 +28,7 @@ public:
 
 	enum class PhysicsActorType
 	{
+		Default,
 		Ground,
 		Box,
 		Sphere,
@@ -59,7 +62,7 @@ protected:
 
 	// Define declaration types
 	RFGE_QUEUE_DECLARE(LPCSTR, PhysicsActorType, rfPhysicsActor)
-	RFGE_MAP_DECLARE(LPCSTR, rfMesh*, rfPhysicsActorMesh)
+	RFGE_MAP_DECLARE(LPCSTR, NxActor*, rfPhysicsActorMesh)
 
 	rfPhysicsActor		scenePhysicsActor;
 	rfPhysicsActorMesh  physicsMeshMap;

@@ -53,5 +53,5 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
 
 void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld gameWorld)
 {
-    gameWorld.CreateSphere();
+    gameWorld.CreateDynamicSphereActor("Ball");
 }
