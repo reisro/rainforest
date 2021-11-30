@@ -149,6 +149,22 @@ void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 	}
 }
 
+void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
+{
+	std::map <LPCSTR, NxActor*>::iterator it;
+
+	it = physicsMeshMap.find(actorName);
+	{
+		if (it->second != nullptr)
+		{
+			NxVec3 Force2(0.0f, 800000.0f, 0.0f);
+			it->second->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
+			it->second->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
+			it->second->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
+		}
+	}
+}
+
 void PhysX_2_81_::UpdateActorPosition()
 {
 

@@ -274,6 +274,8 @@ bool Directx9Renderer::beginFrame()
 
     if (::GetAsyncKeyState('Z') & 0x8000f)
         renderCamera->MoveUp(-100.0f * timeDelta);
+    if (::GetAsyncKeyState('M') & 0x8000f)
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
 
     // Build camera view matrix according to keyboard input
     CameraView = renderCamera->BuildViewMatrix();
@@ -340,8 +342,19 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
+    for (size_t i = 0; i < meshes.size() - 1; i++)
+    {
+        device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
+
+        for (int j = 0; j < meshes[i].GetNumberMaterials(); j++)
+        {
+            device->SetMaterial(&meshes[i].GetMaterial()[j]);
+            meshes[i].GetGeometry()->DrawSubset(j);
+        }
+    }
+
     // Draw all meshes sent from client game code
-    DrawMeshData();
+    //DrawMeshData();
 
     // Update matrix position of physics actors 
     PostRender(&rfPhysics::UpdateGlobalPosition);

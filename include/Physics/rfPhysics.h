@@ -52,6 +52,7 @@ public:
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
 	virtual void		CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type);
+	virtual void		ApplyForceToPhysicsActor(LPCSTR actorName);
 	virtual void		UpdateActorPosition();
 
 	static rfPhysics*   GetInstance();
