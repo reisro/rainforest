@@ -127,6 +127,7 @@ void PhysX_2_81_::CreateDynamicSphere()
 	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 0.0f);
 
 	bodySDesc.linearDamping = 0.2;
+	bodySDesc.angularDamping = 0.2;
 
 	assert(actorSphereDesc.isValid());
 
@@ -153,8 +154,9 @@ void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
 		//{
 			NxVec3 Force2(0.0f, 800000.0f, 0.0f);
 			_defaultSphere->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
-			_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 0.0f));
-			_defaultSphere->setLinearVelocity(NxVec3(0.0f, 0.0f, 0.0f));
+			_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
+			_defaultSphere->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
+
 		//}
 	}
 }
