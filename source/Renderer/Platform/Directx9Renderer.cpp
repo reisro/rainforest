@@ -327,6 +327,10 @@ bool Directx9Renderer::endFrame()
     RECT rect = { 5, 5, 1280, 720 };
     sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->GetFPS());
 
+    static char NavigationString[32];
+    RECT rect_ = { 5, 30, 1900, 720 };
+    sprintf_s(NavigationString, "Navigation Controls");
+
     try 
     {
         Font->DrawText(
@@ -342,6 +346,14 @@ bool Directx9Renderer::endFrame()
         std::cerr << "excetion caught: " << e.what() << '\n';
     }
 
+    Font->DrawText(
+        NULL,
+        NavigationString,
+        -1, // size of string or -1 indicates null terminating string
+        &rect_,            // rectangle text is to be formatted to in windows coords
+        DT_BOTTOM | DT_LEFT, // draw in the top left corner of the viewport
+        0xffffffff);      // black text
+
     for (size_t i = 0; i < meshes.size() - 1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
@@ -352,9 +364,6 @@ bool Directx9Renderer::endFrame()
             meshes[i].GetGeometry()->DrawSubset(j);
         }
     }
-
-    // Draw all meshes sent from client game code
-    DrawMeshData();
 
     // Update matrix position of physics actors 
     PostRender(&rfPhysics::UpdateGlobalPosition);

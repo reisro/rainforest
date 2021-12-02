@@ -201,6 +201,14 @@
     <ClInclude Include="..\include\System\rfApplicationWindow.h" />
     <ClInclude Include="..\include\System\rfConfig.h" />
     <ClInclude Include="..\include\System\Subsystem.h" />
+    <ClInclude Include="..\include\UI\imconfig.h" />
+    <ClInclude Include="..\include\UI\imgui.h" />
+    <ClInclude Include="..\include\UI\imgui_impl_dx9.h" />
+    <ClInclude Include="..\include\UI\imgui_impl_win32.h" />
+    <ClInclude Include="..\include\UI\imgui_internal.h" />
+    <ClInclude Include="..\include\UI\imstb_rectpack.h" />
+    <ClInclude Include="..\include\UI\imstb_textedit.h" />
+    <ClInclude Include="..\include\UI\imstb_truetype.h" />
     <ClInclude Include="rfActor.h" />
     <ClInclude Include="rfMath.h" />
     <ClInclude Include="rfPhysics.h" />
@@ -232,6 +240,13 @@
     <ClCompile Include="..\source\System\Platform\Windows\rfWindowWin32.cpp" />
     <ClCompile Include="..\source\System\rfApplication.cpp" />
     <ClCompile Include="..\source\System\rfApplicationWindow.cpp" />
+    <ClCompile Include="..\source\UI\imgui.cpp" />
+    <ClCompile Include="..\source\UI\imgui_demo.cpp" />
+    <ClCompile Include="..\source\UI\imgui_draw.cpp" />
+    <ClCompile Include="..\source\UI\imgui_impl_dx9.cpp" />
+    <ClCompile Include="..\source\UI\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\source\UI\imgui_tables.cpp" />
+    <ClCompile Include="..\source\UI\imgui_widgets.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

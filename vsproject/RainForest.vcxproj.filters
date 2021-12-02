@@ -88,6 +88,12 @@
     <Filter Include="Source Files\Physics\API">
       <UniqueIdentifier>{faa9035c-2940-45e1-90c4-a92989505da5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{ed3b2d47-4d1b-4313-b319-c3b550513e57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{6b77867e-a88b-4237-aa17-abfdf3f5969d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
@@ -192,6 +198,30 @@
     <ClInclude Include="..\include\Game\rfGameWorld.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\UI\imconfig.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imgui.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imgui_impl_dx9.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imgui_impl_win32.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imgui_internal.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imstb_rectpack.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imstb_textedit.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UI\imstb_truetype.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -233,9 +263,6 @@
     <ClCompile Include="..\source\Resources\Platform\Directx9IndexBuffer.cpp">
       <Filter>Source Files\Resources\Platform</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\System\Platform\rfWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\Math\rfVector3.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
@@ -251,9 +278,6 @@
     <ClCompile Include="..\source\Physics\rfPhysics.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\System\Subsystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\Physics\API\PhysX_SDK2_81.cpp">
       <Filter>Source Files\Physics\API</Filter>
     </ClCompile>
@@ -268,6 +292,33 @@
     </ClCompile>
     <ClCompile Include="..\source\Game\rfGameWorld.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui_demo.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui_draw.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui_impl_dx9.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui_impl_win32.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui_tables.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\UI\imgui_widgets.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\System\Platform\rfWindow.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\System\Subsystem.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

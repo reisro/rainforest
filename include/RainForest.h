@@ -42,4 +42,9 @@
 // World Game
 #include "Game/rfGameWorld.h"
 
+// Dear ImGui UI
+#include "UI/imgui.h"
+#include "UI/imgui_impl_dx9.h"
+#include "UI/imgui_impl_win32.h"
+
 #endif _RAINFORESTENGINE_H_
