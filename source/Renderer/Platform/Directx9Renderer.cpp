@@ -354,7 +354,7 @@ bool Directx9Renderer::endFrame()
     }
 
     // Draw all meshes sent from client game code
-    //DrawMeshData();
+    DrawMeshData();
 
     // Update matrix position of physics actors 
     PostRender(&rfPhysics::UpdateGlobalPosition);
@@ -538,11 +538,11 @@ void Directx9Renderer::CreateDefaultPrimitive()
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\chair_stand.x");
     meshNames.push_back("D:\\DirectX\\rainforest\\games\\Assets\\ball_br2.x");
 
-    /*for (int i = 0; i < meshNames.size(); i++)
+    for (int i = 0; i < meshNames.size(); i++)
     {
-        meshes.push_back(new rfMesh(device));
-        meshes[i]->LoadMeshGeometry(meshNames[i],.0f,.0f,.0f);
-    }*/
+        meshes.push_back(rfMesh(device));
+        meshes[i].LoadMeshGeometry(meshNames[i],.0f,.0f,.0f);
+    }
 }
 
 //-----------------------------------------------------------------------------

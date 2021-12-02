@@ -87,9 +87,9 @@ void PhysX_2_81_::SetSDKParameters()
 //-----------------------------------------------------------------------------
 void PhysX_2_81_::SetDebugParameters()
 {
-	_PhysicsSDK->setParameter(NX_VISUALIZATION_SCALE, 1.0f);
-	_PhysicsSDK->setParameter(NX_VISUALIZE_COLLISION_SHAPES, 1.0f);
-	_PhysicsSDK->setParameter(NX_VISUALIZE_ACTOR_AXES, 1.0f);
+	_PhysicsSDK->setParameter(NX_VISUALIZATION_SCALE, 1);
+	_PhysicsSDK->setParameter(NX_VISUALIZE_COLLISION_SHAPES, 1);
+	_PhysicsSDK->setParameter(NX_VISUALIZE_ACTOR_AXES, 1);
 }
 
 //-----------------------------------------------------------------------------
@@ -99,9 +99,9 @@ void PhysX_2_81_::CreateDefaultMaterial()
 {
 	NxMaterial* defaultMaterial = _Scene->getMaterialFromIndex(0);
 
-	defaultMaterial->setRestitution(0.5f);
-	defaultMaterial->setStaticFriction(0.5f);
-	defaultMaterial->setDynamicFriction(0.5f);
+	defaultMaterial->setRestitution(0.5);
+	defaultMaterial->setStaticFriction(0.1);
+	defaultMaterial->setDynamicFriction(0.5);
 }
 
 //-----------------------------------------------------------------------------
@@ -115,17 +115,18 @@ void PhysX_2_81_::CreateDynamicSphere()
 	NxActorDesc actorSphereDesc;
 	NxBodyDesc bodySDesc;
 
-	sphereDesc.radius = 4.0f;
+	sphereDesc.radius = 2.6000001430511475f;
 	sphereDesc.group = 2;
+	sphereDesc.localPose.t = NxVec3(160.4639739990234375f, 10.6821098327636719f, 0.0000140282072607f);
 	
 	// Sphere
 	actorSphereDesc.shapes.pushBack(&sphereDesc);
 	actorSphereDesc.body = &bodySDesc;
 	actorSphereDesc.density = 3;
-	actorSphereDesc.globalPose.t = NxVec3(-1.60464f, sphereStartHeight, 1.61223f);
+	//actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 90.0f);
+	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 0.0f);
 
 	bodySDesc.linearDamping = 0.2;
-	bodySDesc.angularDamping = 0.2;
 
 	assert(actorSphereDesc.isValid());
 
@@ -134,13 +135,6 @@ void PhysX_2_81_::CreateDynamicSphere()
 
 void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 {
-#if defined(RFGE_DX9_RENDER_SUPPORT)
-
-	// Get the dynamic part of the renderer
-	auto renderer = dynamic_cast<Directx9Renderer*>(rfRenderer::GetInstance());
-
-#endif
-
 	if (type == PhysicsActorType::Sphere)
 	{
 		CreateDynamicSphere();
@@ -155,13 +149,13 @@ void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
 
 	it = physicsMeshMap.find(actorName);
 	{
-		if (it->second != nullptr)
-		{
+		//if (it->second != nullptr)
+		//{
 			NxVec3 Force2(0.0f, 800000.0f, 0.0f);
-			it->second->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
-			it->second->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
-			it->second->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
-		}
+			_defaultSphere->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
+			_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 0.0f));
+			_defaultSphere->setLinearVelocity(NxVec3(0.0f, 0.0f, 0.0f));
+		//}
 	}
 }
 
@@ -178,10 +172,9 @@ void PhysX_2_81_::CreateDefaultPlane()
 	NxPlaneShapeDesc planeDesc;
 	NxActorDesc actorPlaneDesc;
 
-	planeDesc.normal = NxVec3(0.0f, 1.0f, 0.0f);
+	planeDesc.normal = NxVec3(0.0f, 3.0f, 0.0f);
 
 	// Plane
-	actorPlaneDesc.globalPose.t = NxVec3(.0f, -1.0f, .0f);
 	actorPlaneDesc.shapes.pushBack(&planeDesc);
 
 	assert(actorPlaneDesc.isValid());
@@ -263,7 +256,7 @@ NxActor* PhysX_2_81_::CreateGroundPlane()
 	// Create a plane with default descriptor
 	NxPlaneShapeDesc planeDesc;
 	NxActorDesc actorDesc;
-	planeDesc.normal = NxVec3(0.0f, 0.0f, 0.0f);
+	planeDesc.normal = NxVec3(0.0f, 3.0f, 0.0f);
 	actorDesc.shapes.pushBack(&planeDesc);
 	
 	return _Scene->createActor(actorDesc);
