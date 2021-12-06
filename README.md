@@ -1,7 +1,7 @@
 ## Rain Forest Game Engine
 
 ### Table of Contents
-1. Overview
+1. [Overview](#overview)
 2. Installation
 
 ## Overview
