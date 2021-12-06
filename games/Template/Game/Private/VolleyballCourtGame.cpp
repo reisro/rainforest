@@ -45,6 +45,15 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\hook_Bindings.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\lights.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\chair_stand.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefCenter.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefLeft.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefRight.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conecCenter.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conecLeft.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conecRight.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebCenter.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebLeft.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebRight.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\ball_br2.x");
     
 	// Pass to Game World to create the game actors in the world

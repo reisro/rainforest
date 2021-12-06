@@ -287,12 +287,8 @@ bool Directx9Renderer::beginFrame()
         {
             ImGui::Text("         Demo Features Overview              \n");
             ImGui::Separator();
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)\n", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             ImGui::Text("Rendering API DirectX 9\n" "Physics API NVidia PhysX ver 2.8.1\n" "Dear imgui ver 1.6\n");
+            ImGui::Text("Application ms/frame %.3f (%.1f FPS)\n", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             if (ImGui::BeginPopupContextWindow())
             {
                 if (ImGui::MenuItem("Custom", NULL, corner == -1)) corner = -1;
@@ -327,14 +323,20 @@ bool Directx9Renderer::beginFrame()
             ImGui::Spacing();
             ImGui::Text("            Game Controls \n");
             ImGui::Separator();
+            ImGui::Text("V Raise Ball \n");
+            ImGui::Text("B Spike Ball Long \n");
+            ImGui::Text("Left Arrow Key Spike Ball Left \n");
+            ImGui::Text("Right Arrow Key Spike Ball Right \n");
+            ImGui::Text("Down Arrow Key Spike Ball Down \n");
+            ImGui::Text("M Reset Game \n");
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("            Ambient Controls \n");
+            ImGui::Separator();
             ImGui::Text("R Increase Ambient Lighting \n");
             ImGui::Text("E Decrease Ambient Lighting \n");
-            ImGui::Text("V Raise Ball \n");
-            ImGui::Text("B Spike Ball \n");
-            ImGui::Text("Left Arrow Key Force Left to the spike \n");
-            ImGui::Text("Right Arrow Key Force Right to the spike \n");
-            ImGui::Text("Down Arrow Key Force down to the spike \n");
-            ImGui::Text("M Reset Game \n");
             ImGui::Separator();
         }
         ImGui::End();
@@ -372,6 +374,8 @@ bool Directx9Renderer::beginFrame()
     if (::GetAsyncKeyState('Z') & 0x8000f)
         renderCamera->MoveUp(-100.0f * timeDelta);
     if (::GetAsyncKeyState('V') & 0x8000f)
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
+    if (::GetAsyncKeyState('B') & 0x8000f)
         rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
 
     // Build camera view matrix according to keyboard input
@@ -499,10 +503,10 @@ void Directx9Renderer::PostRender(postRenderPt postRenderFunc)
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
-    for (int j = 0; j < meshes[19].GetNumberMaterials(); j++)
+    for (int j = 0; j < meshes[28].GetNumberMaterials(); j++)
     {
-        device->SetMaterial(&meshes[19].GetMaterial()[j]);
-        meshes[19].GetGeometry()->DrawSubset(j);
+        device->SetMaterial(&meshes[28].GetMaterial()[j]);
+        meshes[28].GetGeometry()->DrawSubset(j);
     }
 }
 

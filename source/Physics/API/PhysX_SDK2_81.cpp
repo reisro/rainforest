@@ -150,14 +150,10 @@ void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
 
 	it = physicsMeshMap.find(actorName);
 	{
-		//if (it->second != nullptr)
-		//{
-			NxVec3 Force2(0.0f, 800000.0f, 0.0f);
-			_defaultSphere->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
-			_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
-			_defaultSphere->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
-
-		//}
+		NxVec3 Force2(0.0f, 400000.0f, 0.0f);
+		_defaultSphere->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
+		_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
+		_defaultSphere->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
 	}
 }
 
@@ -174,10 +170,13 @@ void PhysX_2_81_::CreateDefaultPlane()
 	NxPlaneShapeDesc planeDesc;
 	NxActorDesc actorPlaneDesc;
 
-	planeDesc.normal = NxVec3(0.0f, 3.0f, 0.0f);
+	//planeDesc.localPose.t = NxVec3(0.0f, 5.0f, 0.0f);
+	//planeDesc.normal = NxVec3(0.0f, 1.0f, 0.0f);
 
 	// Plane
 	actorPlaneDesc.shapes.pushBack(&planeDesc);
+
+	actorPlaneDesc.globalPose.t = NxVec3(0.0f, 30.0f, 0.0f);
 
 	assert(actorPlaneDesc.isValid());
 
