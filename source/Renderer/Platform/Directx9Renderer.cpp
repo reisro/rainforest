@@ -12,6 +12,8 @@
 #include "Renderer/Platform/Directx9Renderer.h"
 #include <Physics/rfPhysics.h>
 
+#define IMGUI_DEMO_MARKER(section)  do { if (GImGuiDemoMarkerCallback != NULL) GImGuiDemoMarkerCallback(__FILE__, __LINE__, section, GImGuiDemoMarkerCallbackUserData); } while (0)
+
 //-----------------------------------------------------------------------------
 // Constructor
 //-----------------------------------------------------------------------------
@@ -117,6 +119,18 @@ bool Directx9Renderer::Initialize()
 //-----------------------------------------------------------------------------
 bool Directx9Renderer::PostInit()
 {
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+    // Setup Platform/Renderer backends
+    ImGui_ImplWin32_Init(rfWindowSystem::GetInstance()->Window());
+    ImGui_ImplDX9_Init(device);
+
     //vertexBuffer = new Directx9VertexBuffer();
     //indexBuffer = new Directx9IndexBuffer();
     
@@ -240,8 +254,91 @@ bool Directx9Renderer::beginFrame()
 {
     RFGE_LOG("Begin Frame Render.");
 
+    bool show_simple_window = true;
+
     rfPhysics::GetInstance()->GetPhysicsResults();
     rfPhysics::GetInstance()->Simulate();
+
+    // Start the Dear ImGui frame
+    ImGui_ImplDX9_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    {
+        static int corner = 0;
+        ImGuiIO& io = ImGui::GetIO();
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+        if (corner != -1)
+        {
+            const float PAD = 10.0f;
+            const ImGuiViewport* viewport = ImGui::GetMainViewport();
+            ImVec2 work_pos = viewport->WorkPos; // Use work area to avoid menu-bar/task-bar, if any!
+            ImVec2 work_size = viewport->WorkSize;
+            ImVec2 window_pos, window_pos_pivot;
+            window_pos.x = (corner & 1) ? (work_pos.x + work_size.x - PAD) : (work_pos.x + PAD);
+            window_pos.y = (corner & 2) ? (work_pos.y + work_size.y - PAD) : (work_pos.y + PAD);
+            window_pos_pivot.x = (corner & 1) ? 1.0f : 0.0f;
+            window_pos_pivot.y = (corner & 2) ? 1.0f : 0.0f;
+            ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+            window_flags |= ImGuiWindowFlags_NoMove;
+        }
+        ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+        if (ImGui::Begin("Volleyball Court", &show_simple_window, window_flags))
+        {
+            ImGui::Text("         Demo Features Overview              \n");
+            ImGui::Separator();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)\n", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            ImGui::Text("Rendering API DirectX 9\n" "Physics API NVidia PhysX ver 2.8.1\n" "Dear imgui ver 1.6\n");
+            if (ImGui::BeginPopupContextWindow())
+            {
+                if (ImGui::MenuItem("Custom", NULL, corner == -1)) corner = -1;
+                if (ImGui::MenuItem("Top-left", NULL, corner == 0)) corner = 0;
+                if (ImGui::MenuItem("Top-right", NULL, corner == 1)) corner = 1;
+                if (ImGui::MenuItem("Bottom-left", NULL, corner == 2)) corner = 2;
+                if (ImGui::MenuItem("Bottom-right", NULL, corner == 3)) corner = 3;
+                if (&show_simple_window && ImGui::MenuItem("Close")) show_simple_window = false;
+                ImGui::EndPopup();
+            }
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("            Demo Objective              \n");
+            ImGui::Separator();
+            ImGui::Text("Hit all cones with the brazilian ball.\n");
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("        Camera Navigation Controls \n");
+            ImGui::Separator();
+            ImGui::Text("W Move Forward\n" "S Move Backward\n" "A Strafe Left\n" "D Strafe Right\n" "Q Move Up\n" "Z Move Down\n");
+            ImGui::Text("MLB Down + Mouse Forward Pitch Up \n");
+            ImGui::Text("MLB Down + Mouse Backward Pitch Down \n");
+            ImGui::Text("MLB Down + Mouse Left Rotate Left \n");
+            ImGui::Text("MLB Down + Mouse Right Rotate Right \n");
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("            Game Controls \n");
+            ImGui::Separator();
+            ImGui::Text("R Increase Ambient Lighting \n");
+            ImGui::Text("E Decrease Ambient Lighting \n");
+            ImGui::Text("V Raise Ball \n");
+            ImGui::Text("B Spike Ball \n");
+            ImGui::Text("Left Arrow Key Force Left to the spike \n");
+            ImGui::Text("Right Arrow Key Force Right to the spike \n");
+            ImGui::Text("Down Arrow Key Force down to the spike \n");
+            ImGui::Text("M Reset Game \n");
+            ImGui::Separator();
+        }
+        ImGui::End();
+    }
     
     // Initialization checks
     if (initialized)
@@ -274,7 +371,7 @@ bool Directx9Renderer::beginFrame()
 
     if (::GetAsyncKeyState('Z') & 0x8000f)
         renderCamera->MoveUp(-100.0f * timeDelta);
-    if (::GetAsyncKeyState('M') & 0x8000f)
+    if (::GetAsyncKeyState('V') & 0x8000f)
         rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
 
     // Build camera view matrix according to keyboard input
@@ -284,6 +381,8 @@ bool Directx9Renderer::beginFrame()
 
     // Adjust the light rotation using wasd keyboard keys
     AdjustLight();
+
+    ImGui::EndFrame();
 
     // Instruct the device to set each pixel on the back buffer with default clear color
     device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
@@ -331,29 +430,6 @@ bool Directx9Renderer::endFrame()
     RECT rect_ = { 5, 30, 1900, 720 };
     sprintf_s(NavigationString, "Navigation Controls");
 
-    try 
-    {
-        Font->DrawText(
-            NULL,
-            FPSString,
-            -1, // size of string or -1 indicates null terminating string
-            &rect,            // rectangle text is to be formatted to in windows coords
-            DT_TOP | DT_LEFT, // draw in the top left corner of the viewport
-            0xffffffff);      // black text
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "excetion caught: " << e.what() << '\n';
-    }
-
-    Font->DrawText(
-        NULL,
-        NavigationString,
-        -1, // size of string or -1 indicates null terminating string
-        &rect_,            // rectangle text is to be formatted to in windows coords
-        DT_BOTTOM | DT_LEFT, // draw in the top left corner of the viewport
-        0xffffffff);      // black text
-
     for (size_t i = 0; i < meshes.size() - 1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
@@ -370,6 +446,9 @@ bool Directx9Renderer::endFrame()
 
     // End rendering scene
     device->EndScene();
+
+    ImGui::Render();
+    ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 
     readyToPresent = true;
 
@@ -448,6 +527,10 @@ void Directx9Renderer::SetRenderState()
 //-----------------------------------------------------------------------------
 void Directx9Renderer::Cleanup()
 {
+    ImGui_ImplDX9_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
+
     _RFGE_SAFE_RELEASE(d3d9);
     _RFGE_SAFE_RELEASE(device);
     _RFGE_SAFE_RELEASE(Font);

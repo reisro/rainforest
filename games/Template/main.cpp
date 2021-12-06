@@ -33,11 +33,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Client game code
 	VolleyballCourtGame volleyballGame;
 
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-
 	// Start rendering the application if engine initiated properly
 	if (rfApplication::Init())
 	{
@@ -48,10 +43,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	// Engine cleanup resources
 	rfApplication::ShutDown();
-
-	ImGui_ImplDX9_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
 
 	// Checking out memory leaks if any
 	_CrtDumpMemoryLeaks();

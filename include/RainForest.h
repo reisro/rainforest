@@ -42,7 +42,7 @@
 // World Game
 #include "Game/rfGameWorld.h"
 
-// Dear ImGui UI
+// Game Engine UI
 #include "UI/imgui.h"
 #include "UI/imgui_impl_dx9.h"
 #include "UI/imgui_impl_win32.h"
