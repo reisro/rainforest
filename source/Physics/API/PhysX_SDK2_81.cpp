@@ -116,14 +116,14 @@ void PhysX_2_81_::CreateDynamicSphere()
 	NxBodyDesc bodySDesc;
 
 	//sphereDesc.radius = 2.6000001430511475f;
-	sphereDesc.radius = 12.0f;
+	sphereDesc.radius = 13.0f;
 	sphereDesc.group = 2;
 	sphereDesc.localPose.t = NxVec3(160.4639739990234375f, 10.6821098327636719f, 0.0000140282072607f);
 	
 	// Sphere
 	actorSphereDesc.shapes.pushBack(&sphereDesc);
 	actorSphereDesc.body = &bodySDesc;
-	actorSphereDesc.density = 0.5;
+	actorSphereDesc.density = 0.1;
 	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 0.0f);
 
 	//bodySDesc.linearDamping = 0.2;

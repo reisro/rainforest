@@ -337,6 +337,21 @@ bool Directx9Renderer::beginFrame()
             ImGui::Separator();
             ImGui::Text("R Increase Ambient Lighting \n");
             ImGui::Text("E Decrease Ambient Lighting \n");
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("            Render Controls \n");
+            ImGui::Separator();
+            ImGui::Text("1 Wireframe Mode \n");
+            ImGui::Text("2 Lit Mode \n");
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Text("            Application Controls \n");
+            ImGui::Separator();
+            ImGui::Text("Alt + F4 Quit \n");
             ImGui::Separator();
         }
         ImGui::End();
@@ -375,8 +390,10 @@ bool Directx9Renderer::beginFrame()
         renderCamera->MoveUp(-100.0f * timeDelta);
     if (::GetAsyncKeyState('V') & 0x8000f)
         rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
-    if (::GetAsyncKeyState('B') & 0x8000f)
-        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
+    if (::GetAsyncKeyState('1') & 0x8000f)
+        SetRenderState(WIREFRAME);
+    if (::GetAsyncKeyState('2') & 0x8000f)
+        SetRenderState();
 
     // Build camera view matrix according to keyboard input
     CameraView = renderCamera->BuildViewMatrix();
@@ -520,6 +537,7 @@ void Directx9Renderer::SetRenderWindow(rfWindowSystem* windowSystem)
 
 void Directx9Renderer::SetRenderState()
 {
+    device->SetRenderState(SOLID.RenderStateType, SOLID.Value);
     device->SetRenderState(GOURAUDSHADING.RenderStateType, GOURAUDSHADING.Value);
     device->SetRenderState(NORMALIZENORMALS.RenderStateType, NORMALIZENORMALS.Value);
     device->SetRenderState(SPECULARENABLEOFF.RenderStateType, SPECULARENABLEOFF.Value);
