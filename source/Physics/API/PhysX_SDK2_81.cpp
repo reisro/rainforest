@@ -100,7 +100,7 @@ void PhysX_2_81_::CreateDefaultMaterial()
 	NxMaterial* defaultMaterial = _Scene->getMaterialFromIndex(0);
 
 	defaultMaterial->setRestitution(0.5);
-	defaultMaterial->setStaticFriction(0.1);
+	defaultMaterial->setStaticFriction(0.7);
 	defaultMaterial->setDynamicFriction(0.5);
 }
 
@@ -115,19 +115,19 @@ void PhysX_2_81_::CreateDynamicSphere()
 	NxActorDesc actorSphereDesc;
 	NxBodyDesc bodySDesc;
 
-	sphereDesc.radius = 2.6000001430511475f;
+	//sphereDesc.radius = 2.6000001430511475f;
+	sphereDesc.radius = 12.0f;
 	sphereDesc.group = 2;
 	sphereDesc.localPose.t = NxVec3(160.4639739990234375f, 10.6821098327636719f, 0.0000140282072607f);
 	
 	// Sphere
 	actorSphereDesc.shapes.pushBack(&sphereDesc);
 	actorSphereDesc.body = &bodySDesc;
-	actorSphereDesc.density = 3;
-	//actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 90.0f);
+	actorSphereDesc.density = 0.5;
 	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 0.0f);
 
-	bodySDesc.linearDamping = 0.2;
-	bodySDesc.angularDamping = 0.2;
+	//bodySDesc.linearDamping = 0.2;
+	//bodySDesc.angularDamping = 0.2;
 
 	assert(actorSphereDesc.isValid());
 
@@ -150,7 +150,7 @@ void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
 
 	it = physicsMeshMap.find(actorName);
 	{
-		NxVec3 Force2(0.0f, 400000.0f, 0.0f);
+		NxVec3 Force2(0.0f, 800000.0f, 0000.0f);
 		_defaultSphere->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
 		_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
 		_defaultSphere->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
