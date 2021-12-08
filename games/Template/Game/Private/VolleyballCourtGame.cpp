@@ -54,6 +54,7 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebCenter.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebLeft.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebRight.x");
+    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\text.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\ball_br2.x");
     
 	// Pass to Game World to create the game actors in the world
