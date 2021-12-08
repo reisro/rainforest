@@ -106,7 +106,10 @@
     <CopyFileToFolders Include="..\..\..\..\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.1\Bin\win32\PhysXLoader.dll">
       <Filter>Game\Runtime</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Debug\Assets\text.x">
+    <CopyFileToFolders Include="..\Assets\textLeft.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\textRight.x">
       <Filter>Game\Assets</Filter>
     </CopyFileToFolders>
   </ItemGroup>

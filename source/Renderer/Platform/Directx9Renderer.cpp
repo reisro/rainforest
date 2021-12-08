@@ -520,10 +520,10 @@ void Directx9Renderer::PostRender(postRenderPt postRenderFunc)
     
     device->SetTransform(D3DTS_WORLD, &mat);
 
-    for (int j = 0; j < meshes[29].GetNumberMaterials(); j++)
+    for (int j = 0; j < meshes[30].GetNumberMaterials(); j++)
     {
-        device->SetMaterial(&meshes[29].GetMaterial()[j]);
-        meshes[29].GetGeometry()->DrawSubset(j);
+        device->SetMaterial(&meshes[30].GetMaterial()[j]);
+        meshes[30].GetGeometry()->DrawSubset(j);
     }
 }
 
