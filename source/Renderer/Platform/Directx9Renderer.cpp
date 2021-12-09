@@ -443,14 +443,6 @@ bool Directx9Renderer::endFrame()
             sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF) :
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
-    static char FPSString[32];
-    RECT rect = { 5, 5, 1280, 720 };
-    sprintf_s(FPSString, "FPS = %.1f", rfPhysics::Singleton->GetFPS());
-
-    static char NavigationString[32];
-    RECT rect_ = { 5, 30, 1900, 720 };
-    sprintf_s(NavigationString, "Navigation Controls");
-
     for (size_t i = 0; i < meshes.size() - 1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
@@ -738,8 +730,8 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
     light.Ambient = _color * 0.4f;
     light.Diffuse = _color;
     light.Specular = _color * 0.1f;
-    light.Falloff = 0.2f;
-    light.Range = 5.0f;
+    light.Falloff = 0.75f;
+    light.Range = 8.0f;
 
     return light;
 }

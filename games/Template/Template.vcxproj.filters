@@ -112,5 +112,32 @@
     <CopyFileToFolders Include="..\Assets\textRight.x">
       <Filter>Game\Assets</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conebCenter.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conebLeft.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conebRight.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conecCenter.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conecLeft.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conecRight.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conefCenter.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conefLeft.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conefRight.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

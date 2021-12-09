@@ -31,6 +31,7 @@ public:
 
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
 	void SendMeshDrawStack();
+	void StoreWorldMeshMap(std::map<int, rfMesh>& sceneMeshes);
 	void SendPhysicsMeshDrawStack();
 	void Build();
 	void CreateDynamicSphereActor(LPCSTR actorName);

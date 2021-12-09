@@ -68,7 +68,19 @@ void rfGameWorld::SendMeshDrawStack()
 	for (size_t i = 0; i < worldMeshes.size(); i++)
 		rendererDX9->meshes.push_back(worldMeshes[i]);
 
+	StoreWorldMeshMap(rendererDX9->sceneRenderMesh);
+
 #endif // RFGE_DX9_RENDER_SUPPORT
+}
+
+void rfGameWorld::StoreWorldMeshMap(std::map<int, rfMesh>& sceneMeshes)
+{
+	int id = 0;
+
+	for (rfMesh mesh : worldMeshes)
+	{
+		sceneMeshes.insert(std::pair<int, rfMesh>{ id, mesh });
+	}
 }
 
 void rfGameWorld::SendPhysicsMeshDrawStack()

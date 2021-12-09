@@ -248,6 +248,7 @@ protected:
 		RFGE_STACK_DECLARE(rfRenderCommand, IDirect3DIndexBuffer9*, rfIndexBuffer)
 		RFGE_STACK_DECLARE(rfRenderCommand, IndexedPrimitiveSize, rfIndexedPrimitiveSize)
 		RFGE_QUEUE_DECLARE(LPCSTR, bool, rfRenderPhysicsMesh)
+		RFGE_MAP_DECLARE(int, rfMesh, rfRenderMesh)
 	
 		// Stack strucutures that store default values
 		ClearColorStack			    clearColorStack;
@@ -259,6 +260,7 @@ protected:
 		rfIndexBuffer			    sceneIndexBufferStack;
 		rfIndexedPrimitiveSize	    sceneIndexedPrimitiveStack;
 		rfRenderPhysicsMesh	        sceneRenderPhysicsMesh;
+		rfRenderMesh				sceneRenderMesh;
 		postRenderPt			    postRenderFunc;
 
 		// Data structure that holds rendering scene buffer constants
