@@ -48,7 +48,7 @@ public:
 	virtual void		Simulate();
 	virtual float		GetFPS();
 	virtual void		GetPhysicsResults();
-	virtual D3DXMATRIX	UpdateGlobalPosition();
+	virtual D3DXMATRIX	UpdateGlobalPosition(int physicsMeshID);
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
 	virtual void		CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type);

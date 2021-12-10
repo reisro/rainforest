@@ -56,10 +56,14 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conebRight.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\textRight.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\textLeft.x");
-    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\ball_br2.x");
-    
+
+    gamePhysicsMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\ball_br2.x");
+
 	// Pass to Game World to create the game actors in the world
 	gameWorld.LoadMeshGeometry(gameMeshes);
+
+    // Pass to Game World to create the physics game actors in the world
+    gameWorld.LoadPhysicsMeshGeometry(gamePhysicsMeshes);
 }
 
 void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld gameWorld)

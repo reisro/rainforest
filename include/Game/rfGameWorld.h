@@ -30,6 +30,7 @@ public:
 	~rfGameWorld();
 
 	void LoadMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
+	void LoadPhysicsMeshGeometry(std::vector<LPCSTR>& actorNames, D3DXMATRIX worldLocation = rfMatrix::Identity());
 	void SendMeshDrawStack();
 	void StoreWorldMeshMap(std::map<int, rfMesh>& sceneMeshes);
 	void SendPhysicsMeshDrawStack();
@@ -45,6 +46,7 @@ protected:
 private:
 
 	std::vector<rfMesh> worldMeshes;
+	std::vector<rfMesh> worldPhysicsMeshes;
 
 	rfRenderer* renderer;
 };

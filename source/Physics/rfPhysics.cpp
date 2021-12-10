@@ -83,9 +83,9 @@ void rfPhysics::GetPhysicsResults()
 	Singleton->GetPhysicsResults();
 }
 
-D3DXMATRIX rfPhysics::UpdateGlobalPosition()
+D3DXMATRIX rfPhysics::UpdateGlobalPosition(int physicsMeshID)
 {
-	return Singleton->UpdateGlobalPosition();
+	return Singleton->UpdateGlobalPosition(physicsMeshID);
 }
 
 void rfPhysics::CreateDefaultPlane()

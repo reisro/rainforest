@@ -504,18 +504,26 @@ void Directx9Renderer::Render()
     }
 }
 
+//-----------------------------------------------------------------------------
+// After initialization, fill out with default constants for rendering
+//-----------------------------------------------------------------------------
 void Directx9Renderer::PostRender(postRenderPt postRenderFunc)
 {
+    std::map <int, rfMesh>::iterator renderMeshIterator;
+
     this->postRenderFunc = postRenderFunc;
 
-    auto mat = (rfPhysics::GetInstance()->*postRenderFunc)();
-    
-    device->SetTransform(D3DTS_WORLD, &mat);
-
-    for (int j = 0; j < meshes[30].GetNumberMaterials(); j++)
+    for (renderMeshIterator = sceneRenderMesh.begin(); renderMeshIterator != sceneRenderMesh.end(); ++renderMeshIterator)
     {
-        device->SetMaterial(&meshes[30].GetMaterial()[j]);
-        meshes[30].GetGeometry()->DrawSubset(j);
+        auto mat = (rfPhysics::GetInstance()->*postRenderFunc)(renderMeshIterator->first);
+
+        device->SetTransform(D3DTS_WORLD, &mat);
+
+        for (int j = 0; j < renderMeshIterator->second.GetNumberMaterials(); j++)
+        {
+            device->SetMaterial(&renderMeshIterator->second.GetMaterial()[j]);
+            renderMeshIterator->second.GetGeometry()->DrawSubset(j);
+        }
     }
 }
 

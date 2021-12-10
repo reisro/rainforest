@@ -126,12 +126,10 @@ void PhysX_2_81_::CreateDynamicSphere()
 	actorSphereDesc.density = 0.1;
 	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 0.0f);
 
-	//bodySDesc.linearDamping = 0.2;
-	//bodySDesc.angularDamping = 0.2;
-
 	assert(actorSphereDesc.isValid());
 
-	_defaultSphere = _Scene->createActor(actorSphereDesc);
+	// Store physics mesh actor for update later
+	physicsDynamicActors.push_back(_Scene->createActor(actorSphereDesc));
 }
 
 void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
@@ -151,9 +149,9 @@ void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
 	it = physicsMeshMap.find(actorName);
 	{
 		NxVec3 Force2(0.0f, 800000.0f, 0000.0f);
-		_defaultSphere->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
-		_defaultSphere->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
-		_defaultSphere->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
+		physicsDynamicActors[0]->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
+		physicsDynamicActors[0]->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
+		physicsDynamicActors[0]->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
 	}
 }
 
@@ -230,9 +228,12 @@ void PhysX_2_81_::GetPhysicsResults()
 	while (!_Scene->fetchResults(NX_RIGID_BODY_FINISHED, false));
 }
 
-D3DXMATRIX PhysX_2_81_::UpdateGlobalPosition()
+//--------------------------------------------------------------------------------------
+// Return the updated matrix for physics mesh under simulation by the physics engine
+//--------------------------------------------------------------------------------------
+D3DXMATRIX PhysX_2_81_::UpdateGlobalPosition(int physicsMeshID)
 {
-	NxMat34 world = _defaultSphere->getGlobalPose();
+	NxMat34 world = physicsDynamicActors[physicsMeshID]->getGlobalPose();
 	world.getColumnMajor44((float*)&_WorldMatrix);
 
 	return _WorldMatrix;

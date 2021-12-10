@@ -27,7 +27,7 @@ public:
 	void          Simulate() override;
 	float         GetFPS() override;
 	void          GetPhysicsResults() override;
-	D3DXMATRIX    UpdateGlobalPosition() override;
+	D3DXMATRIX    UpdateGlobalPosition(int physicsMeshID) override;
 	void          CreateDefaultPlane() override;
 	void          CreateDynamicSphere() override;
 	void	      CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
@@ -63,7 +63,8 @@ private:
 	__int64		  _Time;
 	__int64		  _Frequency;
 
-	std::vector<LPCSTR> physicsMesh;
+	std::vector<NxActor*> physicsDynamicActors;
+	std::vector<LPCSTR>	  physicsMesh;
 };
 
 #endif _RFPHYSICX_2_81_H

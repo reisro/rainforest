@@ -188,7 +188,7 @@ class Directx9Renderer: public rfRenderer
 
 public:
 
-		typedef D3DXMATRIX (rfPhysics::* postRenderPt)(void);
+		typedef D3DXMATRIX (rfPhysics::* postRenderPt)(int);
 
 		                                Directx9Renderer();
 		                                ~Directx9Renderer();
@@ -330,6 +330,7 @@ private:
 
 		std::stack<rfRenderCommand> renderCmdStack;
 		std::vector<rfMesh>         meshes;
+		std::vector<rfMesh>         physicsMeshes;
 		std::vector<LPCSTR>         meshNames;
 
 		rfVertex::Vertex*           vertex;
