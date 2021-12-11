@@ -36,6 +36,7 @@ public:
 	void SendPhysicsMeshDrawStack();
 	void Build();
 	void CreateDynamicSphereActor(LPCSTR actorName);
+	void CreateDynamicBoxActor(LPCSTR actorName);
 
 	static rfGameWorld GetInstance();
 

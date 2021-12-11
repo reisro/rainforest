@@ -123,6 +123,11 @@ void rfGameWorld::CreateDynamicSphereActor(LPCSTR actorName)
 	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, rfPhysics::PhysicsActorType::Sphere);
 }
 
+void rfGameWorld::CreateDynamicBoxActor(LPCSTR actorName)
+{
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, rfPhysics::PhysicsActorType::Box);
+}
+
 //-----------------------------------------------------------------------------
 // Retrieves the singleton for this class
 //-----------------------------------------------------------------------------

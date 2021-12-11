@@ -45,7 +45,6 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\hook_Bindings.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\lights.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\chair_stand.x");
-    gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefCenter.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefLeft.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefRight.x");
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conecCenter.x");
@@ -58,6 +57,7 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
     gameMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\textLeft.x");
 
     gamePhysicsMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\ball_br2.x");
+    gamePhysicsMeshes.push_back("D:\\DirectX\\rainforest\\games\\Template\\Debug\\Assets\\conefCenter.x");
 
 	// Pass to Game World to create the game actors in the world
 	gameWorld.LoadMeshGeometry(gameMeshes);
@@ -69,4 +69,5 @@ void VolleyballCourtGame::ImportAssetsToGameWorld(rfGameWorld gameWorld)
 void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld gameWorld)
 {
     gameWorld.CreateDynamicSphereActor("Ball");
+    gameWorld.CreateDynamicBoxActor("Cone");
 }

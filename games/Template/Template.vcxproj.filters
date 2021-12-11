@@ -130,13 +130,13 @@
     <CopyFileToFolders Include="..\Assets\conecRight.x">
       <Filter>Game\Assets</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="..\Assets\conefCenter.x">
-      <Filter>Game\Assets</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="..\Assets\conefLeft.x">
       <Filter>Game\Assets</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="..\Assets\conefRight.x">
+      <Filter>Game\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\Assets\conefCenter.x">
       <Filter>Game\Assets</Filter>
     </CopyFileToFolders>
   </ItemGroup>

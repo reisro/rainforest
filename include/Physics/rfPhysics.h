@@ -51,6 +51,7 @@ public:
 	virtual D3DXMATRIX	UpdateGlobalPosition(int physicsMeshID);
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
+	virtual void		CreateDynamicBox();
 	virtual void		CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type);
 	virtual void		ApplyForceToPhysicsActor(LPCSTR actorName);
 	virtual void		UpdateActorPosition();

@@ -132,6 +132,29 @@ void PhysX_2_81_::CreateDynamicSphere()
 	physicsDynamicActors.push_back(_Scene->createActor(actorSphereDesc));
 }
 
+void PhysX_2_81_::CreateDynamicBox()
+{
+	// Box Dimensions
+	_BoxDimensions.x = 12.22f; _BoxDimensions.y = 12.22f; _BoxDimensions.z = 12.0f;
+
+	// Add a single-shape actor to the scene
+	NxActorDesc actorDesc;
+	NxBodyDesc bodyDesc;
+
+	// The actor has one shape, a box
+	NxBoxShapeDesc boxDesc;
+	boxDesc.dimensions.set(_BoxDimensions.x, _BoxDimensions.y, _BoxDimensions.z);
+	boxDesc.localPose.t = NxVec3(0.0f, _BoxDimensions.y, 0.0f);
+
+	actorDesc.shapes.pushBack(&boxDesc);
+	actorDesc.body = &bodyDesc;
+	actorDesc.density = 0.1;
+	actorDesc.globalPose.t = NxVec3(-150.0f, 0.0f, 0.0f);
+
+	// Store physics mesh actor for update later
+	physicsDynamicActors.push_back(_Scene->createActor(actorDesc));
+}
+
 void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 {
 	if (type == PhysicsActorType::Sphere)
@@ -139,6 +162,10 @@ void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 		CreateDynamicSphere();
 
 		physicsMeshMap.insert(std::pair<LPCSTR, NxActor*>(actorName, _defaultSphere));
+	}
+	if (type == PhysicsActorType::Box)
+	{
+		CreateDynamicBox();
 	}
 }
 

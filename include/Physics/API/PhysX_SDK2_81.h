@@ -30,6 +30,7 @@ public:
 	D3DXMATRIX    UpdateGlobalPosition(int physicsMeshID) override;
 	void          CreateDefaultPlane() override;
 	void          CreateDynamicSphere() override;
+	void		  CreateDynamicBox() override;
 	void	      CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
 	void		  ApplyForceToPhysicsActor(LPCSTR actorName) override;
 	void	      UpdateActorPosition() override;
@@ -52,6 +53,7 @@ private:
 	NxPhysicsSDK* _PhysicsSDK;
 	NxReal		  _DeltaTime;
 	NxVec3		  _DefaultGravity;
+	NxVec3		  _BoxDimensions;
 	NxScene*      _Scene;
 	NxSceneDesc   _SceneDesc;
 	NxActor*      _defaultActor;
