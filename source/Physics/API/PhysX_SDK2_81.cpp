@@ -124,7 +124,7 @@ void PhysX_2_81_::CreateDynamicSphere()
 	actorSphereDesc.shapes.pushBack(&sphereDesc);
 	actorSphereDesc.body = &bodySDesc;
 	actorSphereDesc.density = 0.1;
-	actorSphereDesc.globalPose.t = NxVec3(0.0f, sphereStartHeight, 0.0f);
+	actorSphereDesc.globalPose.t = NxVec3(900.0f, sphereStartHeight, 0.0f);
 
 	assert(actorSphereDesc.isValid());
 
@@ -135,7 +135,7 @@ void PhysX_2_81_::CreateDynamicSphere()
 void PhysX_2_81_::CreateDynamicBox(rfVector3 position)
 {
 	// Box Dimensions
-	_BoxDimensions.x = 12.22f; _BoxDimensions.y = 12.22f; _BoxDimensions.z = 12.0f;
+	_BoxDimensions.x = 12.22f; _BoxDimensions.y = 12.5f; _BoxDimensions.z = 12.0f;
 
 	// Add a single-shape actor to the scene
 	NxActorDesc actorDesc;
@@ -169,16 +169,19 @@ void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, Physi
 	}
 }
 
-void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName)
+void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity)
 {
 	std::map <LPCSTR, NxActor*>::iterator it;
 
 	it = physicsMeshMap.find(actorName);
 	{
-		NxVec3 Force2(0.0f, 800000.0f, 0000.0f);
-		physicsDynamicActors[0]->addForceAtPos(Force2, NxVec3(0.0f, 0.0f, 0.0f), NX_FORCE, true);
-		physicsDynamicActors[0]->setAngularVelocity(NxVec3(0.0f, 0.0f, 200.0f));
-		physicsDynamicActors[0]->setLinearVelocity(NxVec3(-20.0f, 100.0f, 0.0f));
+		physicsDynamicActors[0]->addForceAtPos(NxVec3(force._x,force._y,force._z), NxVec3(position._x, position._y, position._z), NX_FORCE, true);
+		
+		if (torque)
+		{
+			physicsDynamicActors[0]->setAngularVelocity(NxVec3(angularVelocity._x, angularVelocity._y, angularVelocity._z));
+			physicsDynamicActors[0]->setLinearVelocity(NxVec3(linearVelocity._x, linearVelocity._y, linearVelocity._z));
+		}
 	}
 }
 

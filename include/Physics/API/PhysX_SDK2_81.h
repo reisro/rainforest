@@ -32,7 +32,7 @@ public:
 	void          CreateDynamicSphere() override;
 	void		  CreateDynamicBox(rfVector3 position) override;
 	void	      CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type) override;
-	void		  ApplyForceToPhysicsActor(LPCSTR actorName) override;
+	void		  ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity) override;
 	void	      UpdateActorPosition() override;
 
 	bool          CreateSDK();

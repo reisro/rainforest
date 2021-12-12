@@ -388,8 +388,21 @@ bool Directx9Renderer::beginFrame()
 
     if (::GetAsyncKeyState('Z') & 0x8000f)
         renderCamera->MoveUp(-100.0f * timeDelta);
+
+    // Input controls
     if (::GetAsyncKeyState('V') & 0x8000f)
-        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball");
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball",rfVector3(0.0f,800000.0f,0.0f),
+            rfVector3(.0f,.0f,.0f), true, rfVector3(.0f,.0f,200.0f), rfVector3(-20.0f,100.0f,0.0f));
+
+    if (::GetAsyncKeyState('N') & 0x8000f)
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(0.0f, .0f, 10000.0f),
+            rfVector3(.0f, 0.0f, 0.0f), false, rfVector3(.0f, .0f, 0.0f), rfVector3(.0f, .0f, .0f));
+
+    if (::GetAsyncKeyState('B') & 0x8000f)
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(-280000.0f, -10000.0f, 00000.0f),
+            rfVector3(.0f, 0.0f, .0f), false, rfVector3(.0f, .0f, 0.0f), rfVector3(.0f, .0f, .0f));
+
+    // Render mode controls
     if (::GetAsyncKeyState('1') & 0x8000f)
         SetRenderState(WIREFRAME);
     if (::GetAsyncKeyState('2') & 0x8000f)
@@ -443,7 +456,7 @@ bool Directx9Renderer::endFrame()
             sizeof(rfVertex::Vertex), rfVertex::Vertex::FVF) :
         RFGE_LOG("Rendering builtin primitive or rendering directx mesh .X file");
 
-    for (size_t i = 0; i < meshes.size() - 1; i++)
+    for (size_t i = 0; i <= meshes.size() - 1; i++)
     {
         device->SetTransform(D3DTS_WORLD, &meshes[i].worldPosition);
 

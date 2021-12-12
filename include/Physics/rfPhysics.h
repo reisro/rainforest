@@ -54,7 +54,7 @@ public:
 	virtual void        CreateDynamicSphere();
 	virtual void		CreateDynamicBox(rfVector3 position);
 	virtual void		CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type);
-	virtual void		ApplyForceToPhysicsActor(LPCSTR actorName);
+	virtual void		ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity);
 	virtual void		UpdateActorPosition();
 
 	static rfPhysics*   GetInstance();

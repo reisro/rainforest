@@ -108,9 +108,9 @@ void rfPhysics::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, Physics
 	Singleton->CreatePhysicsActor(actorName, position, type);
 }
 
-void rfPhysics::ApplyForceToPhysicsActor(LPCSTR actorName)
+void rfPhysics::ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity)
 {
-	Singleton->ApplyForceToPhysicsActor(actorName);
+	Singleton->ApplyForceToPhysicsActor(actorName, force, position, torque, angularVelocity, linearVelocity);
 }
 
 void rfPhysics::UpdateActorPosition()
