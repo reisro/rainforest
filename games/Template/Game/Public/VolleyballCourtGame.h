@@ -12,6 +12,7 @@
 #pragma once
 #include <wtypes.h>
 #include <vector>
+#include "Math/rfVector3.h"
 #include "Game/Elements/rfGame.h"
 #include "RainForest.h"
 

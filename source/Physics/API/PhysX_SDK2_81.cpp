@@ -132,7 +132,7 @@ void PhysX_2_81_::CreateDynamicSphere()
 	physicsDynamicActors.push_back(_Scene->createActor(actorSphereDesc));
 }
 
-void PhysX_2_81_::CreateDynamicBox()
+void PhysX_2_81_::CreateDynamicBox(rfVector3 position)
 {
 	// Box Dimensions
 	_BoxDimensions.x = 12.22f; _BoxDimensions.y = 12.22f; _BoxDimensions.z = 12.0f;
@@ -149,13 +149,13 @@ void PhysX_2_81_::CreateDynamicBox()
 	actorDesc.shapes.pushBack(&boxDesc);
 	actorDesc.body = &bodyDesc;
 	actorDesc.density = 0.1;
-	actorDesc.globalPose.t = NxVec3(-150.0f, 0.0f, 0.0f);
+	actorDesc.globalPose.t = NxVec3(position._x,position._y,position._z);
 
 	// Store physics mesh actor for update later
 	physicsDynamicActors.push_back(_Scene->createActor(actorDesc));
 }
 
-void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
+void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type)
 {
 	if (type == PhysicsActorType::Sphere)
 	{
@@ -165,7 +165,7 @@ void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
 	}
 	if (type == PhysicsActorType::Box)
 	{
-		CreateDynamicBox();
+		CreateDynamicBox(position);
 	}
 }
 

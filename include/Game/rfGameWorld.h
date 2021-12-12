@@ -35,8 +35,8 @@ public:
 	void StoreWorldMeshMap(std::map<int, rfMesh>& sceneMeshes);
 	void SendPhysicsMeshDrawStack();
 	void Build();
-	void CreateDynamicSphereActor(LPCSTR actorName);
-	void CreateDynamicBoxActor(LPCSTR actorName);
+	void CreateDynamicSphereActor(LPCSTR actorName, rfVector3 position);
+	void CreateDynamicBoxActor(LPCSTR actorName, rfVector3 position);
 
 	static rfGameWorld GetInstance();
 

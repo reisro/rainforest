@@ -98,14 +98,14 @@ void rfPhysics::CreateDynamicSphere()
 	Singleton->CreateDynamicSphere();
 }
 
-void rfPhysics::CreateDynamicBox()
+void rfPhysics::CreateDynamicBox(rfVector3 position)
 {
 	Singleton->CreateDynamicSphere();
 }
 
-void rfPhysics::CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type)
+void rfPhysics::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type)
 {
-	Singleton->CreatePhysicsActor(actorName, type);
+	Singleton->CreatePhysicsActor(actorName, position, type);
 }
 
 void rfPhysics::ApplyForceToPhysicsActor(LPCSTR actorName)

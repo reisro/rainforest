@@ -115,17 +115,16 @@ void rfGameWorld::SendPhysicsMeshDrawStack()
 
 void rfGameWorld::Build()
 {
-	
 }
 
-void rfGameWorld::CreateDynamicSphereActor(LPCSTR actorName)
+void rfGameWorld::CreateDynamicSphereActor(LPCSTR actorName, rfVector3 position)
 {
-	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, rfPhysics::PhysicsActorType::Sphere);
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, rfPhysics::PhysicsActorType::Sphere);
 }
 
-void rfGameWorld::CreateDynamicBoxActor(LPCSTR actorName)
+void rfGameWorld::CreateDynamicBoxActor(LPCSTR actorName, rfVector3 position)
 {
-	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, rfPhysics::PhysicsActorType::Box);
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, rfPhysics::PhysicsActorType::Box);
 }
 
 //-----------------------------------------------------------------------------

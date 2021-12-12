@@ -14,6 +14,7 @@
 #define _RFPHYSICS_
 
 #include "RFGEAPI.h"
+#include "Math/rfVector3.h"
 #include "System/Interfaces/IStartup.h"
 #include "System/rfConfig.h"
 #include <Resources/rfMesh.h>
@@ -51,8 +52,8 @@ public:
 	virtual D3DXMATRIX	UpdateGlobalPosition(int physicsMeshID);
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
-	virtual void		CreateDynamicBox();
-	virtual void		CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type);
+	virtual void		CreateDynamicBox(rfVector3 position);
+	virtual void		CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type);
 	virtual void		ApplyForceToPhysicsActor(LPCSTR actorName);
 	virtual void		UpdateActorPosition();
 

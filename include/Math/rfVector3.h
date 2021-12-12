@@ -12,6 +12,7 @@
 #ifndef _RFVECTOR3H_
 #define _RFVECTOR3H_
 
+#include <RFGEAPI.h>
 #include <rfBaseTypes.h>
 #include <iostream>
 #include <math.h>
@@ -20,7 +21,7 @@
 
 class rfMatrix;
 
-class rfVector3
+class RFGE_API rfVector3
 {
 public:
 

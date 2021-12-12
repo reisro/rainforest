@@ -30,8 +30,8 @@ public:
 	D3DXMATRIX    UpdateGlobalPosition(int physicsMeshID) override;
 	void          CreateDefaultPlane() override;
 	void          CreateDynamicSphere() override;
-	void		  CreateDynamicBox() override;
-	void	      CreatePhysicsActor(LPCSTR actorName, PhysicsActorType type) override;
+	void		  CreateDynamicBox(rfVector3 position) override;
+	void	      CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type) override;
 	void		  ApplyForceToPhysicsActor(LPCSTR actorName) override;
 	void	      UpdateActorPosition() override;
 

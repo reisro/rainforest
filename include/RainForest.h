@@ -24,6 +24,7 @@
 
 // Core
 #include <RFGEAPI.h>
+#include <rfBaseTypes.h>
 
 // Renderer
 #include "Renderer/rfRenderer.h"

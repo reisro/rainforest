@@ -7,14 +7,11 @@ rfVector3::rfVector3()
     this->_z = 0.0f;
 }
 
-rfVector3::rfVector3(rfFloat x, rfFloat y, rfFloat z)
+rfVector3::rfVector3(rfFloat x, rfFloat y, rfFloat z): _x(x), _y(y), _z(z)
 {
-    this->_x = x;
-    this->_y = y;
-    this->_z = z;
 }
 
-rfVector3::rfVector3(const rfVector3& _vector)
+rfVector3::rfVector3(const rfVector3& _vector): _x(_vector._x), _y(_vector._y), _z(_vector._z)
 {
     *this = _vector;
 }
