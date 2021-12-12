@@ -282,7 +282,7 @@ bool Directx9Renderer::beginFrame()
             ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
             window_flags |= ImGuiWindowFlags_NoMove;
         }
-        ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+        ImGui::SetNextWindowBgAlpha(0.75f); // Transparent background
         if (ImGui::Begin("Volleyball Court", &show_simple_window, window_flags))
         {
             ImGui::Text("         Demo Features Overview              \n");
