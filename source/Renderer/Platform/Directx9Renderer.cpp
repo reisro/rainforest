@@ -32,6 +32,10 @@ Directx9Renderer::Directx9Renderer():
     renderCamera->SetUp(D3DXVECTOR3(.0f, 1.0f, .0f));
     renderCamera->SetLookAt(D3DXVECTOR3(0.522f, .0f, -0.852f));
 
+    engineInput = new rfInput();
+    //engineInput->InitializeDirectInput(hInstance, rfWindowSystem::GetInstance()->Window(), DISCL_NONEXCLUSIVE | DISCL_FOREGROUND,
+        //DISCL_EXCLUSIVE | DISCL_FOREGROUND);
+
     vertexBuffer = 0;
     indexBuffer = 0;
     Font = 0;
@@ -325,10 +329,9 @@ bool Directx9Renderer::beginFrame()
             ImGui::Separator();
             ImGui::Text("V Raise Ball \n");
             ImGui::Text("B Spike Ball Long \n");
-            ImGui::Text("Left Arrow Key Spike Ball Left \n");
-            ImGui::Text("Right Arrow Key Spike Ball Right \n");
-            ImGui::Text("Down Arrow Key Spike Ball Down \n");
-            ImGui::Text("M Reset Game \n");
+            ImGui::Text("N Force to the Left \n");
+            ImGui::Text("M Force to the Right \n");
+            ImGui::Text("P Reset Game \n");
             ImGui::Spacing();
             ImGui::Spacing();
             ImGui::Spacing();
@@ -378,15 +381,19 @@ bool Directx9Renderer::beginFrame()
         renderCamera->Move(-500.0f * timeDelta);
 
     if (::GetAsyncKeyState('A') & 0x8000f)
-        renderCamera->RotateYaw(-1.5f * timeDelta);
+        renderCamera->MoveStrafe(-500.0f * timeDelta);
+    //renderCamera->RotateYaw(-1.5f * timeDelta);
 
     if (::GetAsyncKeyState('D') & 0x8000f)
-        renderCamera->RotateYaw(1.5f * timeDelta);
+        renderCamera->MoveStrafe(500.0f * timeDelta);
 
     if (::GetAsyncKeyState('Q') & 0x8000f)
         renderCamera->MoveUp(100.0f * timeDelta);
 
     if (::GetAsyncKeyState('Z') & 0x8000f)
+        renderCamera->MoveUp(-100.0f * timeDelta);
+
+    if (engineInput->MouseButtonDown(0) & 0x8000f)
         renderCamera->MoveUp(-100.0f * timeDelta);
 
     // Input controls
@@ -398,9 +405,17 @@ bool Directx9Renderer::beginFrame()
         rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(0.0f, .0f, 10000.0f),
             rfVector3(.0f, 0.0f, 0.0f), false, rfVector3(.0f, .0f, 0.0f), rfVector3(.0f, .0f, .0f));
 
+    if (::GetAsyncKeyState('M') & 0x8000f)
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(0.0f, .0f, -10000.0f),
+            rfVector3(.0f, 0.0f, 0.0f), false, rfVector3(.0f, .0f, 0.0f), rfVector3(.0f, .0f, .0f));
+
     if (::GetAsyncKeyState('B') & 0x8000f)
-        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(-280000.0f, -10000.0f, 00000.0f),
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(-100000.0f, -10000.0f, 00000.0f),
             rfVector3(.0f, 0.0f, .0f), false, rfVector3(.0f, .0f, 0.0f), rfVector3(.0f, .0f, .0f));
+
+    // Reset Game
+    if (::GetAsyncKeyState('P') & 0x8000f)
+        rfPhysics::GetInstance()->ResetActorPosition();
 
     // Render mode controls
     if (::GetAsyncKeyState('1') & 0x8000f)

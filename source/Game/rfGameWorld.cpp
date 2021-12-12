@@ -119,12 +119,17 @@ void rfGameWorld::Build()
 
 void rfGameWorld::CreateDynamicSphereActor(LPCSTR actorName, rfVector3 position)
 {
-	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, rfPhysics::PhysicsActorType::Sphere);
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, rfVector3::Zero() ,rfPhysics::PhysicsActorType::Sphere);
 }
 
 void rfGameWorld::CreateDynamicBoxActor(LPCSTR actorName, rfVector3 position)
 {
-	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, rfPhysics::PhysicsActorType::Box);
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, rfVector3::Zero(), rfPhysics::PhysicsActorType::BoxDynamic);
+}
+
+void rfGameWorld::CreateStaticBoxActor(LPCSTR actorName, rfVector3 position, rfVector3 size)
+{
+	rfPhysics::GetInstance()->CreatePhysicsActor(actorName, position, size, rfPhysics::PhysicsActorType::BoxStatic);
 }
 
 //-----------------------------------------------------------------------------

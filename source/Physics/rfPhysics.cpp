@@ -98,14 +98,19 @@ void rfPhysics::CreateDynamicSphere()
 	Singleton->CreateDynamicSphere();
 }
 
-void rfPhysics::CreateDynamicBox(rfVector3 position)
+void rfPhysics::CreateStaticBox(rfVector3 position, rfVector3 size)
 {
-	Singleton->CreateDynamicSphere();
+	Singleton->CreateStaticBox(position, size);
 }
 
-void rfPhysics::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type)
+void rfPhysics::CreateDynamicBox(rfVector3 position)
 {
-	Singleton->CreatePhysicsActor(actorName, position, type);
+	Singleton->CreateDynamicBox(position);
+}
+
+void rfPhysics::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, rfVector3 size, PhysicsActorType type)
+{
+	Singleton->CreatePhysicsActor(actorName, position, size, type);
 }
 
 void rfPhysics::ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity)
@@ -113,7 +118,7 @@ void rfPhysics::ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVe
 	Singleton->ApplyForceToPhysicsActor(actorName, force, position, torque, angularVelocity, linearVelocity);
 }
 
-void rfPhysics::UpdateActorPosition()
+void rfPhysics::ResetActorPosition()
 {
 }
 

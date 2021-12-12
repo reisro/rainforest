@@ -31,7 +31,8 @@ public:
 	{
 		Default,
 		Ground,
-		Box,
+		BoxStatic,
+		BoxDynamic,
 		Sphere,
 		Capsule
 	};
@@ -52,10 +53,11 @@ public:
 	virtual D3DXMATRIX	UpdateGlobalPosition(int physicsMeshID);
 	virtual void		CreateDefaultPlane();
 	virtual void        CreateDynamicSphere();
+	virtual void		CreateStaticBox(rfVector3 position, rfVector3 size);
 	virtual void		CreateDynamicBox(rfVector3 position);
-	virtual void		CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type);
+	virtual void		CreatePhysicsActor(LPCSTR actorName, rfVector3 position, rfVector3 size, PhysicsActorType type);
 	virtual void		ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity);
-	virtual void		UpdateActorPosition();
+	virtual void		ResetActorPosition();
 
 	static rfPhysics*   GetInstance();
 	

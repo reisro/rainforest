@@ -78,4 +78,5 @@ void VolleyballCourtGame::CreatePhysicsAssets(rfGameWorld gameWorld)
     gameWorld.CreateDynamicBoxActor("Cone", rfVector3(-300.0f, 0.0f, -370.0f));
     gameWorld.CreateDynamicBoxActor("Cone", rfVector3(-570.0f, 0.0f, -370.0f));
     gameWorld.CreateDynamicBoxActor("Cone", rfVector3(-840.0f, 0.0f, -370.0f));
+    gameWorld.CreateStaticBoxActor("Net", rfVector3::Zero(), rfVector3(10.0f, 130.0f, 400.0f));
 }

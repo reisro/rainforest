@@ -92,6 +92,11 @@ void rfCamera::Move(float units)
 	*Position += GetLookAt() * units;
 }
 
+void rfCamera::MoveStrafe(float units)
+{
+	*Position += GetRight() * units;
+}
+
 void rfCamera::MoveUp(float units)
 {
 	*Position += GetUp() * units;

@@ -176,6 +176,7 @@
     <ClInclude Include="..\include\Game\Elements\rfScene.h" />
     <ClInclude Include="..\include\Game\Elements\rfVertex.h" />
     <ClInclude Include="..\include\Game\rfGameWorld.h" />
+    <ClInclude Include="..\include\Input\rfInput.h" />
     <ClInclude Include="..\include\Math\rfMatrix.h" />
     <ClInclude Include="..\include\Math\rfQuaternion.h" />
     <ClInclude Include="..\include\Math\rfVector3.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="..\source\Game\Elements\rfGame.cpp" />
     <ClCompile Include="..\source\Game\Elements\rfScene.cpp" />
     <ClCompile Include="..\source\Game\rfGameWorld.cpp" />
+    <ClCompile Include="..\source\Input\rfInput.cpp" />
     <ClCompile Include="..\source\Math\rfMatrix.cpp" />
     <ClCompile Include="..\source\Math\rfQuaternion.cpp" />
     <ClCompile Include="..\source\Math\rfVector3.cpp" />

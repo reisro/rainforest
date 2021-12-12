@@ -36,14 +36,15 @@ public:
 	void SetLookAt(D3DXVECTOR3 lookAt);
 
 	D3DXVECTOR3* GetPosition() const { return Position; }
-	D3DXVECTOR3 GetRight() const { return *Right; }
-	D3DXVECTOR3 GetUp() const { return *Up; }
-	D3DXVECTOR3 GetLookAt() const { return *LookAt; }
-	D3DXMATRIX BuildViewMatrix();
-	D3DXMATRIX GetView() const { return View; }
-	D3DXMATRIX GetProjectionMatrix() const { return Projection; }
+	D3DXVECTOR3  GetRight() const { return *Right; }
+	D3DXVECTOR3  GetUp() const { return *Up; }
+	D3DXVECTOR3  GetLookAt() const { return *LookAt; }
+	D3DXMATRIX   BuildViewMatrix();
+	D3DXMATRIX   GetView() const { return View; }
+	D3DXMATRIX   GetProjectionMatrix() const { return Projection; }
 
 	void Move(float units);
+	void MoveStrafe(float units);
 	void MoveUp(float units);
 
 	void RotatePitch(rfFloat angle);

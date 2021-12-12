@@ -132,10 +132,39 @@ void PhysX_2_81_::CreateDynamicSphere()
 	physicsDynamicActors.push_back(_Scene->createActor(actorSphereDesc));
 }
 
+//-----------------------------------------------------------------------------
+// Visualize wireframe actors in physics simulation
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::CreateStaticBox(rfVector3 position, rfVector3 size)
+{
+	// Add a single-shape actor to the scene
+	NxActorDesc actorDesc;
+	NxBodyDesc bodyDesc;
+
+	// The actor has one shape, a box
+	NxBoxShapeDesc boxDesc;
+	boxDesc.dimensions.set(size._x, size._y, size._z);
+	boxDesc.localPose.t = NxVec3(0, size._y, 0);
+	actorDesc.shapes.pushBack(&boxDesc);
+
+	// Null for the body creates a static actor
+	actorDesc.body = NULL;
+	//actorDesc.body = &bodyDesc;
+	actorDesc.density = 1;
+	actorDesc.globalPose.t = NxVec3(position._x, position._y, position._z);
+
+	NxActor* pActor = _Scene->createActor(actorDesc);
+}
+
+//-----------------------------------------------------------------------------
+// Visualize wireframe actors in physics simulation
+//-----------------------------------------------------------------------------
+
 void PhysX_2_81_::CreateDynamicBox(rfVector3 position)
 {
 	// Box Dimensions
-	_BoxDimensions.x = 12.22f; _BoxDimensions.y = 12.5f; _BoxDimensions.z = 12.0f;
+	_BoxDimensions.x = 12.22f; _BoxDimensions.y = 14.0f; _BoxDimensions.z = 12.0f;
 
 	// Add a single-shape actor to the scene
 	NxActorDesc actorDesc;
@@ -155,7 +184,11 @@ void PhysX_2_81_::CreateDynamicBox(rfVector3 position)
 	physicsDynamicActors.push_back(_Scene->createActor(actorDesc));
 }
 
-void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type)
+//-----------------------------------------------------------------------------
+// Visualize wireframe actors in physics simulation
+//-----------------------------------------------------------------------------
+
+void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, rfVector3 size, PhysicsActorType type)
 {
 	if (type == PhysicsActorType::Sphere)
 	{
@@ -163,11 +196,19 @@ void PhysX_2_81_::CreatePhysicsActor(LPCSTR actorName, rfVector3 position, Physi
 
 		physicsMeshMap.insert(std::pair<LPCSTR, NxActor*>(actorName, _defaultSphere));
 	}
-	if (type == PhysicsActorType::Box)
+	else if (type == PhysicsActorType::BoxStatic)
+	{
+		CreateStaticBox(position, size);
+	}
+	else if (type == PhysicsActorType::BoxDynamic)
 	{
 		CreateDynamicBox(position);
 	}
 }
+
+//-----------------------------------------------------------------------------
+// Visualize wireframe actors in physics simulation
+//-----------------------------------------------------------------------------
 
 void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity)
 {
@@ -185,9 +226,14 @@ void PhysX_2_81_::ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rf
 	}
 }
 
-void PhysX_2_81_::UpdateActorPosition()
-{
+//-----------------------------------------------------------------------------
+// Visualize wireframe actors in physics simulation
+//-----------------------------------------------------------------------------
 
+void PhysX_2_81_::ResetActorPosition()
+{
+	physicsDynamicActors[0]->putToSleep();
+	physicsDynamicActors[0]->setGlobalPosition(NxVec3(900.0f, 200.0f, 0.0f));
 }
 
 //-----------------------------------------------------------------------------
@@ -198,9 +244,6 @@ void PhysX_2_81_::CreateDefaultPlane()
 	NxPlaneShapeDesc planeDesc;
 	NxActorDesc actorPlaneDesc;
 
-	//planeDesc.localPose.t = NxVec3(0.0f, 5.0f, 0.0f);
-	//planeDesc.normal = NxVec3(0.0f, 1.0f, 0.0f);
-
 	// Plane
 	actorPlaneDesc.shapes.pushBack(&planeDesc);
 
@@ -209,22 +252,6 @@ void PhysX_2_81_::CreateDefaultPlane()
 	assert(actorPlaneDesc.isValid());
 
 	_defaultActor = _Scene->createActor(actorPlaneDesc);
-}
-
-//-----------------------------------------------------------------------------
-// Visualize wireframe actors in physics simulation
-//-----------------------------------------------------------------------------
-
-void PhysX_2_81_::DebugWireframeMode()
-{
-}
-
-//-----------------------------------------------------------------------------
-// Start collision and dynamics for delta time since last frame
-//-----------------------------------------------------------------------------
-
-void PhysX_2_81_::RenderDefaultActors()
-{
 }
 
 //-----------------------------------------------------------------------------

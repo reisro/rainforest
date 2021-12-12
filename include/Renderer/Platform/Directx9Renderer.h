@@ -321,6 +321,7 @@ private:
 		ID3DXFont*                  Font;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
 		rfCamera*                   renderCamera;
+		rfInput*					engineInput;
 		D3DDEVTYPE					deviceType;
 		MSG							msg;
 		dsRenderScene				dsrScene;

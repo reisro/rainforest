@@ -14,6 +14,7 @@
 #include "RFGEAPI.h"
 #include "System/Interfaces/IStartup.h"
 #include "Renderer/rfRenderCommand.h"
+#include "Input/rfInput.h"
 #include "System/Platform/rfWindowSystem.h"
 #include <functional>
 

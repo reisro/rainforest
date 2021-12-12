@@ -30,10 +30,11 @@ public:
 	D3DXMATRIX    UpdateGlobalPosition(int physicsMeshID) override;
 	void          CreateDefaultPlane() override;
 	void          CreateDynamicSphere() override;
+	void		  CreateStaticBox(rfVector3 position, rfVector3 size) override;
 	void		  CreateDynamicBox(rfVector3 position) override;
-	void	      CreatePhysicsActor(LPCSTR actorName, rfVector3 position, PhysicsActorType type) override;
+	void	      CreatePhysicsActor(LPCSTR actorName, rfVector3 position, rfVector3 size, PhysicsActorType type) override;
 	void		  ApplyForceToPhysicsActor(LPCSTR actorName, rfVector3 force, rfVector3 position, bool torque, rfVector3 angularVelocity, rfVector3 linearVelocity) override;
-	void	      UpdateActorPosition() override;
+	void	      ResetActorPosition() override;
 
 	bool          CreateSDK();
 	bool          Initialize();
@@ -41,8 +42,6 @@ public:
 	void          SetSDKParameters();
 	void          SetDebugParameters();
 	void          CreateDefaultMaterial();
-	void          DebugWireframeMode();
-	void          RenderDefaultActors();
 	void          UpdateTime();
 	void          Reset();
 

@@ -94,6 +94,12 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{451baabd-6404-41c7-8339-eec2c9ebbd7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{a64064b9-75af-4130-bde9-2b5bbdabb00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{984031a8-23e3-4a89-8b4a-b892c02a554b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Renderer\Platform\Directx9Renderer.h">
@@ -222,6 +228,9 @@
     <ClInclude Include="..\include\UI\imstb_truetype.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Input\rfInput.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Renderer\Platform\Directx9Renderer.cpp">
@@ -319,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="..\source\UI\imgui_widgets.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Input\rfInput.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -37,6 +37,7 @@ public:
 	void Build();
 	void CreateDynamicSphereActor(LPCSTR actorName, rfVector3 position);
 	void CreateDynamicBoxActor(LPCSTR actorName, rfVector3 position);
+	void CreateStaticBoxActor(LPCSTR actorName, rfVector3 position, rfVector3 size);
 
 	static rfGameWorld GetInstance();
 
