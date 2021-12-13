@@ -1,6 +1,6 @@
 #include "Input/rfInput.h"
 
-rfInput* Input;
+//rfInput* Input;
 
 rfInput::rfInput()
 {
@@ -21,9 +21,9 @@ void rfInput::InitializeDirectInput(HINSTANCE appInstance, HWND hwnd, DWORD keyb
 
 	// Init keyboard.
 	EngineInput->CreateDevice(GUID_SysKeyboard, &Keyboard, 0);
-	Keyboard->SetDataFormat(&c_dfDIKeyboard);
-	Keyboard->SetCooperativeLevel(hwnd, keyboardCoopFlags);
-	Keyboard->Acquire();
+	//Keyboard->SetDataFormat(&c_dfDIKeyboard);
+	//Keyboard->SetCooperativeLevel(hwnd, keyboardCoopFlags);
+	//Keyboard->Acquire();
 
 	// Init mouse.
 	EngineInput->CreateDevice(GUID_SysMouse, &Mouse, 0);

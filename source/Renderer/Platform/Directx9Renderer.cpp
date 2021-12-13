@@ -32,10 +32,6 @@ Directx9Renderer::Directx9Renderer():
     renderCamera->SetUp(D3DXVECTOR3(.0f, 1.0f, .0f));
     renderCamera->SetLookAt(D3DXVECTOR3(0.522f, .0f, -0.852f));
 
-    engineInput = new rfInput();
-    //engineInput->InitializeDirectInput(hInstance, rfWindowSystem::GetInstance()->Window(), DISCL_NONEXCLUSIVE | DISCL_FOREGROUND,
-        //DISCL_EXCLUSIVE | DISCL_FOREGROUND);
-
     vertexBuffer = 0;
     indexBuffer = 0;
     Font = 0;
@@ -303,6 +299,7 @@ bool Directx9Renderer::beginFrame()
                 if (&show_simple_window && ImGui::MenuItem("Close")) show_simple_window = false;
                 ImGui::EndPopup();
             }
+
             ImGui::Spacing();
             ImGui::Spacing();
             ImGui::Spacing();
@@ -317,10 +314,10 @@ bool Directx9Renderer::beginFrame()
             ImGui::Text("        Camera Navigation Controls \n");
             ImGui::Separator();
             ImGui::Text("W Move Forward\n" "S Move Backward\n" "A Strafe Left\n" "D Strafe Right\n" "Q Move Up\n" "Z Move Down\n");
-            ImGui::Text("MLB Down + Mouse Forward Pitch Up \n");
-            ImGui::Text("MLB Down + Mouse Backward Pitch Down \n");
-            ImGui::Text("MLB Down + Mouse Left Rotate Left \n");
-            ImGui::Text("MLB Down + Mouse Right Rotate Right \n");
+            ImGui::Text("Up Pitch Up \n");
+            ImGui::Text("Down Pitch Down \n");
+            ImGui::Text("Left Yaw Left \n");
+            ImGui::Text("Right Yaw Right \n");
             ImGui::Spacing();
             ImGui::Spacing();
             ImGui::Spacing();
@@ -359,7 +356,7 @@ bool Directx9Renderer::beginFrame()
         }
         ImGui::End();
     }
-    
+
     // Initialization checks
     if (initialized)
     {
@@ -370,6 +367,8 @@ bool Directx9Renderer::beginFrame()
     // Renderer device check
     if (device == NULL)
         return false;
+
+    ImGui::EndFrame();
 
     D3DXMATRIX CameraView;
 
@@ -382,7 +381,6 @@ bool Directx9Renderer::beginFrame()
 
     if (::GetAsyncKeyState('A') & 0x8000f)
         renderCamera->MoveStrafe(-500.0f * timeDelta);
-    //renderCamera->RotateYaw(-1.5f * timeDelta);
 
     if (::GetAsyncKeyState('D') & 0x8000f)
         renderCamera->MoveStrafe(500.0f * timeDelta);
@@ -393,13 +391,22 @@ bool Directx9Renderer::beginFrame()
     if (::GetAsyncKeyState('Z') & 0x8000f)
         renderCamera->MoveUp(-100.0f * timeDelta);
 
-    if (engineInput->MouseButtonDown(0) & 0x8000f)
-        renderCamera->MoveUp(-100.0f * timeDelta);
+    if (::GetAsyncKeyState(VK_UP) & 0x8000f)
+        renderCamera->RotatePitch(-0.5f * timeDelta);
+
+    if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
+        renderCamera->RotatePitch(0.5f * timeDelta);
+
+    if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
+        renderCamera->RotateYaw(-0.5f * timeDelta);
+
+    if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
+        renderCamera->RotateYaw(0.5f * timeDelta);
 
     // Input controls
     if (::GetAsyncKeyState('V') & 0x8000f)
-        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball",rfVector3(0.0f,800000.0f,0.0f),
-            rfVector3(.0f,.0f,.0f), true, rfVector3(.0f,.0f,200.0f), rfVector3(-20.0f,100.0f,0.0f));
+        rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(0.0f, 800000.0f, 0.0f),
+            rfVector3(.0f, .0f, .0f), true, rfVector3(.0f, .0f, 200.0f), rfVector3(-20.0f, 100.0f, 0.0f));
 
     if (::GetAsyncKeyState('N') & 0x8000f)
         rfPhysics::GetInstance()->ApplyForceToPhysicsActor("Ball", rfVector3(0.0f, .0f, 10000.0f),
@@ -423,21 +430,19 @@ bool Directx9Renderer::beginFrame()
     if (::GetAsyncKeyState('2') & 0x8000f)
         SetRenderState();
 
-    // Build camera view matrix according to keyboard input
-    CameraView = renderCamera->BuildViewMatrix();
-
-    device->SetTransform(D3DTS_VIEW, &CameraView);
-
     // Adjust the light rotation using wasd keyboard keys
     AdjustLight();
-
-    ImGui::EndFrame();
 
     // Instruct the device to set each pixel on the back buffer with default clear color
     device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x333333, 1.0f, 0);
 
     // Begin scene rendering
     device->BeginScene();
+
+    // Build camera view matrix according to keyboard input
+    CameraView = renderCamera->BuildViewMatrix();
+
+    device->SetTransform(D3DTS_VIEW, &CameraView);
 
     return rfRenderer::beginFrame();
 }
@@ -778,16 +783,16 @@ D3DLIGHT9 Directx9Renderer::CreateD3DLight(D3DLIGHTTYPE _type, D3DXVECTOR3 _dire
 
 void Directx9Renderer::AdjustLight()
 {
-    if (::GetAsyncKeyState(VK_LEFT) & 0x8000f)
+    if (::GetAsyncKeyState('F') & 0x8000f)
         dsrLight._AngleX += 2.0f;
 
-    if (::GetAsyncKeyState(VK_RIGHT) & 0x8000f)
+    if (::GetAsyncKeyState('H') & 0x8000f)
         dsrLight._AngleX -= 2.0f;
 
-    if (::GetAsyncKeyState(VK_UP) & 0x8000f)
+    if (::GetAsyncKeyState('T') & 0x8000f)
         dsrLight._AngleZ -= 2.0f;
 
-    if (::GetAsyncKeyState(VK_DOWN) & 0x8000f)
+    if (::GetAsyncKeyState('G') & 0x8000f)
         dsrLight._AngleZ += 2.0f;
 
     if (::GetAsyncKeyState('E') & 0x8000f)

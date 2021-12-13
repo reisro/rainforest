@@ -23,12 +23,14 @@ public:
 	rfWindowSystemWin32();
 	virtual ~rfWindowSystemWin32();
 
-	HWND Window() override;
-	bool Initialized() override;
+	HWND		Window() override;
+	HINSTANCE	WindowInstance() override;
+	bool		Initialized() override;
 
 	bool Initialize() override;
 
 private:
+	HINSTANCE		hInstance;
 	HWND			hWnd;
 	rfWindowWin32*  windowWin32;
 };

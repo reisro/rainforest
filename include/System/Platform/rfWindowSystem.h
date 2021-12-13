@@ -33,6 +33,7 @@ public:
 
 	virtual bool			Initialize();
 	virtual HWND			Window();
+	virtual HINSTANCE		WindowInstance();
 
 	static rfWindowSystem*	GetInstance();
 };

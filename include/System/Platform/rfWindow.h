@@ -20,10 +20,11 @@ class RFGE_API rfWindow
 {
 public :
 
-	static void		CreateInstance();
-	virtual void	Create() = 0;
-	virtual void	Close()  = 0;
-	virtual HWND	GetWindow() = 0;
+	static void		  CreateInstance();
+	virtual void	  Create() = 0;
+	virtual void 	  Close()  = 0;
+	virtual HWND	  GetWindow() = 0;
+	virtual HINSTANCE GetWindowInstance() = 0;
 
 	rfWindow* GetInstance();
 

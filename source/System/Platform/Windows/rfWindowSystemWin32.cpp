@@ -16,6 +16,11 @@ HWND rfWindowSystemWin32::Window()
     return windowWin32->GetWindow();
 }
 
+HINSTANCE rfWindowSystemWin32::WindowInstance()
+{
+    return windowWin32->GetWindowInstance();
+}
+
 bool rfWindowSystemWin32::Initialized()
 {
     return windowWin32->initialized;

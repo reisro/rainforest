@@ -317,11 +317,11 @@ private:
 		D3DXMATRIX					defaultMeshWorldMat;
 		Directx9VertexBuffer*		vertexBuffer;
 		Directx9IndexBuffer*		indexBuffer;
+
 		HWND						renderWindow;
 		ID3DXFont*                  Font;
 		rfgeDX9DeviceCaps			dx9deviceCaps;
 		rfCamera*                   renderCamera;
-		rfInput*					engineInput;
 		D3DDEVTYPE					deviceType;
 		MSG							msg;
 		dsRenderScene				dsrScene;

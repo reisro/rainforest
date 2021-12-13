@@ -3,7 +3,7 @@
 rfCamera::rfCamera()
 {
 	Position = new D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	Right =   new D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+	Right =    new D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	Up =       new D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	LookAt =   new D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 }
@@ -114,7 +114,7 @@ void rfCamera::RotatePitch(rfFloat angle)
 void rfCamera::RotateYaw(rfFloat angle)
 {
 	D3DXMATRIX Y;
-	D3DXMatrixRotationY(&Y, angle);
+	D3DXMatrixRotationAxis(&Y, Up, angle);
 
 	D3DXVec3TransformCoord(Right, Right, &Y);
 	D3DXVec3TransformCoord(LookAt, LookAt, &Y);

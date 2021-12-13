@@ -35,3 +35,8 @@ HWND rfWindowSystem::Window()
 {
     return nullptr;
 }
+
+HINSTANCE rfWindowSystem::WindowInstance()
+{
+    return nullptr;
+}

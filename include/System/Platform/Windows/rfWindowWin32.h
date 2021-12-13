@@ -24,9 +24,10 @@ public:
 	rfWindowWin32();
 	virtual ~rfWindowWin32();
 
-	void Create() override;
-	void Close() override;
-	HWND GetWindow() override;
+	void      Create() override;
+	void      Close() override;
+	HWND	  GetWindow() override;
+	HINSTANCE GetWindowInstance() override;
 
 	void CreateWin32Window();
 

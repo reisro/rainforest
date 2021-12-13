@@ -58,6 +58,11 @@ HWND rfWindowWin32::GetWindow()
     return hWnd;
 }
 
+HINSTANCE rfWindowWin32::GetWindowInstance()
+{
+    return hInstance;
+}
+
 LRESULT rfWindowWin32::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
