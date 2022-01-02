@@ -9,6 +9,6 @@ This engine is dedicated for self-study only to brush up C++ skills as well as m
 In the first version it will be running on Windows.
 
 ## Prerequisites
-To run the game sample Volleyball Court you will need to install the PhysX Runtime file. You can download it here.
-And also you will need the visual runtime libraries.
-
+To run the game sample Volleyball Court you will need he following files:
+- PhysX System Software Runtime
+- Visual Redistributable Runtime Libraries
