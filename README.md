@@ -11,4 +11,4 @@ In the first version it will be running on Windows.
 ## Running the sample
 To run the game sample Volleyball Court you will need he following files:
 - PhysX System Software Runtime
-- Visual Redistributable Runtime Libraries [2015-2022] (https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022)
+- Microsfot Visual C++ Redistributable Runtime Libraries [2015-2022](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022)
