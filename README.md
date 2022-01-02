@@ -5,10 +5,10 @@
 2. [Running the Game Sample](#runningthesample)
 
 ## Overview
-This engine is dedicated for self-study only to brush up C++ skills as well as math and software architecture skills.
-In the first version it will be running on Windows.
+DLL Architecture Based Game Engine featuring DirectX rendering, PhysX engine middleware and dear imgui library.
 
 ## Running the sample
 To run the game sample Volleyball Court you will need he following files:
-- PhysX System Software Runtime
+- Release Binary Files
+- PhysX System Software Runtime [Download here](https://drive.google.com/uc?export=download&id=1Y0vqS_TezkXWJe3kOhiBYCA0j0bUbTM7)
 - Microsfot Visual C++ Redistributable Runtime Libraries [2015-2022](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022)
