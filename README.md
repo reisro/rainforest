@@ -1,11 +1,13 @@
 ## Rain Forest Game Engine
+DLL Architecture Based Game Engine featuring DirectX rendering, PhysX engine middleware and dear imgui library.
 
 ### Table of Contents
 1. [Overview](#overview)
 2. [Running the Game Sample](#runningthesample)
 
 ## Overview
-DLL Architecture Based Game Engine featuring DirectX rendering, PhysX engine middleware and dear imgui library.
+Game Engine created by Rodrigo Reis implementing the latest rendering techniques and improving C++ API design.
+First application is the game called Volleyball Court.
 
 ## Running the sample
 To run the game sample Volleyball Court you will need he following files:
