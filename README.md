@@ -9,7 +9,7 @@ DLL Architecture Based Game Engine featuring DirectX rendering, PhysX engine mid
 Game Engine implementing the latest rendering techniques, physics engine and user interface middlewares and improving C++ API design. First application is the game called Volleyball Court.
 
 ## Running the sample
-![Alt text](https://drive.google.com/uc?export=download&id=1NqHCfcaLeNhMSdncTRHBbCm6HSZAHgGQ)
+![Alt text](https://drive.google.com/file/d/1altyWL28Ur39g9vlGNtKYO-XJWHpkDTQ/view?usp=sharing)
 
 To run the game sample Volleyball Court you will need he following files:
 - Release Binary Files [Download](https://drive.google.com/uc?export=download&id=1GipLfTqjZW19X8vN_AOpYbrD_UVsZlZc)
