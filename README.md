@@ -6,8 +6,7 @@ DLL Architecture Based Game Engine featuring DirectX rendering, PhysX engine mid
 2. [Running the Game Sample](#runningthesample)
 
 ## Overview
-Game Engine created by Rodrigo Reis implementing the latest rendering techniques and improving C++ API design.
-First application is the game called Volleyball Court.
+Game Engine implementing the latest rendering techniques, physics engine and user interface middlewares and improving C++ API design. First application is the game called Volleyball Court.
 
 ## Running the sample
 To run the game sample Volleyball Court you will need he following files:
